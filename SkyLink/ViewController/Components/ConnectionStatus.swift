@@ -25,8 +25,6 @@ final class ConnectionStatusView: UIView
     required init?(coder: NSCoder)
     {
         super.init(coder: coder)
-        registerNotifications()
-        setupView()
     }
 }
 
