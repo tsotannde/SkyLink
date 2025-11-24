@@ -24,9 +24,17 @@ class SelectedServer: UIView
 
     required init?(coder: NSCoder)
     {
-        fatalError("init(coder:) has not been implemented")
+        //fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        monitorNotifications()
+        setupUI()
+        setupConstraints()
     }
+}
 
+//MARK: - UI Component
+extension SelectedServer
+{
     private func setupUI()
     {
         backgroundColor = UIColor(named: "softWhite")
@@ -101,8 +109,12 @@ class SelectedServer: UIView
             }
         }
     }
+}
 
-    func configure(countryName: String, city: String, state: String)
+//MARK: - Helper Functions
+extension SelectedServer
+{
+    private func configure(countryName: String, city: String, state: String)
     {
         // Automatically fetch flag image using the FlagManager
         if let flag = FlagManager.shared.getCountryFlagImage(countryName)
@@ -114,16 +126,14 @@ class SelectedServer: UIView
         cityStateLabel.text = "\(city), \(state)"
 
     }
-    
-    
 }
 
+//MARK: - Notifications
 extension SelectedServer
 {
    
-    func monitorNotifications()
+    private func monitorNotifications()
     {
-        // --- Server Update ---
         NotificationCenter.default.addObserver(self, selector: #selector(handleServerDidUpdate), name: .serverDidUpdate, object: nil)
     }
     

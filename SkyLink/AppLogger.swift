@@ -64,7 +64,7 @@ final class AppLogger
             let data = try Data(contentsOf: logFileURL)
             return String(data: data, encoding: .utf8) ?? "⚠️ Unable to decode log file"
         } catch {
-            return "❌ Failed to read log file: \(error.localizedDescription)"
+            return "Failed to read log file: \(error.localizedDescription)"
         }
     }
 

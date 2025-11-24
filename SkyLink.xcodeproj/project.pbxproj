@@ -19,8 +19,6 @@
 		EE2D38452EAA97810010A30E /* ServerFetcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38142EAA97810010A30E /* ServerFetcherManager.swift */; };
 		EE2D38462EAA97810010A30E /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38152EAA97810010A30E /* SubscriptionManager.swift */; };
 		EE2D38482EAA97810010A30E /* ServerDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D381D2EAA97810010A30E /* ServerDatabase.swift */; };
-		EE2D384F2EAA97810010A30E /* ServerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38292EAA97810010A30E /* ServerSelectionViewController.swift */; };
-		EE2D38752EAAD4990010A30E /* FlagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38732EAAD4990010A30E /* FlagManager.swift */; };
 		EE2D387C2EAADB970010A30E /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D387B2EAADB970010A30E /* Server.swift */; };
 		EE2D387E2EAADBA40010A30E /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D387D2EAADBA40010A30E /* Country.swift */; };
 		EE2D38802EABE6CF0010A30E /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D387F2EABE6CF0010A30E /* AccountManager.swift */; };
@@ -72,8 +70,6 @@
 		EE2D38142EAA97810010A30E /* ServerFetcherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFetcherManager.swift; sourceTree = "<group>"; };
 		EE2D38152EAA97810010A30E /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
 		EE2D381D2EAA97810010A30E /* ServerDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDatabase.swift; sourceTree = "<group>"; };
-		EE2D38292EAA97810010A30E /* ServerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionViewController.swift; sourceTree = "<group>"; };
-		EE2D38732EAAD4990010A30E /* FlagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagManager.swift; sourceTree = "<group>"; };
 		EE2D387B2EAADB970010A30E /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
 		EE2D387D2EAADBA40010A30E /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		EE2D387F2EABE6CF0010A30E /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
@@ -212,7 +208,6 @@
 				EE2D38152EAA97810010A30E /* SubscriptionManager.swift */,
 				EE2D38142EAA97810010A30E /* ServerFetcherManager.swift */,
 				EE2D387F2EABE6CF0010A30E /* AccountManager.swift */,
-				EE2D38732EAAD4990010A30E /* FlagManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -257,7 +252,6 @@
 		EE2D388B2EAC179C0010A30E /* Server Selection */ = {
 			isa = PBXGroup;
 			children = (
-				EE2D38292EAA97810010A30E /* ServerSelectionViewController.swift */,
 			);
 			path = "Server Selection";
 			sourceTree = "<group>";
@@ -424,7 +418,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE853B7C2EC1285D00EC6430 /* TapbackManager.swift in Sources */,
-				EE2D38752EAAD4990010A30E /* FlagManager.swift in Sources */,
 				EEFC0B332EBD6B2B0019629C /* NotificationCenter.swift in Sources */,
 				EE2D38802EABE6CF0010A30E /* AccountManager.swift in Sources */,
 				EE692D492ECFA39100EAC07B /* CountryCell.swift in Sources */,
@@ -442,7 +435,6 @@
 				EE2D387C2EAADB970010A30E /* Server.swift in Sources */,
 				EE2D38462EAA97810010A30E /* SubscriptionManager.swift in Sources */,
 				EE2D38482EAA97810010A30E /* ServerDatabase.swift in Sources */,
-				EE2D384F2EAA97810010A30E /* ServerSelectionViewController.swift in Sources */,
 				EEB9F4402EB3F6AB008C1651 /* PowerButton.swift in Sources */,
 				EE2D387E2EAADBA40010A30E /* Country.swift in Sources */,
 			);
