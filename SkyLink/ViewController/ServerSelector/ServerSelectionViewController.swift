@@ -261,11 +261,10 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
             let servers = Array(country.servers.values)
             let section = indexPath.section
 
-            // Get current index of this country in visibleRows
-            guard let baseIndex = visibleRows.firstIndex(where: {
-                if case .country(let c) = $0.type { return c.name == country.name }
-                return false
-            }) else { return }
+            // Correctly match the exact visible row the user tapped
+            let rowsInSection = visibleRows.enumerated().filter { $0.element.section == indexPath.section }
+            let flatIndex = rowsInSection[indexPath.row].offset
+            let baseIndex = flatIndex
 
             // Update visibleRows safely
             if isExpanding {
@@ -290,7 +289,7 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
             }
 
         case .server(let server):
-            print("✅ Selected: \(server.city ?? "Unknown City"), \(server.state ?? "Unknown State") [\(server.publicIP ?? "N/A")]")
+            print("Selected: \(server.city ?? "Unknown City"), \(server.state ?? "Unknown State") [\(server.publicIP ?? "N/A")]")
 
             if let data = try? JSONEncoder().encode(server)
             {
