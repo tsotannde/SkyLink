@@ -1,0 +1,876 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8B130DE12E96763B004DC087 /* SimplifiedAuthKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8B130DE02E96763B004DC087 /* SimplifiedAuthKit */; };
+		8B130DE82E967ADF004DC087 /* Hero in Frameworks */ = {isa = PBXBuildFile; productRef = 8B130DE72E967ADF004DC087 /* Hero */; };
+		8B9F515F2E948C05005EA0D0 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B9F515E2E948C05005EA0D0 /* NetworkExtension.framework */; };
+		8B9F51672E948C05005EA0D0 /* network-extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8B9F515C2E948C05005EA0D0 /* network-extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8B9F51732E948C80005EA0D0 /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8B9F51722E948C80005EA0D0 /* WireGuardKit */; };
+		8BE5BFBA2E9786D7003DDC65 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8BE5BFB92E9786D7003DDC65 /* FirebaseFirestore */; };
+		8BE5BFC22E97C292003DDC65 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 8BE5BFC12E97C292003DDC65 /* FirebaseFunctions */; };
+		EE2D38412EAA97810010A30E /* ConfigurationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38102EAA97810010A30E /* ConfigurationManager.swift */; };
+		EE2D38432EAA97810010A30E /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38122EAA97810010A30E /* KeyManager.swift */; };
+		EE2D38442EAA97810010A30E /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38132EAA97810010A30E /* NavigationManager.swift */; };
+		EE2D38452EAA97810010A30E /* ServerFetcherManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38142EAA97810010A30E /* ServerFetcherManager.swift */; };
+		EE2D38462EAA97810010A30E /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38152EAA97810010A30E /* SubscriptionManager.swift */; };
+		EE2D38482EAA97810010A30E /* ServerDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D381D2EAA97810010A30E /* ServerDatabase.swift */; };
+		EE2D384A2EAA97810010A30E /* SelectedServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38212EAA97810010A30E /* SelectedServer.swift */; };
+		EE2D384F2EAA97810010A30E /* ServerSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38292EAA97810010A30E /* ServerSelectionViewController.swift */; };
+		EE2D38752EAAD4990010A30E /* FlagManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38732EAAD4990010A30E /* FlagManager.swift */; };
+		EE2D387C2EAADB970010A30E /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D387B2EAADB970010A30E /* Server.swift */; };
+		EE2D387E2EAADBA40010A30E /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D387D2EAADBA40010A30E /* Country.swift */; };
+		EE2D38802EABE6CF0010A30E /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D387F2EABE6CF0010A30E /* AccountManager.swift */; };
+		EE2D388F2EAC331B0010A30E /* FirebaseRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D388E2EAC331B0010A30E /* FirebaseRequestManager.swift */; };
+		EE692D492ECFA39100EAC07B /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D292ECFA39100EAC07B /* CountryCell.swift */; };
+		EE692D4A2ECFA39100EAC07B /* ServerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D2A2ECFA39100EAC07B /* ServerCell.swift */; };
+		EE692D4D2ECFA39100EAC07B /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D302ECFA39100EAC07B /* InternetManager.swift */; };
+		EE692D4F2ECFA39100EAC07B /* SubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D3A2ECFA39100EAC07B /* SubscribeViewController.swift */; };
+		EE692D522ECFA39100EAC07B /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D422ECFA39100EAC07B /* DesignSystem.swift */; };
+		EE692D532ECFA39100EAC07B /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D482ECFA39100EAC07B /* TODO.swift */; };
+		EE853B7C2EC1285D00EC6430 /* TapbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE853B572EC1285D00EC6430 /* TapbackManager.swift */; };
+		EEA05C8C2EB173F200AF703E /* StatCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA05C6D2EB173F200AF703E /* StatCard.swift */; };
+		EEB9F4402EB3F6AB008C1651 /* PowerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F43F2EB3F6AB008C1651 /* PowerButton.swift */; };
+		EEFC0B332EBD6B2B0019629C /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFC0B0C2EBD6B2B0019629C /* NotificationCenter.swift */; };
+		EEFC0B4A2EBD902D0019629C /* AppDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFC0B492EBD902D0019629C /* AppDesign.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8B9F51652E948C05005EA0D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8B9F51382E948BE0005EA0D0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B9F515B2E948C05005EA0D0;
+			remoteInfo = "network-extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8B9F516C2E948C05005EA0D0 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8B9F51672E948C05005EA0D0 /* network-extension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		8B9F51402E948BE0005EA0D0 /* SkyLink.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyLink.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9F515C2E948C05005EA0D0 /* network-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "network-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8B9F515E2E948C05005EA0D0 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		8B9F517C2E9491FB005EA0D0 /* libwg-go.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwg-go.a"; path = "../Wireguardkit-main-2/libwg-go.a"; sourceTree = "<group>"; };
+		EE2D38102EAA97810010A30E /* ConfigurationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationManager.swift; sourceTree = "<group>"; };
+		EE2D38122EAA97810010A30E /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
+		EE2D38132EAA97810010A30E /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
+		EE2D38142EAA97810010A30E /* ServerFetcherManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerFetcherManager.swift; sourceTree = "<group>"; };
+		EE2D38152EAA97810010A30E /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
+		EE2D381D2EAA97810010A30E /* ServerDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerDatabase.swift; sourceTree = "<group>"; };
+		EE2D38212EAA97810010A30E /* SelectedServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedServer.swift; sourceTree = "<group>"; };
+		EE2D38292EAA97810010A30E /* ServerSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerSelectionViewController.swift; sourceTree = "<group>"; };
+		EE2D38732EAAD4990010A30E /* FlagManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlagManager.swift; sourceTree = "<group>"; };
+		EE2D387B2EAADB970010A30E /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		EE2D387D2EAADBA40010A30E /* Country.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		EE2D387F2EABE6CF0010A30E /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		EE2D388E2EAC331B0010A30E /* FirebaseRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRequestManager.swift; sourceTree = "<group>"; };
+		EE692D292ECFA39100EAC07B /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		EE692D2A2ECFA39100EAC07B /* ServerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCell.swift; sourceTree = "<group>"; };
+		EE692D302ECFA39100EAC07B /* InternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetManager.swift; sourceTree = "<group>"; };
+		EE692D3A2ECFA39100EAC07B /* SubscribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewController.swift; sourceTree = "<group>"; };
+		EE692D422ECFA39100EAC07B /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		EE692D482ECFA39100EAC07B /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
+		EE853B572EC1285D00EC6430 /* TapbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbackManager.swift; sourceTree = "<group>"; };
+		EEA05C6D2EB173F200AF703E /* StatCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatCard.swift; sourceTree = "<group>"; };
+		EEB9F43F2EB3F6AB008C1651 /* PowerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerButton.swift; sourceTree = "<group>"; };
+		EEFC0B0C2EBD6B2B0019629C /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
+		EEFC0B492EBD902D0019629C /* AppDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDesign.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8B9F516B2E948C05005EA0D0 /* Exceptions for "network-extension" folder in "network-extension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8B9F515B2E948C05005EA0D0 /* network-extension */;
+		};
+		EE2C108A2ED0FF0000B589FE /* Exceptions for "SkyLink" folder in "network-extension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"libwg-go.a",
+			);
+			target = 8B9F515B2E948C05005EA0D0 /* network-extension */;
+		};
+		EE2C108B2ED0FF8200B589FE /* Exceptions for "SkyLink" folder in "SkyLink" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8B9F513F2E948BE0005EA0D0 /* SkyLink */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		8B9F51602E948C05005EA0D0 /* network-extension */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8B9F516B2E948C05005EA0D0 /* Exceptions for "network-extension" folder in "network-extension" target */,
+			);
+			path = "network-extension";
+			sourceTree = "<group>";
+		};
+		EE2C10822ED0FEDB00B589FE /* SkyLink */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EE2C108B2ED0FF8200B589FE /* Exceptions for "SkyLink" folder in "SkyLink" target */,
+				EE2C108A2ED0FF0000B589FE /* Exceptions for "SkyLink" folder in "network-extension" target */,
+			);
+			path = SkyLink;
+			sourceTree = "<group>";
+		};
+		EE692D6E2ECFA47600EAC07B /* WireGuard */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = WireGuard;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8B9F513D2E948BE0005EA0D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B130DE82E967ADF004DC087 /* Hero in Frameworks */,
+				8BE5BFBA2E9786D7003DDC65 /* FirebaseFirestore in Frameworks */,
+				8BE5BFC22E97C292003DDC65 /* FirebaseFunctions in Frameworks */,
+				8B130DE12E96763B004DC087 /* SimplifiedAuthKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F51592E948C05005EA0D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8B9F51732E948C80005EA0D0 /* WireGuardKit in Frameworks */,
+				8B9F515F2E948C05005EA0D0 /* NetworkExtension.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8B9F51372E948BE0005EA0D0 = {
+			isa = PBXGroup;
+			children = (
+				EE2C10822ED0FEDB00B589FE /* SkyLink */,
+				EE692D6E2ECFA47600EAC07B /* WireGuard */,
+				EEFC0B0C2EBD6B2B0019629C /* NotificationCenter.swift */,
+				EEFC0B492EBD902D0019629C /* AppDesign.swift */,
+				EE692D482ECFA39100EAC07B /* TODO.swift */,
+				EE692D422ECFA39100EAC07B /* DesignSystem.swift */,
+				EE2D38852EABF8870010A30E /* Views */,
+				EE2D387A2EAADB7D0010A30E /* Models */,
+				EE2D38772EAAD57B0010A30E /* Managers */,
+				EE692D682ECFA3E400EAC07B /* Cells */,
+				8B9F51602E948C05005EA0D0 /* network-extension */,
+				8B9F515D2E948C05005EA0D0 /* Frameworks */,
+				8B9F51412E948BE0005EA0D0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8B9F51412E948BE0005EA0D0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8B9F51402E948BE0005EA0D0 /* SkyLink.app */,
+				8B9F515C2E948C05005EA0D0 /* network-extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8B9F515D2E948C05005EA0D0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8B9F517C2E9491FB005EA0D0 /* libwg-go.a */,
+				8B9F515E2E948C05005EA0D0 /* NetworkExtension.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EE2D38772EAAD57B0010A30E /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				EE2D38132EAA97810010A30E /* NavigationManager.swift */,
+				EE2D38102EAA97810010A30E /* ConfigurationManager.swift */,
+				EE692D302ECFA39100EAC07B /* InternetManager.swift */,
+				EE2D388E2EAC331B0010A30E /* FirebaseRequestManager.swift */,
+				EE2D38122EAA97810010A30E /* KeyManager.swift */,
+				EE853B572EC1285D00EC6430 /* TapbackManager.swift */,
+				EE2D38152EAA97810010A30E /* SubscriptionManager.swift */,
+				EE2D38142EAA97810010A30E /* ServerFetcherManager.swift */,
+				EE2D387F2EABE6CF0010A30E /* AccountManager.swift */,
+				EE2D38732EAAD4990010A30E /* FlagManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		EE2D387A2EAADB7D0010A30E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				EE2D381D2EAA97810010A30E /* ServerDatabase.swift */,
+				EE2D387D2EAADBA40010A30E /* Country.swift */,
+				EE2D387B2EAADB970010A30E /* Server.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EE2D38852EABF8870010A30E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EE2D38862EABF8940010A30E /* Componenets */,
+				EE2D38872EAC00C80010A30E /* Controller */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EE2D38862EABF8940010A30E /* Componenets */ = {
+			isa = PBXGroup;
+			children = (
+				EEA05C6D2EB173F200AF703E /* StatCard.swift */,
+				EEB9F43F2EB3F6AB008C1651 /* PowerButton.swift */,
+				EE2D38212EAA97810010A30E /* SelectedServer.swift */,
+			);
+			path = Componenets;
+			sourceTree = "<group>";
+		};
+		EE2D38872EAC00C80010A30E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EE692D6B2ECFA45C00EAC07B /* Subscribe */,
+				EE2D388B2EAC179C0010A30E /* Server Selection */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		EE2D388B2EAC179C0010A30E /* Server Selection */ = {
+			isa = PBXGroup;
+			children = (
+				EE2D38292EAA97810010A30E /* ServerSelectionViewController.swift */,
+			);
+			path = "Server Selection";
+			sourceTree = "<group>";
+		};
+		EE692D682ECFA3E400EAC07B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EE692D292ECFA39100EAC07B /* CountryCell.swift */,
+				EE692D2A2ECFA39100EAC07B /* ServerCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		EE692D6B2ECFA45C00EAC07B /* Subscribe */ = {
+			isa = PBXGroup;
+			children = (
+				EE692D3A2ECFA39100EAC07B /* SubscribeViewController.swift */,
+			);
+			path = Subscribe;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		8B9F516D2E948C1A005EA0D0 /* WireguardGoBridge */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 8B9F516E2E948C1A005EA0D0 /* Build configuration list for PBXLegacyTarget "WireguardGoBridge" */;
+			buildPhases = (
+			);
+			buildToolPath = "$(PROJECT_DIR)/script/build_wireguard_go_bridge.sh";
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = WireguardGoBridge;
+			packageProductDependencies = (
+			);
+			passBuildSettingsInEnvironment = 1;
+			productName = WireguardGoBridge;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		8B9F513F2E948BE0005EA0D0 /* SkyLink */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B9F51532E948BE2005EA0D0 /* Build configuration list for PBXNativeTarget "SkyLink" */;
+			buildPhases = (
+				8B9F513C2E948BE0005EA0D0 /* Sources */,
+				8B9F513D2E948BE0005EA0D0 /* Frameworks */,
+				8B9F513E2E948BE0005EA0D0 /* Resources */,
+				8B9F516C2E948C05005EA0D0 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8B9F51662E948C05005EA0D0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EE2C10822ED0FEDB00B589FE /* SkyLink */,
+				EE692D6E2ECFA47600EAC07B /* WireGuard */,
+			);
+			name = SkyLink;
+			packageProductDependencies = (
+				8B130DE02E96763B004DC087 /* SimplifiedAuthKit */,
+				8B130DE72E967ADF004DC087 /* Hero */,
+				8BE5BFB92E9786D7003DDC65 /* FirebaseFirestore */,
+				8BE5BFC12E97C292003DDC65 /* FirebaseFunctions */,
+			);
+			productName = NEWVPN;
+			productReference = 8B9F51402E948BE0005EA0D0 /* SkyLink.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8B9F515B2E948C05005EA0D0 /* network-extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8B9F51682E948C05005EA0D0 /* Build configuration list for PBXNativeTarget "network-extension" */;
+			buildPhases = (
+				8B9F51582E948C05005EA0D0 /* Sources */,
+				8B9F51592E948C05005EA0D0 /* Frameworks */,
+				8B9F515A2E948C05005EA0D0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8B9F51602E948C05005EA0D0 /* network-extension */,
+			);
+			name = "network-extension";
+			packageProductDependencies = (
+				8B9F51722E948C80005EA0D0 /* WireGuardKit */,
+			);
+			productName = "network-extension";
+			productReference = 8B9F515C2E948C05005EA0D0 /* network-extension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8B9F51382E948BE0005EA0D0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					8B9F513F2E948BE0005EA0D0 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					8B9F515B2E948C05005EA0D0 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					8B9F516D2E948C1A005EA0D0 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+				};
+			};
+			buildConfigurationList = 8B9F513B2E948BE0005EA0D0 /* Build configuration list for PBXProject "SkyLink" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8B9F51372E948BE0005EA0D0;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8B9F51712E948C80005EA0D0 /* XCRemoteSwiftPackageReference "wireguard-apple" */,
+				8B130DDF2E96763B004DC087 /* XCRemoteSwiftPackageReference "SimplifiedAuthKit" */,
+				8B130DE62E967ADF004DC087 /* XCRemoteSwiftPackageReference "Hero" */,
+				8BE5BFB82E9786D7003DDC65 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8B9F51412E948BE0005EA0D0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8B9F513F2E948BE0005EA0D0 /* SkyLink */,
+				8B9F515B2E948C05005EA0D0 /* network-extension */,
+				8B9F516D2E948C1A005EA0D0 /* WireguardGoBridge */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8B9F513E2E948BE0005EA0D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F515A2E948C05005EA0D0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8B9F513C2E948BE0005EA0D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EE853B7C2EC1285D00EC6430 /* TapbackManager.swift in Sources */,
+				EE2D38752EAAD4990010A30E /* FlagManager.swift in Sources */,
+				EEFC0B332EBD6B2B0019629C /* NotificationCenter.swift in Sources */,
+				EE2D38802EABE6CF0010A30E /* AccountManager.swift in Sources */,
+				EE692D492ECFA39100EAC07B /* CountryCell.swift in Sources */,
+				EE692D4A2ECFA39100EAC07B /* ServerCell.swift in Sources */,
+				EE692D4D2ECFA39100EAC07B /* InternetManager.swift in Sources */,
+				EE692D4F2ECFA39100EAC07B /* SubscribeViewController.swift in Sources */,
+				EE692D522ECFA39100EAC07B /* DesignSystem.swift in Sources */,
+				EE692D532ECFA39100EAC07B /* TODO.swift in Sources */,
+				EE2D388F2EAC331B0010A30E /* FirebaseRequestManager.swift in Sources */,
+				EE2D38412EAA97810010A30E /* ConfigurationManager.swift in Sources */,
+				EE2D38432EAA97810010A30E /* KeyManager.swift in Sources */,
+				EE2D38442EAA97810010A30E /* NavigationManager.swift in Sources */,
+				EEFC0B4A2EBD902D0019629C /* AppDesign.swift in Sources */,
+				EEA05C8C2EB173F200AF703E /* StatCard.swift in Sources */,
+				EE2D38452EAA97810010A30E /* ServerFetcherManager.swift in Sources */,
+				EE2D387C2EAADB970010A30E /* Server.swift in Sources */,
+				EE2D38462EAA97810010A30E /* SubscriptionManager.swift in Sources */,
+				EE2D38482EAA97810010A30E /* ServerDatabase.swift in Sources */,
+				EE2D384A2EAA97810010A30E /* SelectedServer.swift in Sources */,
+				EE2D384F2EAA97810010A30E /* ServerSelectionViewController.swift in Sources */,
+				EEB9F4402EB3F6AB008C1651 /* PowerButton.swift in Sources */,
+				EE2D387E2EAADBA40010A30E /* Country.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B9F51582E948C05005EA0D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8B9F51662E948C05005EA0D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B9F515B2E948C05005EA0D0 /* network-extension */;
+			targetProxy = 8B9F51652E948C05005EA0D0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8B9F51542E948BE2005EA0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SkyLink/SkyLink.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SkyLink/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SkyLink;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SkyLink",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adebayosotannde.SkyLink;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8B9F51552E948BE2005EA0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = SkyLink/SkyLink.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SkyLink/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SkyLink;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SkyLink",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.adebayosotannde.SkyLink;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8B9F51562E948BE2005EA0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8B9F51572E948BE2005EA0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8B9F51692E948C05005EA0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "network-extension/network_extension.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "network-extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "network-extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NEWVPN",
+					"$(PROJECT_DIR)/SkyLink",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adebayosotannde.SkyLink.network-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8B9F516A2E948C05005EA0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "network-extension/network-extensionRelease.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "network-extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "network-extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NEWVPN",
+					"$(PROJECT_DIR)/SkyLink",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.adebayosotannde.SkyLink.network-extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		8B9F516F2E948C1A005EA0D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8B9F51702E948C1A005EA0D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 4G4YKXJ9A6;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8B9F513B2E948BE0005EA0D0 /* Build configuration list for PBXProject "SkyLink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B9F51562E948BE2005EA0D0 /* Debug */,
+				8B9F51572E948BE2005EA0D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B9F51532E948BE2005EA0D0 /* Build configuration list for PBXNativeTarget "SkyLink" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B9F51542E948BE2005EA0D0 /* Debug */,
+				8B9F51552E948BE2005EA0D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B9F51682E948C05005EA0D0 /* Build configuration list for PBXNativeTarget "network-extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B9F51692E948C05005EA0D0 /* Debug */,
+				8B9F516A2E948C05005EA0D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8B9F516E2E948C1A005EA0D0 /* Build configuration list for PBXLegacyTarget "WireguardGoBridge" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8B9F516F2E948C1A005EA0D0 /* Debug */,
+				8B9F51702E948C1A005EA0D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B130DDF2E96763B004DC087 /* XCRemoteSwiftPackageReference "SimplifiedAuthKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tsotannde/SimplifiedAuthKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		8B130DE62E967ADF004DC087 /* XCRemoteSwiftPackageReference "Hero" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/HeroTransitions/Hero";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.4;
+			};
+		};
+		8B9F51712E948C80005EA0D0 /* XCRemoteSwiftPackageReference "wireguard-apple" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ut360e/wireguard-apple.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		8BE5BFB82E9786D7003DDC65 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B130DE02E96763B004DC087 /* SimplifiedAuthKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B130DDF2E96763B004DC087 /* XCRemoteSwiftPackageReference "SimplifiedAuthKit" */;
+			productName = SimplifiedAuthKit;
+		};
+		8B130DE72E967ADF004DC087 /* Hero */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B130DE62E967ADF004DC087 /* XCRemoteSwiftPackageReference "Hero" */;
+			productName = Hero;
+		};
+		8B9F51722E948C80005EA0D0 /* WireGuardKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B9F51712E948C80005EA0D0 /* XCRemoteSwiftPackageReference "wireguard-apple" */;
+			productName = WireGuardKit;
+		};
+		8BE5BFB92E9786D7003DDC65 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BE5BFB82E9786D7003DDC65 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		8BE5BFC12E97C292003DDC65 /* FirebaseFunctions */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8BE5BFB82E9786D7003DDC65 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFunctions;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 8B9F51382E948BE0005EA0D0 /* Project object */;
+}
