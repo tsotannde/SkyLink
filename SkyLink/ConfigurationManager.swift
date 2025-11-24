@@ -107,14 +107,21 @@ final class ConfigurationManager
         return selectedServer
     }
     
-    func saveSelectedServer(_ server: Server) {
+    func saveSelectedServer(_ server: Server)
+    {
         if let data = try? JSONEncoder().encode(server) {
             UserDefaults.standard.set(data, forKey: "currentServer")
-            print("✅ Saved selected server: \(server.name)")
+            print("Saved selected server: \(server.name)")
             
          
                 NotificationCenter.default.post(name: .serverDidUpdate, object: server)
             
         }
     }
+    
+   
+    
+    
+   
+    
 }

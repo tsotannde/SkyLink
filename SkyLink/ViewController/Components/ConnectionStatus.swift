@@ -38,17 +38,27 @@ extension ConnectionStatusView
         let isConnected = UserDefaults.standard.bool(forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
         statusLabel.text = isConnected ? AppDesign.Text.connectedKey : AppDesign.Text.disconnectedKey
 
-        translatesAutoresizingMaskIntoConstraints = false
-        statusLabel.textColor = UIColor(named: "whiteColor")
-        statusLabel.font = AppDesign.Fonts.semiBold(ofSize: 16)
+        
+        statusLabel.textColor = UIColor(named: "softWhite") //Primary clor
+        statusLabel.layer.shadowColor = UIColor(named: "greyColor")?.cgColor //Shadow
+        statusLabel.layer.shadowOpacity = 0.8
+        statusLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
+        statusLabel.layer.shadowRadius = 3
+        statusLabel.font = AppDesign.Fonts.semiBold(ofSize: 16)//Text
         statusLabel.textAlignment = .center
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
-
+       
         timerLabel.text = getCurrentTimerTextSync()
-        timerLabel.textColor = UIColor(named: "whiteColor")
+        timerLabel.textColor = UIColor(named: "softWhite")
+        timerLabel.layer.shadowColor = UIColor(named: "greyColor")?.cgColor
+        timerLabel.layer.shadowOpacity = 0.8
+        timerLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
+        timerLabel.layer.shadowRadius = 3
         timerLabel.font = AppDesign.Fonts.semiBold(ofSize: 14)
         timerLabel.textAlignment = .center
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
+
+        translatesAutoresizingMaskIntoConstraints = false
 
         let infoStack = UIStackView(arrangedSubviews: [statusLabel, timerLabel])
         infoStack.axis = .vertical
@@ -57,7 +67,6 @@ extension ConnectionStatusView
         infoStack.translatesAutoresizingMaskIntoConstraints = false
 
         addSubview(infoStack)
-
         NSLayoutConstraint.activate([
             infoStack.topAnchor.constraint(equalTo: topAnchor),
             infoStack.bottomAnchor.constraint(equalTo: bottomAnchor),

@@ -18,9 +18,6 @@ extension HomeViewController
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNDidConnect), name: .vpnConnected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNIsDisconnecting), name: .vpnDisconnecting, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNDidDisconnect), name: .vpnDisconnected, object: nil)
-
-        // --- Server Update ---
-        NotificationCenter.default.addObserver(self, selector: #selector(handleServerDidUpdate), name: .serverDidUpdate, object: nil)
     }
     
     @objc internal func selectedServerTapped()
@@ -108,20 +105,5 @@ extension HomeViewController
         }
     }
     
-    @objc private func handleServerDidUpdate()
-    {
-        //Update Server Selection View
-        AppLogger.shared.log("[Home] New Server Selected. Updating UI")
-        Task { [weak self] in
-            //Current VPN Selected
-            let currentConfiguration = await ConfigurationManager.shared.getOrSelectServer()
-            
-            let country = currentConfiguration?.country ?? "United States"
-            let city = currentConfiguration?.city ?? "Invalid Configuration"
-            let state = currentConfiguration?.state ?? "Contact Support"
-            
-            selectedServerView.configure(countryName: country, city: city, state: state)
-            
-        }
-    }
+
 }

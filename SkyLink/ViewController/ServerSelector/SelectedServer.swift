@@ -17,6 +17,7 @@ class SelectedServer: UIView
     override init(frame: CGRect)
     {
         super.init(frame: frame)
+        monitorNotifications()
         setupUI()
         setupConstraints()
     }
@@ -28,12 +29,12 @@ class SelectedServer: UIView
 
     private func setupUI()
     {
-        backgroundColor = AppDesign.ColorScheme.Styling.Background.surface
+        backgroundColor = UIColor(named: "softWhite")
         layer.cornerRadius = 20
-        layer.shadowColor = (AppDesign.ColorScheme.Styling.Shadow.standard).cgColor
-        layer.shadowOpacity = 0.4
+        layer.shadowColor = UIColor(named: "blackColor")?.cgColor
+        layer.shadowOpacity = 0.6
         layer.shadowOffset = CGSize(width: 0, height: 4)
-        layer.shadowRadius = 6
+        layer.shadowRadius = 10
         
         addSubview(flagImageView)
         addSubview(cityStateLabel)
@@ -87,9 +88,18 @@ class SelectedServer: UIView
         // Make flag circular after setting up constraints
         flagImageView.layer.cornerRadius = 14
         flagImageView.clipsToBounds = true
+    
         
-        //Default Configuration
-        configure(countryName: "United States", city: "Austin", state: "Texas")
+        
+        Task {
+            if let server = await ConfigurationManager.shared.getOrSelectServer() {
+                let countryName = server.country ?? "Unknown"
+                let city = server.city ?? "Unknown"
+                let state = server.state ?? "Unknown"
+
+                self.configure(countryName: countryName, city: city, state: state)
+            }
+        }
     }
 
     func configure(countryName: String, city: String, state: String)
@@ -104,7 +114,32 @@ class SelectedServer: UIView
         cityStateLabel.text = "\(city), \(state)"
 
     }
+    
+    
 }
 
-
-
+extension SelectedServer
+{
+   
+    func monitorNotifications()
+    {
+        // --- Server Update ---
+        NotificationCenter.default.addObserver(self, selector: #selector(handleServerDidUpdate), name: .serverDidUpdate, object: nil)
+    }
+    
+    @objc private func handleServerDidUpdate()
+    {
+        //Update Server Selection View
+        AppLogger.shared.log("[Home] New Server Selected. Updating UI")
+        Task { [weak self] in
+            //Current VPN Selected
+            let currentConfiguration = await ConfigurationManager.shared.getOrSelectServer()
+            
+            let country = currentConfiguration?.country ?? "United States"
+            let city = currentConfiguration?.city ?? "Invalid Configuration"
+            let state = currentConfiguration?.state ?? "Contact Support"
+            
+            self?.configure(countryName: country, city: city, state: state)
+        }
+    }
+}
