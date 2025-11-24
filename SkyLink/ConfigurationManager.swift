@@ -27,7 +27,7 @@ final class ConfigurationManager
         freeServers = getFreeServers(with: data)
         premiumServers = getPaidServers(with: data)
 
-        print("Loaded \(freeServers.count) free servers and \(premiumServers.count) premium servers.")
+        print("tosinLoaded \(freeServers.count) free servers and \(premiumServers.count) premium servers.")
     }
 
     private func getFreeServers(with jsonData: Data) -> [Server]
@@ -42,7 +42,7 @@ final class ConfigurationManager
         { (_, country) in
             country.servers.compactMap
             { (_, server) in
-                country.requiresSubscription == false ? server : nil
+                server.requiresSubscription == false ? server : nil
             }
         }
         return servers
@@ -60,7 +60,7 @@ final class ConfigurationManager
         { (_, country) in
             country.servers.compactMap
             { (_, server) in
-                country.requiresSubscription == true ? server : nil
+                server.requiresSubscription == true ? server : nil
             }
         }
         return servers
