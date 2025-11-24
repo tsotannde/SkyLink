@@ -13,7 +13,8 @@ class ServerCell: UITableViewCell
     let cardView: UIView =
     {
         let v = UIView()
-        v.backgroundColor = DesignSystem.AppColors.Themes.CardView.cardBackgroundColor
+        v.backgroundColor = .red
+        //DesignSystem.AppColors.Themes.CardView.cardBackgroundColor
         v.layer.cornerRadius = 12
         v.layer.shadowColor = (DesignSystem.AppColors.Themes.CardView.shadowColor ?? UIColor.black).cgColor
         v.layer.shadowOpacity = 0.07
