@@ -11,7 +11,7 @@ import Foundation
 extension HomeViewController
 {
     //Notifincations for updating the HomeViewController
-    func monitorNotifications()
+    internal func monitorNotifications()
     {
         // --- Power Button State Notifications ---
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNIsConnecting), name: .vpnConnecting, object: nil)
@@ -27,7 +27,7 @@ extension HomeViewController
         
         if let sheet = viewController.sheetPresentationController
         {
-            sheet.detents = [.large()]
+            sheet.detents = [.medium(), .large()]
             sheet.prefersGrabberVisible = true
             
             // Make it appear at the top
@@ -70,7 +70,7 @@ extension HomeViewController
 //MARK: - VPN State Function
 extension HomeViewController
 {
-    @objc private func handleVPNDidConnect()
+    @objc internal func handleVPNDidConnect()
     {
         AppLogger.shared.log("[Home] VPN Connected")
         DispatchQueue.main.async
@@ -79,7 +79,7 @@ extension HomeViewController
         }
     }
     
-    @objc private func handleVPNDidDisconnect()
+    @objc internal func handleVPNDidDisconnect()
     {
         AppLogger.shared.log("[Home] VPN Disconnected")
         DispatchQueue.main.async
@@ -88,7 +88,7 @@ extension HomeViewController
         }
     }
     
-    @objc private func handleVPNIsConnecting()
+    @objc internal func handleVPNIsConnecting()
     {
         AppLogger.shared.log("[Home] VPN Connecting")
         DispatchQueue.main.async
@@ -97,7 +97,7 @@ extension HomeViewController
         }
     }
     
-    @objc private func handleVPNIsDisconnecting()
+    @objc internal func handleVPNIsDisconnecting()
     {
         AppLogger.shared.log("[Home] VPN Disconnecting")
         DispatchQueue.main.async {

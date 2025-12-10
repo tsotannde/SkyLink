@@ -123,16 +123,12 @@ extension PowerButtonView
         
         switch state {
         case .connected:
-            print("Connected")
             connectedAnimation()
         case .disconnected:
-            print("Disconnected Animation Started")
             disconnectedAnimation()
         case .connecting:
-            print("[Power Button] Settting PowerButton to Connecting State ")
             connectingAnimation()
         case .disconnecting:
-            print("Stop Tunnel")
             disconnectingAnimation()
         }
     }
@@ -167,7 +163,7 @@ extension PowerButtonView
     }
     
     private func connectedAnimation() {
-        print("Running connected animation...")
+      
 
         // 1. Remove all previous animations and reset states
         outerCircle.layer.removeAllAnimations()
@@ -294,7 +290,7 @@ extension PowerButtonView
    
     private func disconnectedAnimation()
     {
-        print("Running disconnect Animation ")
+       
         // Base colors for both circles
         outerCircle.backgroundColor = UIColor.systemRed.withAlphaComponent(0.9)
         innerCircle.backgroundColor = UIColor.systemRed.withAlphaComponent(0.9)

@@ -29,7 +29,7 @@ final class VPNManager {
             print("[VPNManager] Starting tunnel...")
 
             // Get or select the server
-            guard let server = await ConfigurationManager.shared.getOrSelectServer() else {
+            guard let server = await ConfigurationManager.shared.getExistingOrSelectServer() else {
                 print("No server found.")
                 return
             }
@@ -106,7 +106,7 @@ final class VPNManager {
             print("[VPNManager] Starting tunnel...")
 
             //loads the server that will be used for connecting
-            guard let server = await ConfigurationManager.shared.getOrSelectServer() else
+            guard let server = await ConfigurationManager.shared.getExistingOrSelectServer() else
             {
                 print("No server found.")
                 return
@@ -258,7 +258,7 @@ extension VPNManager
     {
         do {
             // 1. Get the currently selected server
-            guard let currentServer = await ConfigurationManager.shared.getOrSelectServer(),
+            guard let currentServer = await ConfigurationManager.shared.getExistingOrSelectServer(),
                   let serverIP = currentServer.publicIP else {
                 print("[VPNManager] No saved server or public IP.")
                 return false
@@ -292,7 +292,7 @@ extension VPNManager
     func isConnectedToVPN() async -> Bool
     {
         do {
-            guard let currentServer = await ConfigurationManager.shared.getOrSelectServer(),
+            guard let currentServer = await ConfigurationManager.shared.getExistingOrSelectServer(),
                   let serverIP = currentServer.publicIP else {
                 print("[VPNManager] No saved server or public IP.")
                 AppLogger.shared.log("[VPNManager] No saved server or public IP.")
@@ -313,7 +313,8 @@ extension VPNManager
             let ipResponse = try JSONDecoder().decode(IPResponse.self, from: data)
             let userIP = ipResponse.ip
 
-            print("[VPNManager] User IP: \(userIP), Server IP: \(serverIP)")
+            #warning("Uncomment or remove below line to see printed logs")
+            //print("[VPNManager] User IP: \(userIP), Server IP: \(serverIP)")
             AppLogger.shared.log("[VPNManager] User IP: \(userIP), Server IP: \(serverIP)")
             let isConnected = (userIP == serverIP)
 

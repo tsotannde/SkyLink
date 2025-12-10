@@ -9,95 +9,47 @@ import UIKit
 
 class ServerCell: UITableViewCell
 {
-    //MARK: - UIComponents
-    let cardView: UIView =
-    {
-        let v = UIView()
-        v.backgroundColor = .red
-        //DesignSystem.AppColors.Themes.CardView.cardBackgroundColor
-        v.layer.cornerRadius = 12
-        v.layer.shadowColor = (DesignSystem.AppColors.Themes.CardView.shadowColor ?? UIColor.black).cgColor
-        v.layer.shadowOpacity = 0.07
-        v.layer.shadowOffset = CGSize(width: 0, height: 2)
-        v.layer.shadowRadius = 6
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
+    private let cardView =  makeCardView()
+    private let flagImageView = makeFlagImageView()
+    private let cityStateLabel = makeCityStateLabel()
+    private let crownImageView = makeCownImageView()
+    private let signalImageView = makeSignalImageView()
+  
 
-    let flagImageView: UIImageView =
-    {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        iv.layer.cornerRadius = 12
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
     
-    let crownImageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        iv.image = UIImage(named: DesignSystem.Images.crown)
-        return iv
-    }()
-
-    let cityStateLabel: UILabel =
-    {
-        let lbl = UILabel()
-        lbl.font = UIFont(name: DesignSystem.AppFonts.SoraSemiBold, size: 16)
-        lbl.textColor = .black
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
-    }()
-
-    let signalImageView: UIImageView =
-    {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFit
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }()
-
+   
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?)
     {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setBackgroundColor()
         setupViews()
-        setupConstraints()
     }
     
     required init?(coder: NSCoder)
     {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
 }
 
 //MARK: - Setup
 extension ServerCell
 {
-    private func setBackgroundColor()
-    {
-        contentView.backgroundColor = DesignSystem.AppColors.backgroundcolor
-    }
+   
     
     private func setupViews()
     {
+        
         contentView.addSubview(cardView)
-        cardView.addSubview(flagImageView)
-        cardView.addSubview(cityStateLabel)
-        cardView.addSubview(crownImageView)
-        cardView.addSubview(signalImageView)
-    }
-    
-    private func setupConstraints()
-    {
         NSLayoutConstraint.activate([
             cardView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             cardView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
             cardView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30),
             cardView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
+        
+        
+        cardView.addSubview(flagImageView)
         NSLayoutConstraint.activate([
             
         flagImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
@@ -105,28 +57,42 @@ extension ServerCell
         flagImageView.widthAnchor.constraint(equalToConstant: 24),
         flagImageView.heightAnchor.constraint(equalToConstant: 24)
         ])
+        
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 12
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        
+        stack.addArrangedSubview(crownImageView)
+        stack.addArrangedSubview(signalImageView)
+        cardView.addSubview(stack)
+       
+        NSLayoutConstraint.activate([
+            stack.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
+            stack.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16),
+        ])
+
+        cardView.addSubview(cityStateLabel)
         NSLayoutConstraint.activate([
             cityStateLabel.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
             cityStateLabel.leadingAnchor.constraint(equalTo: flagImageView.trailingAnchor, constant: 16),
-            cityStateLabel.trailingAnchor.constraint(lessThanOrEqualTo: crownImageView.leadingAnchor, constant: -16)
+            cityStateLabel.trailingAnchor.constraint(lessThanOrEqualTo: stack.leadingAnchor, constant: -16)
             ])
-        NSLayoutConstraint.activate([
-            crownImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
-            crownImageView.trailingAnchor.constraint(equalTo: signalImageView.leadingAnchor, constant: -8),
-        ])
-        NSLayoutConstraint.activate([
-            signalImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
-            signalImageView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -16),
-        ])
         
-        let constant : CGFloat = 18
         
+        let iconSize: CGFloat = 18
         NSLayoutConstraint.activate([
-            signalImageView.widthAnchor.constraint(equalToConstant: constant),
-            signalImageView.heightAnchor.constraint(equalToConstant: constant),
-            crownImageView.widthAnchor.constraint(equalToConstant: constant),
-            crownImageView.heightAnchor.constraint(equalToConstant: constant),
+            crownImageView.widthAnchor.constraint(equalToConstant: iconSize),
+            crownImageView.heightAnchor.constraint(equalToConstant: iconSize),
+            signalImageView.widthAnchor.constraint(equalToConstant: iconSize),
+            signalImageView.heightAnchor.constraint(equalToConstant: iconSize),
         ])
+
+        crownImageView.setContentHuggingPriority(.required, for: .horizontal)
+        signalImageView.setContentHuggingPriority(.required, for: .horizontal)
+        stack.setContentHuggingPriority(.required, for: .horizontal)
+        cityStateLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
     }
 
 }
@@ -134,18 +100,12 @@ extension ServerCell
 //MARK: - Helpers
 extension ServerCell
 {
-    struct ViewModel
-    {
-        let flagImage: UIImage?
-        let city: String
-        let state: String?
-        let totalCapacity: Int
-        let currentPeers: Int
-        let showCrown: Bool
-    }
     
-    func configure(with viewModel: ViewModel)
+    
+    func configure(with viewModel: ServerViewModel)
     {
+        print("[ServerCell] For \(viewModel.city) showCrown =", viewModel.showCrown)
+        
         flagImageView.image = viewModel.flagImage
         if let state = viewModel.state, !state.isEmpty
         {
@@ -174,3 +134,70 @@ extension ServerCell
     }
 }
 
+//MARK: -  Create UI Components
+extension ServerCell
+{
+    private static func makeCardView()-> UIView
+    {
+        let view = UIView()
+        view.backgroundColor = UIColor(named: "primaryTheme")
+        view.layer.cornerRadius = 16
+        view.layer.masksToBounds = false
+        
+        // Shadow
+        view.layer.shadowColor = UIColor(named: "greyColor")?.cgColor
+        view.layer.shadowOpacity = 0.8
+        view.layer.shadowOffset = CGSize(width: 0, height: 5)
+        view.layer.shadowRadius = 3
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }
+    
+    private static func makeFlagImageView() -> UIImageView
+    {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 12
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }
+    
+    private static func makeCownImageView() -> UIImageView
+    {
+        let imageView = UIImageView()
+        imageView.image = AppDesign.Images.crown
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }
+    
+    static private func makeCityStateLabel()-> UILabel
+    {
+        let lbl = UILabel()
+        lbl.font = UIFont(name: DesignSystem.AppFonts.SoraSemiBold, size: 16)
+        lbl.textColor = UIColor(named: "whiteColor")
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }
+    
+    static private func makeSignalImageView()-> UIImageView
+    {
+        let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }
+}
+
+//MARK: - Setup and Constrain UI
+extension ServerCell
+{
+    private func setBackgroundColor()
+    {
+            contentView.backgroundColor = UIColor(named: "lightGreyColor")
+    }
+    
+}

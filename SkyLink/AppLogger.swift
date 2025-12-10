@@ -55,7 +55,8 @@ final class AppLogger
         }
 
         #if DEBUG
-        print("LOG:", fullMessage)
+        #warning("Remove")
+        //print("LOG:", fullMessage)
         #endif
     }
 

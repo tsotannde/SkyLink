@@ -36,12 +36,16 @@ class SplashViewController: UIViewController
         super.viewWillAppear(animated)
         hideNavigationBar()
     }
+    
+    //Denits all the Notifications
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 extension SplashViewController
 {
-    
-    
     private func startAppFlow() async
     {
         validateInitialVPNState()
@@ -56,10 +60,10 @@ extension SplashViewController
         AppLogger.shared.log("[SplashScreen] Internet connection validated")
         do
         {
-            try await ServerFetcherManager.shared.fetchServers() // Fetch Servers + Save to JSON
+            try await ConfigurationManager.shared.fetchServerFromFireBase() // Fetch Servers + Save to JSON
             _ = try await AccountManager.shared.ensureAccountExists() // Check or create anonymous account
             KeyManager.shared.generateKeysIfNeeded()  // Generate keys if none exist
-            let server = await ConfigurationManager.shared.getOrSelectServer() // Choose a random server
+            let server = await ConfigurationManager.shared.getExistingOrSelectServer() // Choose a random server
             AppLogger.shared.logServerDetails(server) //log server detail
             NaviagateHome() // Navigate Home
         }

@@ -26,6 +26,11 @@ class SelectedServer: UIView
     {
         super.init(coder: coder)
     }
+    
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 //MARK: - UI Component
@@ -33,17 +38,21 @@ extension SelectedServer
 {
     private func setupUI()
     {
-        backgroundColor = UIColor(named: "softWhite")
-        layer.cornerRadius = 20
-        layer.shadowColor = UIColor(named: "blackColor")?.cgColor
+        backgroundColor = UIColor(named: "softWhite") //View Background Color
+    
+        layer.cornerRadius = 20 //Cornor Radius of the vie
+        layer.shadowColor = UIColor(named: "blackColor")?.cgColor // Set the shadow color
         layer.shadowOpacity = 0.6
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowRadius = 10
         
+       //Add the SubViews
         addSubview(flagImageView)
         addSubview(cityStateLabel)
         addSubview(crownImageView)
         addSubview(chevronImageView)
+        
+        cityStateLabel.textColor = UIColor(named: "blackColor")
         
         chevronImageView.image = AppDesign.Images.chevronUp
         chevronImageView.tintColor = AppDesign.ColorScheme.Themes.primary
@@ -95,8 +104,10 @@ extension SelectedServer
     
         
         
-        Task {
-            if let server = await ConfigurationManager.shared.getOrSelectServer() {
+        Task
+        {
+            if let server = await ConfigurationManager.shared.getExistingOrSelectServer()
+            {
                 let countryName = server.country ?? "Unknown"
                 let city = server.city ?? "Unknown"
                 let state = server.state ?? "Unknown"
@@ -139,7 +150,7 @@ extension SelectedServer
         AppLogger.shared.log("[Home] New Server Selected. Updating UI")
         Task { [weak self] in
             //Current VPN Selected
-            let currentConfiguration = await ConfigurationManager.shared.getOrSelectServer()
+            let currentConfiguration = await ConfigurationManager.shared.getExistingOrSelectServer()
             
             let country = currentConfiguration?.country ?? "United States"
             let city = currentConfiguration?.city ?? "Invalid Configuration"

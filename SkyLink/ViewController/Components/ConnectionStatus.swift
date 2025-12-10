@@ -7,7 +7,6 @@
 
 import UIKit
 
-//Fully Self Updating UI Component View Responbile for updating its own UI via a timer.
 final class ConnectionStatusView: UIView
 {
     private let statusLabel = UILabel()
@@ -26,6 +25,12 @@ final class ConnectionStatusView: UIView
     {
         super.init(coder: coder)
     }
+    
+    //Denits all the Notifications
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self)
+    }
 }
 
 //MARK: - UI Components and Helper Functions
@@ -33,11 +38,13 @@ extension ConnectionStatusView
 {
     private func setupView()
     {
+        //Get the last connection State ie true / false
         let isConnected = UserDefaults.standard.bool(forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
+        //sets the connection state Text based on the key returned
         statusLabel.text = isConnected ? AppDesign.Text.connectedKey : AppDesign.Text.disconnectedKey
 
-        
-        statusLabel.textColor = UIColor(named: "softWhite") //Primary clor
+        //Set the Status Label properties
+        statusLabel.textColor = UIColor(named: "softWhite") //Primary color
         statusLabel.layer.shadowColor = UIColor(named: "greyColor")?.cgColor //Shadow
         statusLabel.layer.shadowOpacity = 0.8
         statusLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
@@ -46,6 +53,7 @@ extension ConnectionStatusView
         statusLabel.textAlignment = .center
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
        
+        //Set Timer
         timerLabel.text = getCurrentTimerTextSync()
         timerLabel.textColor = UIColor(named: "softWhite")
         timerLabel.layer.shadowColor = UIColor(named: "greyColor")?.cgColor
@@ -73,7 +81,19 @@ extension ConnectionStatusView
         ])
     }
 
-    private func getCurrentTimerTextSync() -> String {
+    
+    /// Returns the current connection duration as a formatted string in "HH:mm:ss" format.
+    /// 
+    /// - If the user is not currently connected (`lastConnectionState` is `false`), returns "00:00:00".
+    /// - If connected, retrieves the last connection start date from `UserDefaults` using
+    ///   `AppDesign.AppKeys.UserDefaults.lastConnectedDate`, calculates the elapsed time since then,
+    ///   and formats it as hours, minutes, and seconds.
+    /// - If the start date cannot be found, also returns "00:00:00".
+    ///
+    /// - Returns: A string representing the elapsed connection time in "HH:mm:ss" format.
+    private func getCurrentTimerTextSync() -> String
+    {
+       
         let isConnected = UserDefaults.standard.bool(forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
 
         guard isConnected else { return "00:00:00" }
@@ -91,13 +111,13 @@ extension ConnectionStatusView
         return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
     }
 
-  
 }
 
 //MARK: - Timer Functions
 extension ConnectionStatusView
 {
-    private func startTimer() {
+    private func startTimer()
+    {
 
     // Restore saved timestamp if exists, else create one
     if let saved = UserDefaults.standard.object(
@@ -134,7 +154,7 @@ extension ConnectionStatusView
         timer?.invalidate()
         timer = nil
         startTime = nil
-        UserDefaults.standard.removeObject(forKey: "lastConnectedDate")
+        UserDefaults.standard.removeObject(forKey: AppDesign.AppKeys.UserDefaults.lastConnectedDate)
         timerLabel.text = "00:00:00"
     }
     

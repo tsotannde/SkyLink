@@ -27,6 +27,7 @@ class HomeViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        AppLogger.shared.log("[Home] Initalizing the Home View Controller")
         hideNavigationBar()
         setBackgroundColor()
         constructUserInterface()
@@ -43,7 +44,6 @@ extension HomeViewController
     //MARK: - TIMER
     func startTimer()
     {
-        print("[HomeViewController] Starting Connection Check Timer")
         // Start the timer to check connection state every 1 second
         connectionCheckTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true)
         { [weak self] _ in

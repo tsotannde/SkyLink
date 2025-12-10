@@ -31,7 +31,7 @@ extension HomeViewController
         return button
     }
     
-    static func createPremiumButton() -> UIButton
+    static internal func createPremiumButton() -> UIButton
     {
         let button = UIButton(type: .system)
         
@@ -69,13 +69,13 @@ extension HomeViewController
     
     static func createDownloadCard()->StatCard
     {
-        let card = StatCard(title: AppDesign.Text.downloadKey, unit: AppDesign.Text.speedUnit, icon: AppDesign.Images.downloadArrow)
+        let card = StatCard(title: AppDesign.Text.downloadKey, unit: AppDesign.Text.speedUnit)
         return card
     }
     
     static func createUploadCard()->StatCard
     {
-        let card = StatCard(title: AppDesign.Text.uploadKey, unit: AppDesign.Text.speedUnit, icon: AppDesign.Images.uploadArrow)
+        let card = StatCard(title: AppDesign.Text.uploadKey, unit: AppDesign.Text.speedUnit)
        
         return card
     }
@@ -128,11 +128,23 @@ extension HomeViewController
     {
         // Stack with just the two cards
         let statsStack = UIStackView(arrangedSubviews: [downloadCard, uploadCard])
+        
         statsStack.axis = .horizontal
         statsStack.alignment = .fill
         statsStack.distribution = .fillEqually
         statsStack.spacing = 0
         statsStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        //Shadow Color and Related Properties set here
+        statsStack.layer.shadowColor = UIColor(named: "blackColor")?.cgColor // Set the shadow color
+        statsStack.layer.shadowOpacity = 0.6
+        statsStack.layer.shadowOffset = CGSize(width: 0, height: 4)
+        statsStack.layer.shadowRadius = 10
+        statsStack.layer.masksToBounds = false
+        
+        
+        
         view.addSubview(statsStack)
 
         // Constraints for the stack
