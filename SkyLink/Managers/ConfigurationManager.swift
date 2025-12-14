@@ -30,17 +30,17 @@ extension ConfigurationManager
         }
         
         let (data, _) = try await URLSession.shared.data(from: url)
-        AppLogger.shared.log("Fetched raw JSON data")
+        AppLoggerManager.shared.log("Fetched raw JSON data")
         UserDefaults.standard.set(data, forKey: AppDesign.AppKeys.UserDefaults.cachedServerJSON)
     }
     
     func loadCachedServers() async throws
     {
-        AppLogger.shared.log("[ConfigManager] Retrieving cached server JSON")
+        AppLoggerManager.shared.log("[ConfigManager] Retrieving cached server JSON")
 
         guard let data = UserDefaults.standard.data(forKey: AppDesign.AppKeys.UserDefaults.cachedServerJSON) else
         {
-            AppLogger.shared.log("[ConfigurationManager] No cached server JSON found")
+            AppLoggerManager.shared.log("[ConfigurationManager] No cached server JSON found")
             throw URLError(.fileDoesNotExist)
         }
 
@@ -48,7 +48,7 @@ extension ConfigurationManager
         freeServers = getFreeServers(with: data)
         premiumServers = getPaidServers(with: data)
 
-        AppLogger.shared.log("[ConfigurationManager] Loaded \(freeServers.count) free servers and \(premiumServers.count) premium servers")
+        AppLoggerManager.shared.log("[ConfigurationManager] Loaded \(freeServers.count) free servers and \(premiumServers.count) premium servers")
     }
 }
 //MARK: - Organize the Servers
@@ -100,7 +100,7 @@ extension ConfigurationManager
         if let data = UserDefaults.standard.data(forKey: "currentServer"),
            let savedServer = try? JSONDecoder().decode(Server.self, from: data)
         {
-            AppLogger.shared.log("[ConfigurationManager] - Loaded previously selected server: \(savedServer.name)")
+            AppLoggerManager.shared.log("[ConfigurationManager] - Loaded previously selected server: \(savedServer.name)")
             return savedServer
         }
 
@@ -110,7 +110,7 @@ extension ConfigurationManager
             try await loadCachedServers()
         } catch
         {
-            AppLogger.shared.log("Failed to load servers: \(error)")
+            AppLoggerManager.shared.log("Failed to load servers: \(error)")
             return nil
         }
 
@@ -120,7 +120,7 @@ extension ConfigurationManager
         // Step 4: Select a server from the correct pool
         let availableServers = isSubscribed ? premiumServers : freeServers
         guard let selectedServer = availableServers.randomElement() else {
-            AppLogger.shared.log("No servers available for selection.")
+            AppLoggerManager.shared.log("No servers available for selection.")
             return nil
         }
 
@@ -138,7 +138,7 @@ extension ConfigurationManager
         if let data = try? JSONEncoder().encode(server)
         {
             UserDefaults.standard.set(data, forKey: AppDesign.AppKeys.UserDefaults.currentServer)
-            AppLogger.shared.log("Saved selected server: \(server.name)")
+            AppLoggerManager.shared.log("Saved selected server: \(server.name)")
             NotificationCenter.default.post(name: .serverDidUpdate, object: server) //post notification for other classes to respond accordingly
             
         }

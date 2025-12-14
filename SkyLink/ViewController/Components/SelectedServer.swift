@@ -147,7 +147,7 @@ extension SelectedServer
     @objc private func handleServerDidUpdate()
     {
         //Update Server Selection View
-        AppLogger.shared.log("[Home] New Server Selected. Updating UI")
+        AppLoggerManager.shared.log("[Home] New Server Selected. Updating UI")
         Task { [weak self] in
             //Current VPN Selected
             let currentConfiguration = await ConfigurationManager.shared.getExistingOrSelectServer()

@@ -115,7 +115,7 @@ extension CountryCell
     static private func makeLabelView() -> UILabel
     {
         let label = UILabel()
-        label.font = UIFont(name: DesignSystem.AppFonts.SoraSemiBold, size: 16)
+        label.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
         label.textColor = UIColor(named: "whiteColor")
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -217,8 +217,8 @@ extension CountryCell
         
         cardView.addSubview(rightStack)
         
-        signalImageView.image = UIImage(systemName: DesignSystem.Images.cellularbars) // Initial Image
-        chevronImageView.image = UIImage(systemName: DesignSystem.Images.chevronRight) // placeholder
+        signalImageView.image = UIImage(systemName: AppDesign.Images.cellularbars) // Initial Image
+        chevronImageView.image = UIImage(systemName: AppDesign.Images.chevronRight) // placeholder
         crownImageView.image = AppDesign.Images.crown //Placeholder
         
         rightStack.addArrangedSubview(signalImageView)

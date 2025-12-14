@@ -34,7 +34,6 @@ struct StatCardData
 //MARK: - StatCard
 class StatCard: UIView
 {
-    
     private let titleLabel = UILabel()
     private let valueLabel = UILabel()
     private let unitLabel = UILabel()
@@ -42,7 +41,6 @@ class StatCard: UIView
     
     private var refreshTimer: Timer?
     
-    //init(title: String, value: String, unit: String, iconName: String)
     init(title: String, unit: String)
     {
         super.init(frame: .zero)
@@ -55,38 +53,34 @@ class StatCard: UIView
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 4
         
-       
-        
         // Create icon container
         let iconContainer = UIView()
         iconContainer.backgroundColor = UIColor(named: "primaryTheme")
-       
         iconContainer.layer.cornerRadius = 6
         iconContainer.clipsToBounds = true
         iconContainer.translatesAutoresizingMaskIntoConstraints = false
         addSubview(iconContainer)
-        
         icon.translatesAutoresizingMaskIntoConstraints = false
         iconContainer.addSubview(icon)
         
         // Title label
         titleLabel.text = title
-        titleLabel.font = AppDesign.Fonts.semiBold(ofSize: 14)
-        titleLabel.textColor = .darkGray
+        titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 14)
+        titleLabel.textColor = UIColor(named: "greyColor")
         
         // Configure icon
         icon.image = resolveImage()
-        icon.tintColor = UIColor(red: 0.0, green: 0.325, blue: 0.48, alpha: 1.0)
+        icon.tintColor = UIColor(named: "whiteColor")
         
         // Value label
         valueLabel.text = "0.00"
-        valueLabel.font = AppDesign.Fonts.semiBold(ofSize: 24)
-        valueLabel.textColor = .black
+        valueLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 24)
+        valueLabel.textColor = UIColor(named: "blackColor")
         
         // Unit label
         unitLabel.text = unit
-        unitLabel.font = AppDesign.Fonts.regular(ofSize: 12)
-        unitLabel.textColor = .gray
+        unitLabel.font = SkyLinkAssets.Fonts.regular(ofSize: 12)
+        unitLabel.textColor = UIColor(named: "greyColor")
         
         // Layout
         let valueStack = UIStackView(arrangedSubviews: [valueLabel, unitLabel])
@@ -95,7 +89,7 @@ class StatCard: UIView
         
         let textStack = UIStackView(arrangedSubviews: [titleLabel, valueStack])
         textStack.axis = .vertical
-        textStack.spacing = 25 //Seprate the Text (Download top
+        textStack.spacing = 25 //Seprate the Text (Download top value Bottom)
         
         addSubview(textStack)
         
@@ -121,16 +115,57 @@ class StatCard: UIView
         
     }
     
-    //convenience init(title: String, value: String, unit: String, icon: UIImage?) {
-    convenience init(title: String, unit: String, icon: UIImage?)
+    required init?(coder: NSCoder)
     {
-        self.init(title: title, unit: unit)
-        // Override the icon image when provided directly
-        self.icon.image = icon
+        fatalError("init(coder:) has not been implemented")
     }
     
-    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self)
+    }
     
+}
+
+//MARK: - Notifications
+extension StatCard
+{
+    private func registerNotifications()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(vpnConnected), name: .vpnConnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(vpnDisconnected), name: .vpnDisconnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(vpnConnecting), name: .vpnConnecting, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(vpnIsDisconnecting), name: .vpnDisconnecting, object: nil)
+    }
+    
+    @objc private func vpnConnected()
+    {
+        let key = resolveSpeedKey()
+        guard !key.isEmpty else { return }
+
+        startAutoRefresh(for: key)
+    }
+    
+    @objc private func vpnDisconnected()
+    {
+        stopAutoRefresh()
+    }
+    
+    @objc private func vpnConnecting()
+    {
+        valueLabel.textColor = .systemBlue
+    }
+    
+    @objc private func vpnIsDisconnecting()
+    {
+        valueLabel.textColor = .red
+    }
+    
+}
+
+//MARK: - Formatting Functon
+extension StatCard
+{
     private static func formatSpeed(_ bytesPerSecond: Double) -> (String, String)
     {
         guard bytesPerSecond > 0 else { return ("0.00", "B/s") }
@@ -148,34 +183,34 @@ class StatCard: UIView
         return (formatted, units[index])
     }
     
-    // Add this method for updates
-    func update(speed: Double, state: ConnectionState)
+    private func resolveSpeedKey() -> String
     {
-        // Determine color
-        switch state
+        switch titleLabel.text
         {
-        case .inactive:
-            valueLabel.textColor = .gray
-        case .active:
-            valueLabel.textColor = .systemGreen
+        case AppDesign.Text.downloadKey:
+            return "downloadSpeed"
+        case AppDesign.Text.uploadKey:
+            return "uploadSpeed"
+        default:
+            return ""
         }
-
-        // Format speed and unit
-        let (formattedValue, unit) = StatCard.formatSpeed(speed)
-        UIView.transition(with: valueLabel, duration: 0.25, options: .transitionCrossDissolve, animations: {
-            self.valueLabel.text = formattedValue
-        }, completion: nil)
-        UIView.transition(with: unitLabel, duration: 0.25, options: .transitionCrossDissolve, animations: {
-            self.unitLabel.text = unit
-        }, completion: nil)
     }
     
-    
-
-   
+    private func resolveImage() -> UIImage
+    {
+        switch titleLabel.text
+        {
+        case AppDesign.Text.downloadKey:
+            return AppDesign.Images.downloadArrow ?? UIImage(systemName: "arrow.down")!
+        case AppDesign.Text.uploadKey:
+            return AppDesign.Images.uploadArrow ?? UIImage(systemName: "arrow.up")!
+        default:
+            return UIImage(systemName: "arrow.up")!
+        }
+    }
 }
 
-//MARK: - Timers
+//MARK: - Update Functon and Timer
 extension StatCard
 {
     func startAutoRefresh(for key: String)
@@ -209,71 +244,30 @@ extension StatCard
         RunLoop.main.add(refreshTimer!, forMode: .common)
     }
     
+    func update(speed: Double, state: ConnectionState)
+    {
+        // Determine color
+        switch state
+        {
+        case .inactive:
+            valueLabel.textColor = .gray
+        case .active:
+            valueLabel.textColor = .systemGreen
+        }
+
+        // Format speed and unit
+        let (formattedValue, unit) = StatCard.formatSpeed(speed)
+        UIView.transition(with: valueLabel, duration: 0.25, options: .transitionCrossDissolve, animations: {
+            self.valueLabel.text = formattedValue
+        }, completion: nil)
+        UIView.transition(with: unitLabel, duration: 0.25, options: .transitionCrossDissolve, animations: {
+            self.unitLabel.text = unit
+        }, completion: nil)
+    }
+    
     func stopAutoRefresh()
     {
         refreshTimer?.invalidate()
         refreshTimer = nil
-    }
-}
-
-//MARK: - Notifications
-extension StatCard
-{
-    private func registerNotifications()
-    {
-        NotificationCenter.default.addObserver(self, selector: #selector(vpnConnected), name: .vpnConnected, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(vpnDisconnected), name: .vpnDisconnected, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(vpnConnecting), name: .vpnConnecting, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(vpnIsDisconnecting), name: .vpnDisconnecting, object: nil)
-    }
-    
-    @objc private func vpnConnected()
-    {
-        let key = resolveSpeedKey()
-        guard !key.isEmpty else { return }
-
-        print("[StatCard] VPN connected → starting refresh for \(key)")
-        startAutoRefresh(for: key)
-    }
-    
-    @objc private func vpnDisconnected()
-    {
-        
-    }
-    
-    @objc private func vpnConnecting()
-    {
-        valueLabel.textColor = .systemBlue
-    }
-    
-    @objc private func vpnIsDisconnecting()
-    {
-        valueLabel.textColor = .red
-    }
-    
-    private func resolveSpeedKey() -> String
-    {
-        switch titleLabel.text
-        {
-        case AppDesign.Text.downloadKey:
-            return "downloadSpeed"
-        case AppDesign.Text.uploadKey:
-            return "uploadSpeed"
-        default:
-            return ""
-        }
-    }
-    
-    private func resolveImage() -> UIImage
-    {
-        switch titleLabel.text
-        {
-        case AppDesign.Text.downloadKey:
-            return AppDesign.Images.downloadArrow ?? UIImage(systemName: "arrow.down")!
-        case AppDesign.Text.uploadKey:
-            return AppDesign.Images.uploadArrow ?? UIImage(systemName: "arrow.up")!
-        default:
-            return UIImage(systemName: "arrow.up")!
-        }
     }
 }

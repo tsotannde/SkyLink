@@ -49,7 +49,7 @@ extension ConnectionStatusView
         statusLabel.layer.shadowOpacity = 0.8
         statusLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
         statusLabel.layer.shadowRadius = 3
-        statusLabel.font = AppDesign.Fonts.semiBold(ofSize: 16)//Text
+        statusLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)//Text
         statusLabel.textAlignment = .center
         statusLabel.translatesAutoresizingMaskIntoConstraints = false
        
@@ -60,7 +60,7 @@ extension ConnectionStatusView
         timerLabel.layer.shadowOpacity = 0.8
         timerLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
         timerLabel.layer.shadowRadius = 3
-        timerLabel.font = AppDesign.Fonts.semiBold(ofSize: 14)
+        timerLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 14)
         timerLabel.textAlignment = .center
         timerLabel.translatesAutoresizingMaskIntoConstraints = false
 

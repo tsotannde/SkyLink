@@ -15,12 +15,10 @@
         
         private init() {}
         
-    
         func toggleNavigationBar(on navigationController: UINavigationController?, animated: Bool = false, shouldShow: Bool = true)
         {
             navigationController?.setNavigationBarHidden(!shouldShow, animated: animated)
         }
-        
        
         func navigate(to viewController: UIViewController,on navigationController: UINavigationController?,clearStack: Bool = true,animation: HeroDefaultAnimationType? = nil)
         {

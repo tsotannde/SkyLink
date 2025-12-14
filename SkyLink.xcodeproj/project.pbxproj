@@ -14,18 +14,7 @@
 		8B9F51732E948C80005EA0D0 /* WireGuardKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8B9F51722E948C80005EA0D0 /* WireGuardKit */; };
 		8BE5BFBA2E9786D7003DDC65 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8BE5BFB92E9786D7003DDC65 /* FirebaseFirestore */; };
 		8BE5BFC22E97C292003DDC65 /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 8BE5BFC12E97C292003DDC65 /* FirebaseFunctions */; };
-		EE2D38442EAA97810010A30E /* NavigationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38132EAA97810010A30E /* NavigationManager.swift */; };
-		EE2D38462EAA97810010A30E /* SubscriptionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D38152EAA97810010A30E /* SubscriptionManager.swift */; };
-		EE2D38802EABE6CF0010A30E /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D387F2EABE6CF0010A30E /* AccountManager.swift */; };
-		EE2D388F2EAC331B0010A30E /* FirebaseRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2D388E2EAC331B0010A30E /* FirebaseRequestManager.swift */; };
-		EE692D4D2ECFA39100EAC07B /* InternetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D302ECFA39100EAC07B /* InternetManager.swift */; };
-		EE692D4F2ECFA39100EAC07B /* SubscribeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D3A2ECFA39100EAC07B /* SubscribeViewController.swift */; };
-		EE692D522ECFA39100EAC07B /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D422ECFA39100EAC07B /* DesignSystem.swift */; };
-		EE692D532ECFA39100EAC07B /* TODO.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE692D482ECFA39100EAC07B /* TODO.swift */; };
-		EE853B7C2EC1285D00EC6430 /* TapbackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE853B572EC1285D00EC6430 /* TapbackManager.swift */; };
-		EE925A442EE979780032B7DC /* oldcode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE925A432EE979780032B7DC /* oldcode.swift */; };
-		EEB9F4402EB3F6AB008C1651 /* PowerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F43F2EB3F6AB008C1651 /* PowerButton.swift */; };
-		EEFC0B332EBD6B2B0019629C /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEFC0B0C2EBD6B2B0019629C /* NotificationCenter.swift */; };
+		EE925A4D2EEC0C250032B7DC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = EE925A4C2EEC0C250032B7DC /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,18 +46,6 @@
 		8B9F515C2E948C05005EA0D0 /* network-extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "network-extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B9F515E2E948C05005EA0D0 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		8B9F517C2E9491FB005EA0D0 /* libwg-go.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libwg-go.a"; path = "../Wireguardkit-main-2/libwg-go.a"; sourceTree = "<group>"; };
-		EE2D38132EAA97810010A30E /* NavigationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationManager.swift; sourceTree = "<group>"; };
-		EE2D38152EAA97810010A30E /* SubscriptionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionManager.swift; sourceTree = "<group>"; };
-		EE2D387F2EABE6CF0010A30E /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
-		EE2D388E2EAC331B0010A30E /* FirebaseRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseRequestManager.swift; sourceTree = "<group>"; };
-		EE692D302ECFA39100EAC07B /* InternetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetManager.swift; sourceTree = "<group>"; };
-		EE692D3A2ECFA39100EAC07B /* SubscribeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscribeViewController.swift; sourceTree = "<group>"; };
-		EE692D422ECFA39100EAC07B /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
-		EE692D482ECFA39100EAC07B /* TODO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TODO.swift; sourceTree = "<group>"; };
-		EE853B572EC1285D00EC6430 /* TapbackManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbackManager.swift; sourceTree = "<group>"; };
-		EE925A432EE979780032B7DC /* oldcode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = oldcode.swift; sourceTree = "<group>"; };
-		EEB9F43F2EB3F6AB008C1651 /* PowerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerButton.swift; sourceTree = "<group>"; };
-		EEFC0B0C2EBD6B2B0019629C /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -129,6 +106,7 @@
 				8BE5BFBA2E9786D7003DDC65 /* FirebaseFirestore in Frameworks */,
 				8BE5BFC22E97C292003DDC65 /* FirebaseFunctions in Frameworks */,
 				8B130DE12E96763B004DC087 /* SimplifiedAuthKit in Frameworks */,
+				EE925A4D2EEC0C250032B7DC /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,16 +127,9 @@
 			children = (
 				EE2C10822ED0FEDB00B589FE /* SkyLink */,
 				EE692D6E2ECFA47600EAC07B /* WireGuard */,
-				EEFC0B0C2EBD6B2B0019629C /* NotificationCenter.swift */,
-				EE692D482ECFA39100EAC07B /* TODO.swift */,
-				EE692D422ECFA39100EAC07B /* DesignSystem.swift */,
-				EE2D38852EABF8870010A30E /* Views */,
-				EE2D387A2EAADB7D0010A30E /* Models */,
-				EE2D38772EAAD57B0010A30E /* Managers */,
 				8B9F51602E948C05005EA0D0 /* network-extension */,
 				8B9F515D2E948C05005EA0D0 /* Frameworks */,
 				8B9F51412E948BE0005EA0D0 /* Products */,
-				EE925A432EE979780032B7DC /* oldcode.swift */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,59 +149,6 @@
 				8B9F515E2E948C05005EA0D0 /* NetworkExtension.framework */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		EE2D38772EAAD57B0010A30E /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				EE2D38132EAA97810010A30E /* NavigationManager.swift */,
-				EE692D302ECFA39100EAC07B /* InternetManager.swift */,
-				EE2D388E2EAC331B0010A30E /* FirebaseRequestManager.swift */,
-				EE853B572EC1285D00EC6430 /* TapbackManager.swift */,
-				EE2D38152EAA97810010A30E /* SubscriptionManager.swift */,
-				EE2D387F2EABE6CF0010A30E /* AccountManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		EE2D387A2EAADB7D0010A30E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		EE2D38852EABF8870010A30E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				EE2D38862EABF8940010A30E /* Componenets */,
-				EE2D38872EAC00C80010A30E /* Controller */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		EE2D38862EABF8940010A30E /* Componenets */ = {
-			isa = PBXGroup;
-			children = (
-				EEB9F43F2EB3F6AB008C1651 /* PowerButton.swift */,
-			);
-			path = Componenets;
-			sourceTree = "<group>";
-		};
-		EE2D38872EAC00C80010A30E /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				EE692D6B2ECFA45C00EAC07B /* Subscribe */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		EE692D6B2ECFA45C00EAC07B /* Subscribe */ = {
-			isa = PBXGroup;
-			children = (
-				EE692D3A2ECFA39100EAC07B /* SubscribeViewController.swift */,
-			);
-			path = Subscribe;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +197,7 @@
 				8B130DE72E967ADF004DC087 /* Hero */,
 				8BE5BFB92E9786D7003DDC65 /* FirebaseFirestore */,
 				8BE5BFC12E97C292003DDC65 /* FirebaseFunctions */,
+				EE925A4C2EEC0C250032B7DC /* Lottie */,
 			);
 			productName = NEWVPN;
 			productReference = 8B9F51402E948BE0005EA0D0 /* SkyLink.app */;
@@ -342,6 +261,7 @@
 				8B130DDF2E96763B004DC087 /* XCRemoteSwiftPackageReference "SimplifiedAuthKit" */,
 				8B130DE62E967ADF004DC087 /* XCRemoteSwiftPackageReference "Hero" */,
 				8BE5BFB82E9786D7003DDC65 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				EE925A4B2EEC0C250032B7DC /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8B9F51412E948BE0005EA0D0 /* Products */;
@@ -377,18 +297,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EE853B7C2EC1285D00EC6430 /* TapbackManager.swift in Sources */,
-				EEFC0B332EBD6B2B0019629C /* NotificationCenter.swift in Sources */,
-				EE2D38802EABE6CF0010A30E /* AccountManager.swift in Sources */,
-				EE692D4D2ECFA39100EAC07B /* InternetManager.swift in Sources */,
-				EE692D4F2ECFA39100EAC07B /* SubscribeViewController.swift in Sources */,
-				EE692D522ECFA39100EAC07B /* DesignSystem.swift in Sources */,
-				EE692D532ECFA39100EAC07B /* TODO.swift in Sources */,
-				EE2D388F2EAC331B0010A30E /* FirebaseRequestManager.swift in Sources */,
-				EE925A442EE979780032B7DC /* oldcode.swift in Sources */,
-				EE2D38442EAA97810010A30E /* NavigationManager.swift in Sources */,
-				EE2D38462EAA97810010A30E /* SubscriptionManager.swift in Sources */,
-				EEB9F4402EB3F6AB008C1651 /* PowerButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +337,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -471,7 +379,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -778,6 +686,14 @@
 				minimumVersion = 12.4.0;
 			};
 		};
+		EE925A4B2EEC0C250032B7DC /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.2;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -805,6 +721,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8BE5BFB82E9786D7003DDC65 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
+		};
+		EE925A4C2EEC0C250032B7DC /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EE925A4B2EEC0C250032B7DC /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

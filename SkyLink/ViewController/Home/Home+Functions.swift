@@ -20,9 +20,21 @@ extension HomeViewController
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNDidDisconnect), name: .vpnDisconnected, object: nil)
     }
     
+    internal func addTargets()
+    {
+        premiumButton.addTarget(self, action: #selector(premiumButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc internal func premiumButtonTapped()
+    {
+        
+        NavigationManager.shared.navigate(to: subscribeVC, on: self.navigationController, clearStack: false,animation: .push(direction: .left))
+        
+    }
+    
     @objc internal func selectedServerTapped()
     {
-        AppLogger.shared.log("[Home] User Clicked the ServerSelector View")
+        AppLoggerManager.shared.log("[Home] User Clicked the ServerSelector View")
         let viewController = ServerSelectionViewController()
         
         if let sheet = viewController.sheetPresentationController
@@ -40,25 +52,25 @@ extension HomeViewController
     
     @objc internal func powerButtonTapped()
     {
-        AppLogger.shared.log("[Home] Power Button Tapped")
+        AppLoggerManager.shared.log("[Home] Power Button Tapped")
         
         Task
         {
             let connected = await VPNManager.shared.isConnectedToVPN()
-            AppLogger.shared.log("[Home] VPN Status is \(connected)")
+            AppLoggerManager.shared.log("[Home] VPN Status is \(connected)")
             
             self.powerButtonView.isUserInteractionEnabled = false //Disables user from tapping button again
             defer { self.powerButtonView.isUserInteractionEnabled = true }
             
             if connected
             {
-                AppLogger.shared.log("[Home] Disconnecting VPN and Stopping Tunnel")
+                AppLoggerManager.shared.log("[Home] Disconnecting VPN and Stopping Tunnel")
                 self.powerButtonView.setState(.disconnecting)
                 NotificationCenter.default.post(name: .vpnDisconnecting, object: nil)
                 VPNManager.shared.stopTunnel()
             } else
             {
-                AppLogger.shared.log("[Home] Connecting VPN and Starting Tunnel")
+                AppLoggerManager.shared.log("[Home] Connecting VPN and Starting Tunnel")
                 self.powerButtonView.setState(.connecting)
                 NotificationCenter.default.post(name: .vpnConnecting, object: nil)
                 VPNManager.shared.startTunnel()
@@ -72,7 +84,7 @@ extension HomeViewController
 {
     @objc internal func handleVPNDidConnect()
     {
-        AppLogger.shared.log("[Home] VPN Connected")
+        AppLoggerManager.shared.log("[Home] VPN Connected")
         DispatchQueue.main.async
         {
             self.powerButtonView.setState(.connected)
@@ -81,7 +93,7 @@ extension HomeViewController
     
     @objc internal func handleVPNDidDisconnect()
     {
-        AppLogger.shared.log("[Home] VPN Disconnected")
+        AppLoggerManager.shared.log("[Home] VPN Disconnected")
         DispatchQueue.main.async
         {
             self.powerButtonView.setState(.disconnected)
@@ -90,7 +102,7 @@ extension HomeViewController
     
     @objc internal func handleVPNIsConnecting()
     {
-        AppLogger.shared.log("[Home] VPN Connecting")
+        AppLoggerManager.shared.log("[Home] VPN Connecting")
         DispatchQueue.main.async
         {
             self.powerButtonView.setState(.connecting)
@@ -99,7 +111,7 @@ extension HomeViewController
     
     @objc internal func handleVPNIsDisconnecting()
     {
-        AppLogger.shared.log("[Home] VPN Disconnecting")
+        AppLoggerManager.shared.log("[Home] VPN Disconnecting")
         DispatchQueue.main.async {
             self.powerButtonView.setState(.disconnecting)
         }

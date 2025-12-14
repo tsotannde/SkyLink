@@ -193,19 +193,19 @@ extension ServerSelectionViewController
     internal func loadData() async
     {
         do {
-            AppLogger.shared.log("[Server Selector] Loading Servers...")
+            AppLoggerManager.shared.log("[Server Selector] Loading Servers...")
             try await ConfigurationManager.shared.loadCachedServers()
             freeCountries = buildCountries(from: ConfigurationManager.shared.freeServers, requiresSub: false)
             premiumCountries = buildCountries(from: ConfigurationManager.shared.premiumServers, requiresSub: true)
             rebuildVisibleRows(for: nil)
             DispatchQueue.main.async { self.tableView.reloadData() }
-            AppLogger.shared.log("[Server Selector] Loaded Saved Servers Successfully.")
+            AppLoggerManager.shared.log("[Server Selector] Loaded Saved Servers Successfully.")
         }catch
         {
             //If Above fails
             print("Failed to load servers: \(error)")
-            AppLogger.shared.log("[Server Selector] Failed to Load Server. Contact Support")
-            AppLogger.shared.log("Error Message: \(error)")
+            AppLoggerManager.shared.log("[Server Selector] Failed to Load Server. Contact Support")
+            AppLoggerManager.shared.log("Error Message: \(error)")
             try? await ConfigurationManager.shared.fetchServerFromFireBase() //STEP 1: Fetch Live Server List from Firebase
             self.dismiss(animated: true) //STEP 2: Dismiss the View (Temporary Fix)
             //STEP 3: TODO: Implement Spinner icon while fetching and using the data in the UI

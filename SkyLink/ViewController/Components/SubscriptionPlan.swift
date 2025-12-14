@@ -85,7 +85,7 @@ extension SubscriptionPlan
         guard let discount = calculatedDiscountText() else { return }
 
         discountBadge.text = discount
-        discountBadge.font = AppDesign.Fonts.semiBold(ofSize: 12)
+        discountBadge.font = SkyLinkAssets.Fonts.semiBold(ofSize: 12)
         discountBadge.textColor = .white
         discountBadge.backgroundColor = UIColor(named: "purpleColor")
         discountBadge.textAlignment = .center
@@ -97,7 +97,7 @@ extension SubscriptionPlan
 
         NSLayoutConstraint.activate([
             discountBadge.bottomAnchor.constraint(equalTo: topAnchor, constant: 11),
-            discountBadge.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 8),
+            discountBadge.centerXAnchor.constraint(equalTo: centerXAnchor, constant: 0),
             discountBadge.heightAnchor.constraint(equalToConstant: 22),
             discountBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: 70)
         ])
@@ -106,7 +106,7 @@ extension SubscriptionPlan
     private func addTitle()
     {
         titleLabel.text = tier.title
-        titleLabel.font = AppDesign.Fonts.semiBold(ofSize: 18)
+        titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 18)
         titleLabel.textColor = UIColor(named: "blackColor")
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
@@ -131,7 +131,7 @@ extension SubscriptionPlan
     
     private func addPriceText() {
         priceLabel.text = String(format: "$%.2f", price)
-        priceLabel.font = AppDesign.Fonts.regular(ofSize: 16)
+        priceLabel.font = SkyLinkAssets.Fonts.regular(ofSize: 16)
         priceLabel.textColor = UIColor(named: "blackColor")
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(priceLabel)

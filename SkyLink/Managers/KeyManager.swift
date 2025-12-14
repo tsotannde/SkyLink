@@ -19,7 +19,7 @@ final class KeyManager
     
     func generateKeysIfNeeded(completion: ((Bool) -> Void)? = nil)
     {
-        AppLogger.shared.log("[KeyManager] Generating keys")
+        AppLoggerManager.shared.log("[KeyManager] Generating keys")
         guard let userID = Auth.auth().currentUser?.uid else
         {
            
@@ -35,12 +35,12 @@ final class KeyManager
         // Already have valid keys
         if localPrivateKey != nil && localPublicKey != nil && uniqueInstallID != nil
         {
-            AppLogger.shared.log("[KeyManager] Found existing keys")
+            AppLoggerManager.shared.log("[KeyManager] Found existing keys")
             completion?(true)
             return
         }
 
-        AppLogger.shared.log("[KeyManager] No existing keys, generating new keys")
+        AppLoggerManager.shared.log("[KeyManager] No existing keys, generating new keys")
         // Generate new keys
         let newUniqueInstallID = UUID().uuidString
         let privateKey = Curve25519.KeyAgreement.PrivateKey()
@@ -75,12 +75,12 @@ final class KeyManager
 
     func getPublicKey() -> String?
     {
-        AppLogger.shared.log("[KeyManager] Getting Public key")
+        AppLoggerManager.shared.log("[KeyManager] Getting Public key")
         return UserDefaults.standard.string(forKey: "publicKey")
     }
     func getPrivateKey() -> String?
     {
-        AppLogger.shared.log("[KeyManager] Getting Private key")
+        AppLoggerManager.shared.log("[KeyManager] Getting Private key")
         return UserDefaults.standard.string(forKey: "privateKey")
     }
 

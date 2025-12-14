@@ -23,16 +23,34 @@ class HomeViewController: UIViewController
     private var connectionCheckTimer: Timer?
     private var currentConnectionState: Bool? = nil
     
+    let subscribeVC = SubscribeViewController()
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        AppLogger.shared.log("[Home] Initalizing the Home View Controller")
+        
+        
+        AppLoggerManager.shared.log("[Home] Initalizing the Home View Controller")
         hideNavigationBar()
         setBackgroundColor()
         constructUserInterface()
+        addTargets()
         startTimer()
         monitorNotifications() //Used to upadte the powerbutton state
+        
+        subscribeVC.getPrices()
+       
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        restorePremiumButtonText()
+    }
+    
+    private func restorePremiumButtonText() {
+        premiumButton.setTitle("Go Premium", for: .normal)
+        premiumButton.titleLabel?.alpha = 1
+        premiumButton.layoutIfNeeded()
     }
 }
 

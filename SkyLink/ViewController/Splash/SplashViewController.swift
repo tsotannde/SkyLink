@@ -57,19 +57,19 @@ extension SplashViewController
             return
         }
         
-        AppLogger.shared.log("[SplashScreen] Internet connection validated")
+        AppLoggerManager.shared.log("[SplashScreen] Internet connection validated")
         do
         {
             try await ConfigurationManager.shared.fetchServerFromFireBase() // Fetch Servers + Save to JSON
             _ = try await AccountManager.shared.ensureAccountExists() // Check or create anonymous account
             KeyManager.shared.generateKeysIfNeeded()  // Generate keys if none exist
             let server = await ConfigurationManager.shared.getExistingOrSelectServer() // Choose a random server
-            AppLogger.shared.logServerDetails(server) //log server detail
+            AppLoggerManager.shared.logServerDetails(server) //log server detail
             NaviagateHome() // Navigate Home
         }
         catch
         {
-            AppLogger.shared.log("[SplashScreen] Error during app flow: \(error.localizedDescription)")
+            AppLoggerManager.shared.log("[SplashScreen] Error during app flow: \(error.localizedDescription)")
             showNoInternetAlert() //Something Bad Happened
         }
     }
@@ -84,18 +84,18 @@ extension SplashViewController
     private func validateInitialVPNState()
     {
         //used to set the inital state of the homeViewController button and connection state
-        AppLogger.shared.log("[SplashScreen] Validating initial VPN state")
+        AppLoggerManager.shared.log("[SplashScreen] Validating initial VPN state")
        
         
         Task
         {
             let isActuallyConnected = await VPNManager.shared.isConnectedToVPN()
-            AppLogger.shared.log("[SplashScreen] VPN State: \(isActuallyConnected)")
+            AppLoggerManager.shared.log("[SplashScreen] VPN State: \(isActuallyConnected)")
             
             DispatchQueue.main.async
             {
                 // Save corrected state and sync state tracker
-                AppLogger.shared.log("[SplashScreen] Saving State\(isActuallyConnected) with Key: \(AppDesign.AppKeys.UserDefaults.lastConnectionState.description)")
+                AppLoggerManager.shared.log("[SplashScreen] Saving State\(isActuallyConnected) with Key: \(AppDesign.AppKeys.UserDefaults.lastConnectionState.description)")
                 UserDefaults.standard.set(isActuallyConnected, forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
             }
         }
@@ -103,7 +103,7 @@ extension SplashViewController
     
     private func showNoInternetAlert()
     {
-        AppLogger.shared.log("[SplashScreen] No Internet Detected")
+        AppLoggerManager.shared.log("[SplashScreen] No Internet Detected")
         let noInternetKey = String(localized: "noInternetKey")
         let noInternetMessageKey = String(localized: "noInternetMessageKey")
         let retryKey = String(localized: "retryKey")
@@ -111,7 +111,7 @@ extension SplashViewController
         let alert = UIAlertController(title: noInternetKey,message: noInternetMessageKey,preferredStyle: .alert)
         let retryAction = UIAlertAction(title: retryKey, style: .default)
         { _ in
-            AppLogger.shared.log("[SplashScreen] User Tapped Retry. Rechecking Internt Connection")
+            AppLoggerManager.shared.log("[SplashScreen] User Tapped Retry. Rechecking Internt Connection")
             Task
             {
                 await self.startAppFlow()
@@ -124,7 +124,7 @@ extension SplashViewController
     
     private func NaviagateHome()
     {
-        AppLogger.shared.log("[SplashScreen] Checks Complete Navigating Home")
+        AppLoggerManager.shared.log("[SplashScreen] Checks Complete Navigating Home")
         NavigationManager.shared.navigate(to: HomeViewController(),on: navigationController,clearStack: true,animation: .uncover(direction: .down))
         
     }
@@ -180,7 +180,8 @@ extension SplashViewController
 {
     func setBackGroundColor()
     {
-        view.backgroundColor = DesignSystem.AppColors.Themes.primaryColor
+        view.backgroundColor = UIColor(named: "primaryTheme")
+       
     }
     
     func hideNavigationBar()

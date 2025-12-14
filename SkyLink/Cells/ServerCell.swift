@@ -127,7 +127,7 @@ extension ServerCell
         let variableStrength = max(0.0, min(strength, 1.0))
         
         let config = UIImage.SymbolConfiguration(
-            paletteColors: [DesignSystem.AppColors.cellularBarColor ?? .systemGreen]
+            paletteColors: [UIColor(named: "greenColor") ?? .systemGreen]
         )
         
         return UIImage(systemName: "cellularbars",variableValue: variableStrength,configuration: config)
@@ -177,7 +177,7 @@ extension ServerCell
     static private func makeCityStateLabel()-> UILabel
     {
         let lbl = UILabel()
-        lbl.font = UIFont(name: DesignSystem.AppFonts.SoraSemiBold, size: 16)
+        lbl.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
         lbl.textColor = UIColor(named: "whiteColor")
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl

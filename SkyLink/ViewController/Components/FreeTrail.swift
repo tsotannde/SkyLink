@@ -57,8 +57,9 @@ extension FreeTrail
 
     private func setupLabel()
     {
-        titleLabel.text = "Not sure yet? Enable free trial"
-        titleLabel.font = AppDesign.Fonts.semiBold(ofSize: 16)
+        titleLabel.text = "You won’t be charged today"
+      
+        titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
         titleLabel.textColor = UIColor.white.withAlphaComponent(0.9)
         titleLabel.numberOfLines = 1
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -67,6 +68,8 @@ extension FreeTrail
 
     private func setupToggle() {
         toggleSwitch.isOn = true
+        toggleSwitch.isOn = true
+        toggleSwitch.isEnabled = false
         toggleSwitch.onTintColor = UIColor.systemGreen
         toggleSwitch.addTarget(self, action: #selector(toggleChanged), for: .valueChanged)
         toggleSwitch.translatesAutoresizingMaskIntoConstraints = false

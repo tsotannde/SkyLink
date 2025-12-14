@@ -19,7 +19,7 @@ extension ServerSelectionViewController
     {
         let label = UILabel()
         label.text = AppDesign.Text.chooseLocationKey
-        label.font = AppDesign.Fonts.semiBold(ofSize: 30)
+        label.font = SkyLinkAssets.Fonts.semiBold(ofSize: 30)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -42,10 +42,10 @@ extension ServerSelectionViewController
             string: AppDesign.Text.searchLocationKey,
             attributes: [
                 .foregroundColor: UIColor(named: "greyColor") ?? .lightGray,
-                .font: AppDesign.Fonts.regular(ofSize: 16)
+                .font: SkyLinkAssets.Fonts.regular(ofSize: 16)
             ]
         )
-        searchTextField.font = AppDesign.Fonts.regular(ofSize: 16)
+        searchTextField.font = SkyLinkAssets.Fonts.regular(ofSize: 16)
         searchTextField.textColor = UIColor(named: "blackColor")
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         

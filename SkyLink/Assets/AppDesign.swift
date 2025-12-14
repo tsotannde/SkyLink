@@ -41,6 +41,10 @@ struct AppDesign
         static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
         static let chevronUp: UIImage? = UIImage(systemName: "chevron.up")
         static let magnifyGlass: UIImage? = UIImage(systemName: "magnifyingglass")
+        static let checkMark: UIImage? = UIImage(systemName: "checkmark")
+//        static let xMark: UIImage? = UIImage(systemName: "xmark")
+        static let cellularbars = "cellularbars"
+        static let chevronRight = "chevron.right"
        
         
     }
@@ -111,6 +115,9 @@ struct AppDesign
         static let retryKey = String(localized: "retryKey")
         static let chooseLocationKey = String(localized: "chooseLocationKey")
         static let searchLocationKey = String(localized: "searchLocationKey")
+       
+       
+        static let restoreKey = String(localized: "restoreKey")
         
         
     
@@ -118,14 +125,4 @@ struct AppDesign
     }
 }
 
-extension AppDesign {
-    struct Fonts {
-        static func regular(ofSize size: CGFloat) -> UIFont {
-            return UIFont(name: "Sora-Regualr", size: size) ?? UIFont.systemFont(ofSize: size)
-        }
 
-        static func semiBold(ofSize size: CGFloat) -> UIFont {
-            return UIFont(name: "Sora-SemiBold", size: size) ?? UIFont.boldSystemFont(ofSize: size)
-        }
-    }
-}

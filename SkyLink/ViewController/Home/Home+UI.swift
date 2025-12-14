@@ -28,6 +28,8 @@ extension HomeViewController
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         button.layer.shadowRadius = 8
         
+        button.isHidden = true
+        button.isUserInteractionEnabled = false
         return button
     }
     
@@ -38,14 +40,15 @@ extension HomeViewController
         // Text setup
         var configuration = UIButton.Configuration.plain()
         var container = AttributeContainer()
-        container.font = AppDesign.Fonts.semiBold(ofSize: 16)
+        container.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
         configuration.attributedTitle = AttributedString(AppDesign.Text.HomeViewController.goPremium, attributes: container)
         configuration.imagePadding = 8
         configuration.imagePlacement = .leading
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
         button.configuration = configuration
     
-        button.backgroundColor = UIColor(named: "primaryTheme")
+        button.backgroundColor = UIColor(named: "whiteColor")
+        
         
         // Corner radius & shadow
         button.layer.cornerRadius = 16
@@ -64,6 +67,7 @@ extension HomeViewController
         button.widthAnchor.constraint(equalToConstant: 174).isActive = true
         button.heightAnchor.constraint(equalToConstant: 48).isActive = true
         
+
         return button
     }
     
