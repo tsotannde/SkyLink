@@ -103,6 +103,17 @@
         }
       }
     },
+    "freeLocationKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " FREE LOCATIONS"
+          }
+        }
+      }
+    },
     "fullAccessKey" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -188,6 +199,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OK"
+          }
+        }
+      }
+    },
+    "premiumLocationKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PREMIUM LOCATIONS"
           }
         }
       }

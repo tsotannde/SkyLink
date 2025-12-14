@@ -89,7 +89,8 @@ extension SplashViewController
             {
                 // Save corrected state and sync state tracker
                 AppLoggerManager.shared.log("[SplashScreen] Saving State\(isActuallyConnected) with Key: \(SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState.description)")
-                UserDefaults.standard.set(isActuallyConnected, forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
+                ConfigurationManager.shared.syncInitialVPNState(isActuallyConnected)
+                
             }
         }
     }
@@ -151,7 +152,7 @@ extension SplashViewController
 {
     static func createCloudIcon()->UIImageView
     {
-        let iv = UIImageView(image: UIImage(named: "skyIcon"))
+        let iv = UIImageView(image: SkyLinkAssets.Images.skyIcon)
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         return iv
@@ -159,7 +160,7 @@ extension SplashViewController
     
     static func createKeyIcon()->UIImageView
     {
-        let iv = UIImageView(image: UIImage(named: "keyIcon"))
+        let iv = UIImageView(image: SkyLinkAssets.Images.keyIcon)
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.contentMode = .scaleAspectFit
         return iv
@@ -171,7 +172,7 @@ extension SplashViewController
 {
     func setBackGroundColor()
     {
-        view.backgroundColor = UIColor(named: "primaryTheme")
+        view.backgroundColor = SkyLinkAssets.Colors.Themes.primary
        
     }
     

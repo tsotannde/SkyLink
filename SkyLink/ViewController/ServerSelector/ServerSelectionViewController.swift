@@ -7,7 +7,8 @@
 
 import UIKit
 
-final class ServerSelectionViewController: UIViewController {
+final class ServerSelectionViewController: UIViewController
+{
 
     // MARK: - UI Elements
     internal var titleLabel: UILabel!
@@ -39,7 +40,6 @@ final class ServerSelectionViewController: UIViewController {
 // MARK: - TableView Handling
 extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSource
 {
-
     internal struct VisibleRow
     {
         enum RowType { case country(Country), server(Server) }
@@ -56,10 +56,13 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
 
     internal func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
     {
-        section == 0 ? "FREE LOCATIONS" : "PREMIUM LOCATIONS"
+        let freeLocationText = SkyLinkAssets.Text.freeLocationKey
+        let premiumLocationText = SkyLinkAssets.Text.premiumLocationKey
+        return section == 0 ? freeLocationText : premiumLocationText
     }
 
-    internal func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    internal func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int)
+    {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.font = UIFont(name: "Sora-SemiBold", size: 15)
         header.textLabel?.textColor = .black
@@ -67,15 +70,16 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
 
     internal func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 80 }
 
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
         let rows = isSearching ? filteredVisibleRows : visibleRows
         let sectionRows = rows.filter { $0.section == indexPath.section }
         let visibleRow = sectionRows[indexPath.row]
 
         switch visibleRow.type {
         case .country(let country):
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ServerViewCell", for: indexPath) as! CountryCell
-            let flag = FlagManager.shared.getCountryFlagImage(country.name ?? "") ?? UIImage(systemName: "globe")
+            let cell = tableView.dequeueReusableCell(withIdentifier: SkyLinkAssets.Cell.serverViewCellIdentifier, for: indexPath) as! CountryCell
+            let flag = FlagManager.shared.getCountryFlagImage(country.name ?? "") ?? SkyLinkAssets.Images.globe
             let model = CountryCellViewModel(
                 flagImage: flag,
                 name: country.name ?? "Unknown",
@@ -89,12 +93,12 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
             return cell
 
         case .server(let server):
-            let cell = tableView.dequeueReusableCell(withIdentifier: "IndividualServerCell", for: indexPath) as! ServerCell
-            let flag = FlagManager.shared.getCountryFlagImage(server.country ?? "") ?? UIImage(systemName: "globe")
+            let cell = tableView.dequeueReusableCell(withIdentifier: SkyLinkAssets.Cell.individualServerViewCellIdentifier, for: indexPath) as! ServerCell
+            let flag = FlagManager.shared.getCountryFlagImage(server.country ?? "") ?? SkyLinkAssets.Images.globe
             let model = ServerViewModel(
                 flagImage: flag,
-                city: server.city ?? "Unknown City",
-                state: server.state ?? "Unknown",
+                city: server.city ?? SkyLinkAssets.Text.errorTitleKey,
+                state: server.state ?? SkyLinkAssets.Text.errorTitleKey,
                 totalCapacity: server.capacity,
                 currentPeers: server.currentCapacity,
                 showCrown: server.requiresSubscription,
@@ -156,6 +160,15 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
         case .server(let server):
             print("Selected: \(server.city ?? "Unknown City"), \(server.state ?? "Unknown State") [\(server.publicIP ?? "N/A")]")
 
+            let isSubscribed = SubscriptionManager.shared.isSubscribed()
+    
+            //Gate Premium 
+            if server.requiresSubscription && !isSubscribed
+            {
+                NotificationCenter.default.post(name: .showSubscriptionPage, object: nil)
+                dismiss(animated: true)
+                return
+            }
             if let data = try? JSONEncoder().encode(server)
             {
                 UserDefaults.standard.set(data, forKey: "currentServer")

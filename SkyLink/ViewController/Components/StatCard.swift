@@ -149,6 +149,10 @@ extension StatCard
     @objc private func vpnDisconnected()
     {
         stopAutoRefresh()
+        DispatchQueue.main.async
+        {
+                self.update(speed: 0.0, state: .inactive)
+            }
     }
     
     @objc private func vpnConnecting()
@@ -228,7 +232,7 @@ extension StatCard
                 let defaults = UserDefaults(suiteName: SkyLinkAssets.AppKeys.UserDefaults.suiteName)
                 let speedValue = defaults?.double(forKey: key) ?? 0.0
 
-                print("[StatCard] Timer fired → connected: \(isConnected), key: \(key), value: \(speedValue)")
+                //print("[StatCard] Timer fired → connected: \(isConnected), key: \(key), value: \(speedValue)")
 
                 DispatchQueue.main.async {
                     if isConnected

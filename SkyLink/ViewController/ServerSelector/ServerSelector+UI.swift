@@ -12,15 +12,15 @@ extension ServerSelectionViewController
 {
     internal func setBackgroundColor()
     {
-        view.backgroundColor = UIColor(named: "lightGreyColor")
+        view.backgroundColor = SkyLinkAssets.Colors.lightGreyColor
     }
     
     internal func createTitleLabel() -> UILabel
     {
         let label = UILabel()
-        label.text = AppDesign.Text.chooseLocationKey
+        label.text = SkyLinkAssets.Text.chooseLocationKey
         label.font = SkyLinkAssets.Fonts.semiBold(ofSize: 30)
-        label.textColor = .black
+        label.textColor = SkyLinkAssets.Colors.blackColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -29,9 +29,9 @@ extension ServerSelectionViewController
     {
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = UIColor(named: "whiteColor")
+        container.backgroundColor =  SkyLinkAssets.Colors.whiteColor
         container.layer.cornerRadius = 16
-        container.layer.shadowColor = UIColor(named: "blackColor")?.cgColor
+        container.layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor
         container.layer.shadowOpacity = 0.8
         container.layer.shadowOffset = CGSize(width: 0, height: 2)
         container.layer.shadowRadius = 8
@@ -39,18 +39,18 @@ extension ServerSelectionViewController
         
         let searchTextField = UITextField()
         searchTextField.attributedPlaceholder = NSAttributedString(
-            string: AppDesign.Text.searchLocationKey,
+            string: SkyLinkAssets.Text.searchLocationKey,
             attributes: [
-                .foregroundColor: UIColor(named: "greyColor") ?? .lightGray,
+                .foregroundColor: SkyLinkAssets.Colors.greyColor ?? .lightGray,
                 .font: SkyLinkAssets.Fonts.regular(ofSize: 16)
             ]
         )
         searchTextField.font = SkyLinkAssets.Fonts.regular(ofSize: 16)
-        searchTextField.textColor = UIColor(named: "blackColor")
+        searchTextField.textColor = SkyLinkAssets.Colors.blackColor
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         
-        let searchIcon = UIImageView(image: AppDesign.Images.magnifyGlass)
-        searchIcon.tintColor = UIColor(named: "greyColor")
+        let searchIcon = UIImageView(image: SkyLinkAssets.Images.magnifyGlass)
+        searchIcon.tintColor = SkyLinkAssets.Colors.greyColor
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
         
         container.addSubview(searchTextField)
@@ -96,8 +96,8 @@ extension ServerSelectionViewController
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(CountryCell.self, forCellReuseIdentifier: "ServerViewCell")
-        tableView.register(ServerCell.self, forCellReuseIdentifier: "IndividualServerCell")
+        tableView.register(CountryCell.self, forCellReuseIdentifier: SkyLinkAssets.Cell.serverViewCellIdentifier)
+        tableView.register(ServerCell.self, forCellReuseIdentifier: SkyLinkAssets.Cell.individualServerViewCellIdentifier)
 
         view.insertSubview(tableView, belowSubview: searchContainerView)
         NSLayoutConstraint.activate([

@@ -144,4 +144,23 @@ extension ConfigurationManager
         }
     }
     
+    // ConfigurationManager.swift
+
+    func syncInitialVPNState(_ isConnected: Bool) {
+        AppLoggerManager.shared.log(
+            "[Config] Syncing initial VPN state = \(isConnected)"
+        )
+
+        UserDefaults.standard.set(
+            isConnected,
+            forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState
+        )
+
+        if !isConnected {
+            UserDefaults.standard.removeObject(
+                forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectedDate
+            )
+        }
+    }
+    
 }

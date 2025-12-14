@@ -42,8 +42,8 @@ extension SubscribeViewController
 
                 await MainActor.run
                 {
-                    let title = SkyLinkAssets.Text.SubscriptionPage.errorTitleKey
-                    let message = SkyLinkAssets.Text.SubscriptionPage.errorMessageKey
+                    let title = SkyLinkAssets.Text.errorTitleKey
+                    let message = SkyLinkAssets.Text.errorMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                     {
                         NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right),animated: true)
@@ -158,8 +158,8 @@ extension SubscribeViewController
                 restoreButton.isEnabled = true
 
                 if restored {
-                    let title = SkyLinkAssets.Text.SubscriptionPage.subscriptionActiveKey
-                    let message = SkyLinkAssets.Text.SubscriptionPage.fullAccessKey
+                    let title = SkyLinkAssets.Text.subscriptionActiveKey
+                    let message = SkyLinkAssets.Text.fullAccessKey
 
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                     {
@@ -167,8 +167,8 @@ extension SubscribeViewController
                     }
                 } else
                 {
-                    let title = SkyLinkAssets.Text.SubscriptionPage.noSubscriptionFoundTitleKey
-                    let message = SkyLinkAssets.Text.SubscriptionPage.restoreNotFoundMessageKey
+                    let title = SkyLinkAssets.Text.noSubscriptionFoundTitleKey
+                    let message = SkyLinkAssets.Text.restoreNotFoundMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                 }
             }
@@ -201,8 +201,8 @@ extension SubscribeViewController
     {
         guard let tier = selectedTier else
         {
-            let title = SkyLinkAssets.Text.SubscriptionPage.noPlanSelectedKey
-            let message =  SkyLinkAssets.Text.SubscriptionPage.selectPlanKey
+            let title = SkyLinkAssets.Text.noPlanSelectedKey
+            let message =  SkyLinkAssets.Text.selectPlanKey
             SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
             return
         }
@@ -220,26 +220,26 @@ extension SubscribeViewController
                 {
                 case .success:
                     AppLoggerManager.shared.log("[SubscribeVC]: Purchase success for tier \(tier)")
-                    let title = SkyLinkAssets.Text.SubscriptionPage.subscriptionActiveKey
-                    let message =  SkyLinkAssets.Text.SubscriptionPage.fullAccessKey
+                    let title = SkyLinkAssets.Text.subscriptionActiveKey
+                    let message =  SkyLinkAssets.Text.fullAccessKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                     {
                         NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right),animated: true)
                     }
                 case .cancelled:
                     AppLoggerManager.shared.log("[SubscribeVC]: Purchase cancelled by user for tier \(tier)")
-                    let title = SkyLinkAssets.Text.SubscriptionPage.purchaseCancelledKey
-                    let message = SkyLinkAssets.Text.SubscriptionPage.userCanceledMessageKey
+                    let title = SkyLinkAssets.Text.purchaseCancelledKey
+                    let message = SkyLinkAssets.Text.userCanceledMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                 case .pending:
                     AppLoggerManager.shared.log("[SubscribeVC]: Purchase pending for tier \(tier)")
-                    let title = SkyLinkAssets.Text.SubscriptionPage.purchasePendingKey
-                    let message = SkyLinkAssets.Text.SubscriptionPage.purchasePendingMessageKey
+                    let title = SkyLinkAssets.Text.purchasePendingKey
+                    let message = SkyLinkAssets.Text.purchasePendingMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                 case .failed:
                     AppLoggerManager.shared.log("[SubscribeVC]: Purchase failed for tier \(tier)")
-                    let title = SkyLinkAssets.Text.SubscriptionPage.purchaseFailedKey
-                    let message = SkyLinkAssets.Text.SubscriptionPage.purchaseFailedMessageKey
+                    let title = SkyLinkAssets.Text.purchaseFailedKey
+                    let message = SkyLinkAssets.Text.purchaseFailedMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                 }
             }
@@ -305,33 +305,33 @@ extension SubscribeViewController
 
         case .weekly:
             //NO free trial for weekly
-            let title = SkyLinkAssets.Text.SubscriptionPage.continueKey
-            let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.weekKey)"
+            let title = SkyLinkAssets.Text.continueKey
+            let subTitle = "\(SkyLinkAssets.Text.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.weekKey)"
             return ContinueButtonText(title: title ,subtitle: subTitle)
 
         case .monthly:
             if isEligibleForFreeTrial
             {
-                let title = SkyLinkAssets.Text.SubscriptionPage.startFreeTrailKey
-                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.thenKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.monthKey)"
+                let title = SkyLinkAssets.Text.startFreeTrailKey
+                let subTitle = "\(SkyLinkAssets.Text.thenKey) \(formattedPrice) / \(SkyLinkAssets.Text.monthKey)"
                 return ContinueButtonText(title: title ,subtitle: subTitle)
             } else
             {
-                let title = SkyLinkAssets.Text.SubscriptionPage.continueKey
-                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.monthKey)"
+                let title = SkyLinkAssets.Text.continueKey
+                let subTitle = "\(SkyLinkAssets.Text.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.monthKey)"
                 return ContinueButtonText(title: title,subtitle: subTitle)
             }
 
         case .yearly:
             if isEligibleForFreeTrial
             {
-                let title = SkyLinkAssets.Text.SubscriptionPage.startFreeTrailKey
-                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.thenKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.yearKey)"
+                let title = SkyLinkAssets.Text.startFreeTrailKey
+                let subTitle = "\(SkyLinkAssets.Text.thenKey) \(formattedPrice) / \(SkyLinkAssets.Text.yearKey)"
                 return ContinueButtonText(title: title ,subtitle: subTitle)
             } else
             {
-                let title = SkyLinkAssets.Text.SubscriptionPage.continueKey
-                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.yearKey)"
+                let title = SkyLinkAssets.Text.continueKey
+                let subTitle = "\(SkyLinkAssets.Text.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.yearKey)"
                 return ContinueButtonText(title: title,subtitle: subTitle)
             }
         }

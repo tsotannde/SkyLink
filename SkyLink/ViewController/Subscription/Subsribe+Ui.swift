@@ -65,7 +65,7 @@ extension SubscribeViewController
     static func createRestoreButton() -> UIButton
     {
         let button = UIButton(type: .system)
-        let title = SkyLinkAssets.Text.SubscriptionPage.restoreKey
+        let title = SkyLinkAssets.Text.restoreKey
         button.setTitle(title, for: .normal)
         button.setTitleColor(SkyLinkAssets.Colors.softWhite, for: .normal)
         button.titleLabel?.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
@@ -169,7 +169,7 @@ extension SubscribeViewController
 
         // MARK: - Title
         let titleLabel = UILabel()
-        titleLabel.text = SkyLinkAssets.Text.SubscriptionPage.stayAnonymousOnlineKey
+        titleLabel.text = SkyLinkAssets.Text.stayAnonymousOnlineKey
         titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 25)
         titleLabel.textColor = SkyLinkAssets.Colors.blackColor
         titleLabel.textAlignment = .center
@@ -177,7 +177,7 @@ extension SubscribeViewController
 
         // MARK: - Subtitle
         let subtitleLabel = UILabel()
-        subtitleLabel.text =  SkyLinkAssets.Text.SubscriptionPage.subTitleTextKey
+        subtitleLabel.text =  SkyLinkAssets.Text.subTitleTextKey
         subtitleLabel.font = SkyLinkAssets.Fonts.regular(ofSize: 13)
         subtitleLabel.textColor = SkyLinkAssets.Colors.greyColor
         subtitleLabel.textAlignment = .center
@@ -307,12 +307,12 @@ extension SubscribeViewController
     {
         var config = UIButton.Configuration.filled()
         config.baseForegroundColor = SkyLinkAssets.Colors.Themes.primary
-        config.baseBackgroundColor = SkyLinkAssets.Colors.softWhite
+        config.baseBackgroundColor = SkyLinkAssets.Colors.whiteColor
         config.contentInsets = NSDirectionalEdgeInsets(top: 16, leading: 20, bottom: 16, trailing: 20)
         config.cornerStyle = .capsule
         config.titleAlignment = .center
 
-        let defualtText = SkyLinkAssets.Text.SubscriptionPage.continueKey
+        let defualtText = SkyLinkAssets.Text.continueKey
         config.attributedTitle = AttributedString(
             defualtText,
             attributes: AttributeContainer([
@@ -345,7 +345,7 @@ extension SubscribeViewController
     static func createTermsButton() -> UIButton
     {
         let button = UIButton(type: .system)
-        let title = SkyLinkAssets.Text.SubscriptionPage.termOfUseKey
+        let title = SkyLinkAssets.Text.termOfUseKey
         button.setTitle(title, for: .normal)
         button.setTitleColor(SkyLinkAssets.Colors.softWhite, for: .normal)
         button.titleLabel?.font = SkyLinkAssets.Fonts.semiBold(ofSize: 12)
@@ -356,7 +356,7 @@ extension SubscribeViewController
     static func createPrivacyButton() -> UIButton
     {
         let button = UIButton(type: .system)
-        let title = SkyLinkAssets.Text.SubscriptionPage.privacyPolicyKey
+        let title = SkyLinkAssets.Text.privacyPolicyKey
         button.setTitle(title, for: .normal)
         button.setTitleColor(SkyLinkAssets.Colors.softWhite, for: .normal)
         button.titleLabel?.font = SkyLinkAssets.Fonts.semiBold(ofSize: 12)

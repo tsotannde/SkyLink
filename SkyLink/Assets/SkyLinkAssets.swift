@@ -27,6 +27,10 @@ struct SkyLinkAssets
         static let redColor = UIColor(named: "redColor")
         static let blackColor = UIColor(named: "blackColor")
         static let greyColor = UIColor(named: "greyColor")
+        static let lightGreyColor = UIColor(named: "lightGreyColor")
+        static let whiteColor = UIColor(named: "whiteColor")
+      
+       
    
     }
     
@@ -38,9 +42,25 @@ struct SkyLinkAssets
     struct Images
     {
         static let xMark: UIImage? = UIImage(systemName: "xmark")
+        static let skyIcon = UIImage(named: "skyIcon")
+        static let keyIcon = UIImage(named: "keyIcon")
+        static let magnifyGlass: UIImage? = UIImage(systemName: "magnifyingglass")
+        static let globe: UIImage? =  UIImage(systemName: "globe")
+
+       
+      
     }
 }
 
+//MARK: Cells
+extension SkyLinkAssets
+{
+    struct Cell
+    {
+        static let serverViewCellIdentifier = "ServerViewCell"
+        static let individualServerViewCellIdentifier = "IndividualServerCell"
+    }
+}
 extension SkyLinkAssets
 {
     enum AppKeys
@@ -68,40 +88,39 @@ extension SkyLinkAssets
         
         static let noInternetKey = String(localized: "noInternetKey")
         static let noInternetMessageKey = String(localized: "noInternetMessageKey")
-        
-        
-        struct SubscriptionPage
-        {
-            static let continueKey = String(localized: "continueKey")
-            static let termOfUseKey = String(localized: "termOfUseKey")
-            static let privacyPolicyKey = String(localized: "privacyPolicyKey")
-            static let stayAnonymousOnlineKey = String(localized: "stayAnonymousOnlineKey")
-            static let subTitleTextKey = String(localized: "subTitleTextKey")
-            static let restoreKey = String(localized: "restoreKey")
-            static let errorTitleKey = String(localized: "errorTitleKey")
-            static let errorMessageKey = String(localized: "errorMessageKey")
-            static let okKey = String(localized: "okKey")
-            static let noPlanSelectedKey =  String(localized: "noPlanSelectedKey")
-            static let selectPlanKey = String(localized: "selectPlanKey")
-            static let subscriptionActiveKey = String(localized: "subscriptionActiveKey")
-            static let fullAccessKey = String(localized: "fullAccessKey")
-            static let purchaseCancelledKey = String(localized: "purchaseCancelledKey")
-            static let userCanceledMessageKey = String(localized: "userCanceledMessageKey")
-            static let purchasePendingKey = String(localized: "purchasePendingKey")
-            static let purchasePendingMessageKey = String(localized: "purchasePendingMessageKey")
-            static let purchaseFailedKey = String(localized: "purchaseFailedKey")
-            static let purchaseFailedMessageKey = String(localized: "purchaseFailedMessageKey")
-            static let startFreeTrailKey = String(localized: "startFreeTrailKey")
-            static let weekKey = String(localized: "weekKey")
-            static let monthKey = String(localized: "monthsKey")
-            static let yearKey = String(localized: "yearKey")
-            static let thenKey = String(localized: "thenKey")
-            static let subscribeForKey = String(localized: "subscribeForKey")
-            static let noSubscriptionFoundTitleKey = String(localized: "noSubscriptionFoundTitleKey")
-            static let restoreNotFoundMessageKey = String(localized: "restoreNotFoundMessageKey")
+        static let chooseLocationKey = String(localized: "chooseLocationKey")
+        static let continueKey = String(localized: "continueKey")
+        static let termOfUseKey = String(localized: "termOfUseKey")
+        static let privacyPolicyKey = String(localized: "privacyPolicyKey")
+        static let stayAnonymousOnlineKey = String(localized: "stayAnonymousOnlineKey")
+        static let subTitleTextKey = String(localized: "subTitleTextKey")
+        static let restoreKey = String(localized: "restoreKey")
+        static let errorTitleKey = String(localized: "errorTitleKey")
+        static let errorMessageKey = String(localized: "errorMessageKey")
+        static let okKey = String(localized: "okKey")
+        static let noPlanSelectedKey =  String(localized: "noPlanSelectedKey")
+        static let selectPlanKey = String(localized: "selectPlanKey")
+        static let subscriptionActiveKey = String(localized: "subscriptionActiveKey")
+        static let fullAccessKey = String(localized: "fullAccessKey")
+        static let purchaseCancelledKey = String(localized: "purchaseCancelledKey")
+        static let userCanceledMessageKey = String(localized: "userCanceledMessageKey")
+        static let purchasePendingKey = String(localized: "purchasePendingKey")
+        static let purchasePendingMessageKey = String(localized: "purchasePendingMessageKey")
+        static let purchaseFailedKey = String(localized: "purchaseFailedKey")
+        static let purchaseFailedMessageKey = String(localized: "purchaseFailedMessageKey")
+        static let startFreeTrailKey = String(localized: "startFreeTrailKey")
+        static let weekKey = String(localized: "weekKey")
+        static let monthKey = String(localized: "monthsKey")
+        static let yearKey = String(localized: "yearKey")
+        static let thenKey = String(localized: "thenKey")
+        static let subscribeForKey = String(localized: "subscribeForKey")
+        static let noSubscriptionFoundTitleKey = String(localized: "noSubscriptionFoundTitleKey")
+        static let restoreNotFoundMessageKey = String(localized: "restoreNotFoundMessageKey")
+        static let searchLocationKey = String(localized: "searchLocationKey")
+        static let freeLocationKey = String(localized: "freeLocationKey")
+        static let premiumLocationKey = String(localized: "premiumLocationKey")
             
-            
-        }
+       
     }
    
     
@@ -131,7 +150,7 @@ extension SkyLinkAssets
         {
             let alert = UIAlertController(title: title,message: message,preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: SkyLinkAssets.Text.SubscriptionPage.okKey,style: .default)
+            alert.addAction(UIAlertAction(title: SkyLinkAssets.Text.okKey,style: .default)
                 { _ in
                     onDismiss?()
                 })

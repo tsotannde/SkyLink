@@ -5,7 +5,7 @@
 //  Created by Adebayo Sotannde on 11/21/25.
 //
 
-import Foundation
+import UIKit
 
 //MARK: - Direct User Interaction Functons
 extension HomeViewController
@@ -18,6 +18,7 @@ extension HomeViewController
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNDidConnect), name: .vpnConnected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNIsDisconnecting), name: .vpnDisconnecting, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNDidDisconnect), name: .vpnDisconnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showSubscriptionPage), name: .showSubscriptionPage, object: nil)
     }
     
     internal func addTargets()
@@ -47,8 +48,14 @@ extension HomeViewController
             sheet.widthFollowsPreferredContentSizeWhenEdgeAttached = true
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
+        
+       
         present(viewController, animated: true, completion: nil)
     }
+    
+  
+    
+  
     
     @objc internal func powerButtonTapped()
     {
@@ -82,6 +89,10 @@ extension HomeViewController
 //MARK: - VPN State Function
 extension HomeViewController
 {
+    @objc internal func showSubscriptionPage()
+    {
+        NavigationManager.shared.navigate(to: subscribeVC,on: navigationController,clearStack: false, animation: .push(direction: .left))
+    }
     @objc internal func handleVPNDidConnect()
     {
         AppLoggerManager.shared.log("[Home] VPN Connected")

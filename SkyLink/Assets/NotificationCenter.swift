@@ -23,6 +23,7 @@ import Foundation
 extension Notification.Name
 {
     //PowerButton
+    static let showSubscriptionPage = Notification.Name("showSubscriptionPage")
     static let vpnConnected = Notification.Name("vpnConnected")
     static let vpnDisconnected = Notification.Name("vpnDisconnected")
     static let vpnConnecting = Notification.Name("vpnConnecting")

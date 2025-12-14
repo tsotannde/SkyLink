@@ -23,7 +23,7 @@ struct AppDesign
         static let downloadArrow: UIImage? = UIImage(systemName: "arrow.down")
         static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
         static let chevronUp: UIImage? = UIImage(systemName: "chevron.up")
-        static let magnifyGlass: UIImage? = UIImage(systemName: "magnifyingglass")
+       
         static let checkMark: UIImage? = UIImage(systemName: "checkmark")
 //        static let xMark: UIImage? = UIImage(systemName: "xmark")
         static let cellularbars = "cellularbars"
@@ -96,8 +96,8 @@ struct AppDesign
         static let noInternetKey = String(localized: "noInternetKey")
         static let noInternetMessageKey = String(localized: "noInternetMessageKey")
         static let retryKey = String(localized: "retryKey")
-        static let chooseLocationKey = String(localized: "chooseLocationKey")
-        static let searchLocationKey = String(localized: "searchLocationKey")
+       
+        
        
        
         static let restoreKey = String(localized: "restoreKey")
