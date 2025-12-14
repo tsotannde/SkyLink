@@ -14,6 +14,7 @@ extension SubscribeViewController
     internal func getPrices()
     {
         Task {
+            AppLoggerManager.shared.log("[SubscribeVC]: Fetching subscription prices")
             do {
                 let weeklyRaw  = try await SubscriptionManager.shared.price(for: .weekly)
                 let monthlyRaw = try await SubscriptionManager.shared.price(for: .monthly)
@@ -28,151 +29,59 @@ extension SubscribeViewController
 
                 print("pricing: \(pricing)")
 
-                await MainActor.run {
+                await MainActor.run
+                {
                     self.pricing = pricing
+                    AppLoggerManager.shared.log("[SubscribeVC]: Prices applied to UI")
                 }
 
                 AppLoggerManager.shared.log("[SubscribeVC]: Prices loaded successfully \(pricing)")
-            } catch {
-                AppLoggerManager.shared.log(
-                    "[SubscribeVC]: Failed to load subscription prices. Error: \(error)"
-                )
-            }
-        }
-    }
-    
-    
-    
-}
-
-//MARK: - Targets / User Actions
-extension SubscribeViewController
-{
-  internal func addTargets()
-    {
-        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-        continueButton.addTarget(self,action: #selector(continueTapped),   for: .touchUpInside)
-        privacyButton.addTarget(self, action: #selector(openPrivacyPolicy), for: .touchUpInside)
-        termsButton.addTarget(self, action: #selector(openTermsOfUse), for: .touchUpInside)
-        
-    }
-    
-    @objc private func closeButtonTapped()
-    {
-        NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right), animated: true)
-    }
-    
-    @objc private func restoreButtonTapped()
-    {
-        // Placeholder for restore action
-    }
-    
-    @objc private func openPrivacyPolicy()
-    {
-        let site = SkyLinkAssets.URLS.SubscriptionPage.privacyPolicy
-        guard let url = URL(string: site ) else { return }
-
-        let safariVC = SFSafariViewController(url: url)
-        safariVC.preferredControlTintColor = UIColor(named: "primaryTheme")
-        safariVC.modalPresentationStyle = .pageSheet
-
-        present(safariVC, animated: true)
-    }
-
-    @objc private func openTermsOfUse()
-    {
-        let url =  SkyLinkAssets.URLS.SubscriptionPage.termOfUse
-        guard let url = URL(string: url) else { return }
-
-        let safariVC = SFSafariViewController(url: url)
-        safariVC.preferredControlTintColor = UIColor(named: "primaryTheme")
-        safariVC.modalPresentationStyle = .pageSheet
-
-        present(safariVC, animated: true)
-    }
-    
-    @objc private func continueTapped()
-    {
-        guard let tier = selectedTier else {
-            print("No subscription tier selected")
-            return
-        }
-
-        continueButton.isEnabled = false
-
-        Task {
-            let result = await SubscriptionManager.shared.purchase(tier: tier)
-
-            await MainActor.run
+            } catch
             {
-                self.continueButton.isEnabled = true
+                AppLoggerManager.shared.log("[SubscribeVC]: Failed to load prices — \(error)")
 
-                switch result
+                await MainActor.run
                 {
-                case .success:
-                    self.showAlert(title: "Subscription Active",message: "You now have full access to SkyLink VPN.")
+                    let title = SkyLinkAssets.Text.SubscriptionPage.errorTitleKey
+                    let message = SkyLinkAssets.Text.SubscriptionPage.errorMessageKey
+                    SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                     {
                         NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right),animated: true)
-                       
                     }
-
-                case .cancelled:
-                    self.showAlert(title: "Purchase Cancelled",message: "No changes were made.")
-
-                case .pending:
-                    self.showAlert(title: "Purchase Pending",message: "Your purchase is pending approval.")
-
-                case .failed:
-                    self.showAlert(title: "Purchase Pending",message: "Your purchase is pending approval.")
+                   
+                    
                 }
             }
         }
     }
     
-    private func showAlert(title: String,message: String,onDismiss: (() -> Void)? = nil)
-    {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .alert
-        )
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default)
-            { _ in
-                onDismiss?()
-            }
-        )
-
-        present(alert, animated: true)
-    }
-    
-    
-}
-
-//MARK: - Plan Selection
-extension SubscribeViewController
-{
     @objc internal func planTapped(_ gesture: UITapGestureRecognizer)
     {
         guard let tappedPlan = gesture.view as? SubscriptionPlan else { return }
 
         selectedTier = tappedPlan.tier
+        AppLoggerManager.shared.log("[SubscribeVC]: Plan selected — \(tappedPlan.tier)")
 
-        planViews.forEach { plan in
+        planViews.forEach
+        { plan in
             plan.setSelected(plan === tappedPlan)
         }
 
         Task {
+            AppLoggerManager.shared.log("[SubscribeVC]: Checking free-trial eligibility for product \(tappedPlan.tier.productID)")
             // Ask Apple if tier has a free trial
             let hasFreeTrial = await SubscriptionManager.shared.checkProductElegibilityForTrail(productID: tappedPlan.tier.productID)
 
             await MainActor.run
             {
+                AppLoggerManager.shared.log("[SubscribeVC]: Free-trial eligible for selected tier \(tappedPlan.tier): \(hasFreeTrial)")
                 self.isElegibleForFreeTrial = hasFreeTrial
 
-                if hasFreeTrial {
+                if hasFreeTrial
+                {
                     self.showFreeTrial()
-                } else {
+                } else
+                {
                     self.hideFreeTrial()
                 }
             }
@@ -180,29 +89,27 @@ extension SubscribeViewController
             await updateContinueButtonText()
         }
     }
-}
-
-//MARK: - Free Trail Functions
-extension SubscribeViewController
-{
-  
+    
     internal func checkFreeTrialEligibility()
     {
-        Task
-        {
-            
-             isElegibleForFreeTrial = await SubscriptionManager.shared.isEligibleForFreeTrial()
+        Task {
+            AppLoggerManager.shared.log("[SubscribeVC]: Checking global free-trial eligibility")
 
-            await MainActor.run
-            {
-                if isElegibleForFreeTrial == true
-                {
+            let eligible = await SubscriptionManager.shared.isEligibleForFreeTrial()
+
+            await MainActor.run {
+                self.isElegibleForFreeTrial = eligible
+
+                AppLoggerManager.shared.log("[SubscribeVC]: Global free-trial eligibility result: \(eligible)")
+
+                if eligible {
                     self.showFreeTrial()
-                }
-                else
-                {
+                } else {
                     self.hideFreeTrial()
                 }
+
+                // IMPORTANT: update button AFTER eligibility is known
+                Task { await self.updateContinueButtonText() }
             }
         }
     }
@@ -220,6 +127,128 @@ extension SubscribeViewController
     }
 }
 
+//MARK: - Targets / User Actions
+extension SubscribeViewController
+{
+  internal func addTargets()
+    {
+        closeButton.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        restoreButton.addTarget(self, action: #selector(restoreButtonTapped), for: .touchUpInside)
+        continueButton.addTarget(self,action: #selector(continueTapped),   for: .touchUpInside)
+        privacyButton.addTarget(self, action: #selector(openPrivacyPolicy), for: .touchUpInside)
+        termsButton.addTarget(self, action: #selector(openTermsOfUse), for: .touchUpInside)
+        
+    }
+    
+    @objc private func closeButtonTapped()
+    {
+        NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right), animated: true)
+    }
+    
+    @objc private func restoreButtonTapped()
+    {
+        AppLoggerManager.shared.log("[SubscribeVC]: Restore tapped")
+        restoreButton.isEnabled = false
+
+        Task {
+            let restored = await SubscriptionManager.shared.restorePurchases()
+
+            await MainActor.run
+            {
+                restoreButton.isEnabled = true
+
+                if restored {
+                    let title = SkyLinkAssets.Text.SubscriptionPage.subscriptionActiveKey
+                    let message = SkyLinkAssets.Text.SubscriptionPage.fullAccessKey
+
+                    SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+                    {
+                        NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right),animated: true)
+                    }
+                } else
+                {
+                    let title = SkyLinkAssets.Text.SubscriptionPage.noSubscriptionFoundTitleKey
+                    let message = SkyLinkAssets.Text.SubscriptionPage.restoreNotFoundMessageKey
+                    SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+                }
+            }
+        }
+    }
+    
+    @objc private func openPrivacyPolicy()
+    {
+        let site = SkyLinkAssets.URLS.SubscriptionPage.privacyPolicy
+        guard let url = URL(string: site ) else { return }
+
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.preferredControlTintColor = SkyLinkAssets.Colors.Themes.primary
+        safariVC.modalPresentationStyle = .pageSheet
+        present(safariVC, animated: true)
+    }
+
+    @objc private func openTermsOfUse()
+    {
+        let url =  SkyLinkAssets.URLS.SubscriptionPage.termOfUse
+        guard let url = URL(string: url) else { return }
+
+        let safariVC = SFSafariViewController(url: url)
+        safariVC.preferredControlTintColor = SkyLinkAssets.Colors.Themes.primary
+        safariVC.modalPresentationStyle = .pageSheet
+        present(safariVC, animated: true)
+    }
+    
+    @objc private func continueTapped()
+    {
+        guard let tier = selectedTier else
+        {
+            let title = SkyLinkAssets.Text.SubscriptionPage.noPlanSelectedKey
+            let message =  SkyLinkAssets.Text.SubscriptionPage.selectPlanKey
+            SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+            return
+        }
+        AppLoggerManager.shared.log("[SubscribeVC]: Continue tapped for tier \(tier)")
+        continueButton.isEnabled = false //disable the button
+
+        Task {
+            let result = await SubscriptionManager.shared.purchase(tier: tier)
+
+            await MainActor.run
+            {
+                self.continueButton.isEnabled = true
+
+                switch result
+                {
+                case .success:
+                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase success for tier \(tier)")
+                    let title = SkyLinkAssets.Text.SubscriptionPage.subscriptionActiveKey
+                    let message =  SkyLinkAssets.Text.SubscriptionPage.fullAccessKey
+                    SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+                    {
+                        NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right),animated: true)
+                    }
+                case .cancelled:
+                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase cancelled by user for tier \(tier)")
+                    let title = SkyLinkAssets.Text.SubscriptionPage.purchaseCancelledKey
+                    let message = SkyLinkAssets.Text.SubscriptionPage.userCanceledMessageKey
+                    SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+                case .pending:
+                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase pending for tier \(tier)")
+                    let title = SkyLinkAssets.Text.SubscriptionPage.purchasePendingKey
+                    let message = SkyLinkAssets.Text.SubscriptionPage.purchasePendingMessageKey
+                    SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+                case .failed:
+                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase failed for tier \(tier)")
+                    let title = SkyLinkAssets.Text.SubscriptionPage.purchaseFailedKey
+                    let message = SkyLinkAssets.Text.SubscriptionPage.purchaseFailedMessageKey
+                    SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+                }
+            }
+        }
+    }
+}
+
+
+
 //MARK: - Continue Button
 extension SubscribeViewController
 {
@@ -233,6 +262,7 @@ extension SubscribeViewController
     internal func updateContinueButtonText() async
     {
         guard let tier = selectedTier else { return }
+        AppLoggerManager.shared.log("[SubscribeVC]: Updating Continue button for tier \(tier), freeTrialEligible=\(isElegibleForFreeTrial ?? false)")
      
         let elegibility = isElegibleForFreeTrial ?? false
         
@@ -244,16 +274,16 @@ extension SubscribeViewController
         config?.attributedTitle = AttributedString(
             text.title,
             attributes: AttributeContainer([
-                .font: UIFont.systemFont(ofSize: 18, weight: .semibold)
+                .font: SkyLinkAssets.Fonts.semiBold(ofSize: 16)
             ])
         )
 
-        // Subtitle THIS WAS MISSING
+        // Subtitle
         config?.attributedSubtitle = AttributedString(
             text.subtitle,
             attributes: AttributeContainer([
-                .font: UIFont.systemFont(ofSize: 13, weight: .regular),
-                .foregroundColor: UIColor(named: "secondaryTextColor") ?? .gray
+                .font: SkyLinkAssets.Fonts.regular(ofSize: 13),
+                .foregroundColor: SkyLinkAssets.Colors.greyColor ?? .gray
             ])
         )
 
@@ -265,8 +295,6 @@ extension SubscribeViewController
         continueButton.configuration = config
     }
    
-    
-
     func continueButtonText(tier: SubscriptionTier,pricing: SubscriptionPricing,isEligibleForFreeTrial: Bool) -> ContinueButtonText
     {
 
@@ -276,36 +304,35 @@ extension SubscribeViewController
         switch tier {
 
         case .weekly:
-            //NO free trial for weekly 
-            return ContinueButtonText(
-                title: "Continue",
-                subtitle: "Subscribe for \(formattedPrice) / week"
-            )
+            //NO free trial for weekly
+            let title = SkyLinkAssets.Text.SubscriptionPage.continueKey
+            let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.weekKey)"
+            return ContinueButtonText(title: title ,subtitle: subTitle)
 
         case .monthly:
-            if isEligibleForFreeTrial {
-                return ContinueButtonText(
-                    title: "Start Free Trial",
-                    subtitle: "Then \(formattedPrice) / month"
-                )
-            } else {
-                return ContinueButtonText(
-                    title: "Continue",
-                    subtitle: "Subscribe for \(formattedPrice) / month"
-                )
+            if isEligibleForFreeTrial
+            {
+                let title = SkyLinkAssets.Text.SubscriptionPage.startFreeTrailKey
+                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.thenKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.monthKey)"
+                return ContinueButtonText(title: title ,subtitle: subTitle)
+            } else
+            {
+                let title = SkyLinkAssets.Text.SubscriptionPage.continueKey
+                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.monthKey)"
+                return ContinueButtonText(title: title,subtitle: subTitle)
             }
 
         case .yearly:
-            if isEligibleForFreeTrial {
-                return ContinueButtonText(
-                    title: "Start Free Trial",
-                    subtitle: "Then \(formattedPrice) / year"
-                )
-            } else {
-                return ContinueButtonText(
-                    title: "Continue",
-                    subtitle: "Subscribe for \(formattedPrice) / year"
-                )
+            if isEligibleForFreeTrial
+            {
+                let title = SkyLinkAssets.Text.SubscriptionPage.startFreeTrailKey
+                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.thenKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.yearKey)"
+                return ContinueButtonText(title: title ,subtitle: subTitle)
+            } else
+            {
+                let title = SkyLinkAssets.Text.SubscriptionPage.continueKey
+                let subTitle = "\(SkyLinkAssets.Text.SubscriptionPage.subscribeForKey) \(formattedPrice) / \(SkyLinkAssets.Text.SubscriptionPage.yearKey)"
+                return ContinueButtonText(title: title,subtitle: subTitle)
             }
         }
     }

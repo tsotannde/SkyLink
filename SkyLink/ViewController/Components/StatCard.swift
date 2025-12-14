@@ -225,7 +225,7 @@ extension StatCard
             Task {
                 let isConnected = await VPNManager.shared.isConnectedToVPN()
 
-                let defaults = UserDefaults(suiteName: AppDesign.AppKeys.UserDefaults.suiteName)
+                let defaults = UserDefaults(suiteName: SkyLinkAssets.AppKeys.UserDefaults.suiteName)
                 let speedValue = defaults?.double(forKey: key) ?? 0.0
 
                 print("[StatCard] Timer fired → connected: \(isConnected), key: \(key), value: \(speedValue)")

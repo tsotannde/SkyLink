@@ -93,9 +93,11 @@ extension HomeViewController
     
     @objc internal func handleVPNDidDisconnect()
     {
+        print("Recived a disconnect notifivation from the VPN Manager")
         AppLoggerManager.shared.log("[Home] VPN Disconnected")
         DispatchQueue.main.async
         {
+            print("I am in the que lets see if i push this update ")
             self.powerButtonView.setState(.disconnected)
         }
     }

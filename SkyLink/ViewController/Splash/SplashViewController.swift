@@ -48,14 +48,14 @@ extension SplashViewController
 {
     private func startAppFlow() async
     {
-        validateInitialVPNState()
-        
         //Internt Reqired for First Launch
         guard InternetManager.shared.checkConnectionAndAlertIfNeeded() else
         {
             showNoInternetAlert()
             return
         }
+        
+        validateInitialVPNState()
         
         AppLoggerManager.shared.log("[SplashScreen] Internet connection validated")
         do
@@ -74,18 +74,11 @@ extension SplashViewController
         }
     }
     
-    
-    /// Validates and updates the initial VPN connection state.
-    ///
-    /// This function asynchronously checks whether the device is currently connected to a VPN using `VPNManager`.
-    /// It then updates the saved VPN connection state in `UserDefaults` under a specific key, ensuring that the
-    /// app's state tracker reflects the accurate current VPN connection status.
-    /// The validation result is printed to the console for debugging purposes.
+
     private func validateInitialVPNState()
     {
         //used to set the inital state of the homeViewController button and connection state
         AppLoggerManager.shared.log("[SplashScreen] Validating initial VPN state")
-       
         
         Task
         {
@@ -95,8 +88,8 @@ extension SplashViewController
             DispatchQueue.main.async
             {
                 // Save corrected state and sync state tracker
-                AppLoggerManager.shared.log("[SplashScreen] Saving State\(isActuallyConnected) with Key: \(AppDesign.AppKeys.UserDefaults.lastConnectionState.description)")
-                UserDefaults.standard.set(isActuallyConnected, forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
+                AppLoggerManager.shared.log("[SplashScreen] Saving State\(isActuallyConnected) with Key: \(SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState.description)")
+                UserDefaults.standard.set(isActuallyConnected, forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
             }
         }
     }
@@ -104,22 +97,20 @@ extension SplashViewController
     private func showNoInternetAlert()
     {
         AppLoggerManager.shared.log("[SplashScreen] No Internet Detected")
-        let noInternetKey = String(localized: "noInternetKey")
-        let noInternetMessageKey = String(localized: "noInternetMessageKey")
-        let retryKey = String(localized: "retryKey")
         
-        let alert = UIAlertController(title: noInternetKey,message: noInternetMessageKey,preferredStyle: .alert)
-        let retryAction = UIAlertAction(title: retryKey, style: .default)
-        { _ in
-            AppLoggerManager.shared.log("[SplashScreen] User Tapped Retry. Rechecking Internt Connection")
+        let title = SkyLinkAssets.Text.noInternetKey
+        let message = SkyLinkAssets.Text.noInternetMessageKey
+      
+        SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+        {
+            AppLoggerManager.shared.log("[SplashScreen] User Tapped Retry. Rechecking Internet Connection")
+
             Task
             {
                 await self.startAppFlow()
             }
         }
-        
-        alert.addAction(retryAction)
-        present(alert, animated: true)
+
     }
     
     private func NaviagateHome()

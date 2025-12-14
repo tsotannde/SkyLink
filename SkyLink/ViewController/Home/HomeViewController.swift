@@ -38,7 +38,7 @@ class HomeViewController: UIViewController
         startTimer()
         monitorNotifications() //Used to upadte the powerbutton state
         
-        subscribeVC.getPrices()
+      
        
     }
     
@@ -87,7 +87,7 @@ extension HomeViewController
                 if self.currentConnectionState != connectionStatus
                 {
                     self.currentConnectionState = connectionStatus
-                    UserDefaults.standard.set(connectionStatus, forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
+                    UserDefaults.standard.set(connectionStatus, forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
                    
                     
                    // self.connectionStatusView.setStatus()

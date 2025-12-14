@@ -218,7 +218,7 @@ extension HomeViewController
         powerButtonView.isUserInteractionEnabled = true
 
         // Restore last known connection state or check current VPN status
-        let wasConnected = UserDefaults.standard.bool(forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
+        let wasConnected = UserDefaults.standard.bool(forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
         powerButtonView.setState(wasConnected ? .connected : .disconnected)
         
         NSLayoutConstraint.activate([

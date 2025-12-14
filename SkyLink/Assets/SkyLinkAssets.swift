@@ -41,11 +41,35 @@ struct SkyLinkAssets
     }
 }
 
+extension SkyLinkAssets
+{
+    enum AppKeys
+    {
+        enum UserDefaults
+        {
+            static let suiteName = AppDesign.Configuration.groupName
+            static let downloadSpeed = "downloadSpeed"
+            static let uploadSpeed = "uploadSpeed"
+            static let lastConnectionState = "lastConnectionState"
+            static let lastConnectedDate = "lastConnectedDate"
+            static let vpnState = "vpnState"
+            static let currentServer = "currentServer"
+            static let cachedServerJSON = "cachedServerJSON"
+            
+            
+        }
+    }
+}
 //MARK: - Text
 extension SkyLinkAssets
 {
     struct Text
     {
+        
+        static let noInternetKey = String(localized: "noInternetKey")
+        static let noInternetMessageKey = String(localized: "noInternetMessageKey")
+        
+        
         struct SubscriptionPage
         {
             static let continueKey = String(localized: "continueKey")
@@ -54,8 +78,29 @@ extension SkyLinkAssets
             static let stayAnonymousOnlineKey = String(localized: "stayAnonymousOnlineKey")
             static let subTitleTextKey = String(localized: "subTitleTextKey")
             static let restoreKey = String(localized: "restoreKey")
+            static let errorTitleKey = String(localized: "errorTitleKey")
+            static let errorMessageKey = String(localized: "errorMessageKey")
+            static let okKey = String(localized: "okKey")
+            static let noPlanSelectedKey =  String(localized: "noPlanSelectedKey")
+            static let selectPlanKey = String(localized: "selectPlanKey")
+            static let subscriptionActiveKey = String(localized: "subscriptionActiveKey")
+            static let fullAccessKey = String(localized: "fullAccessKey")
+            static let purchaseCancelledKey = String(localized: "purchaseCancelledKey")
+            static let userCanceledMessageKey = String(localized: "userCanceledMessageKey")
+            static let purchasePendingKey = String(localized: "purchasePendingKey")
+            static let purchasePendingMessageKey = String(localized: "purchasePendingMessageKey")
+            static let purchaseFailedKey = String(localized: "purchaseFailedKey")
+            static let purchaseFailedMessageKey = String(localized: "purchaseFailedMessageKey")
+            static let startFreeTrailKey = String(localized: "startFreeTrailKey")
+            static let weekKey = String(localized: "weekKey")
+            static let monthKey = String(localized: "monthsKey")
+            static let yearKey = String(localized: "yearKey")
+            static let thenKey = String(localized: "thenKey")
+            static let subscribeForKey = String(localized: "subscribeForKey")
+            static let noSubscriptionFoundTitleKey = String(localized: "noSubscriptionFoundTitleKey")
+            static let restoreNotFoundMessageKey = String(localized: "restoreNotFoundMessageKey")
             
-        
+            
         }
     }
    
@@ -76,6 +121,25 @@ extension SkyLinkAssets
     }
    
     
+}
+
+extension SkyLinkAssets
+{
+    struct Alerts
+    {
+        static func showAlert(from viewController: UIViewController,title: String,message: String,onDismiss: (() -> Void)? = nil)
+        {
+            let alert = UIAlertController(title: title,message: message,preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: SkyLinkAssets.Text.SubscriptionPage.okKey,style: .default)
+                { _ in
+                    onDismiss?()
+                })
+
+            viewController.present(alert, animated: true)
+        }
+    }
+   
 }
 
 //MARK: - FONTS

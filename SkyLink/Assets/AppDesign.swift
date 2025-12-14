@@ -15,24 +15,7 @@ struct AppDesign
         //static let groupName: String = "group.com.skylink"
         static let groupName: String = "group.com.adebayosotannde.SkyLink"
     }
-    
-    enum AppKeys
-    {
-        enum UserDefaults
-        {
-            static let suiteName = AppDesign.Configuration.groupName
-           // static let isConnected = "isConnected"
-            static let downloadSpeed = "downloadSpeed"
-            static let uploadSpeed = "uploadSpeed"
-            static let lastConnectionState = "lastConnectionState"
-            static let lastConnectedDate = "lastConnectedDate"
-            static let vpnState = "vpnState"
-            static let currentServer = "currentServer"
-            static let cachedServerJSON = "cachedServerJSON"
-            
-            
-        }
-    }
+
     struct Images
     {
         static let grid: UIImage? = UIImage(systemName: "square.grid.2x2")

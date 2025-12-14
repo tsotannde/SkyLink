@@ -288,14 +288,28 @@ extension PowerButtonView
         self.layer.add(scaleAnimation, forKey: "connectingScalePulse")
     }
    
-    private func disconnectedAnimation()
-    {
-       
-        // Base colors for both circles
+    
+    private func disconnectedAnimation() {
+
+        // 1. CLEAN UP ANY PREVIOUS STATE
+        middleCircle.layer.sublayers?.removeAll { $0.name == "spinnerLayer" }
+        layer.removeAnimation(forKey: "connectingScalePulse")
+        layer.removeAllAnimations()
+        outerCircle.layer.removeAllAnimations()
+        innerCircle.layer.removeAllAnimations()
+
+        // Reset transform & alpha
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        self.transform = .identity
+        self.alpha = 1.0
+        middleCircle.backgroundColor = AppDesign.ColorScheme.Styling.Background.surface
+        CATransaction.commit()
+
+        // 2. APPLY DISCONNECTED LOOK
         outerCircle.backgroundColor = UIColor.systemRed.withAlphaComponent(0.9)
         innerCircle.backgroundColor = UIColor.systemRed.withAlphaComponent(0.9)
-        
-        // Create a shared color pulse animation
+
         let colorPulse = CABasicAnimation(keyPath: "backgroundColor")
         colorPulse.fromValue = UIColor.systemRed.withAlphaComponent(0.9).cgColor
         colorPulse.toValue = UIColor.systemRed.withAlphaComponent(0.4).cgColor
@@ -303,8 +317,7 @@ extension PowerButtonView
         colorPulse.autoreverses = true
         colorPulse.repeatCount = .infinity
         colorPulse.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        
-        // Add the animation to both layers
+
         outerCircle.layer.add(colorPulse, forKey: "disconnectedPulseOuter")
         innerCircle.layer.add(colorPulse, forKey: "disconnectedPulseInner")
     }

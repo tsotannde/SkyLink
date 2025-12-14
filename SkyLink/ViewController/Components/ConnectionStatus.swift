@@ -39,7 +39,7 @@ extension ConnectionStatusView
     private func setupView()
     {
         //Get the last connection State ie true / false
-        let isConnected = UserDefaults.standard.bool(forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
+        let isConnected = UserDefaults.standard.bool(forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
         //sets the connection state Text based on the key returned
         statusLabel.text = isConnected ? AppDesign.Text.connectedKey : AppDesign.Text.disconnectedKey
 
@@ -94,12 +94,12 @@ extension ConnectionStatusView
     private func getCurrentTimerTextSync() -> String
     {
        
-        let isConnected = UserDefaults.standard.bool(forKey: AppDesign.AppKeys.UserDefaults.lastConnectionState)
+        let isConnected = UserDefaults.standard.bool(forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
 
         guard isConnected else { return "00:00:00" }
 
         guard let savedStart = UserDefaults.standard.object(
-            forKey: AppDesign.AppKeys.UserDefaults.lastConnectedDate
+            forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectedDate
         ) as? Date else {
             return "00:00:00"
         }
@@ -121,13 +121,13 @@ extension ConnectionStatusView
 
     // Restore saved timestamp if exists, else create one
     if let saved = UserDefaults.standard.object(
-        forKey: AppDesign.AppKeys.UserDefaults.lastConnectedDate
+        forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectedDate
     ) as? Date {
         startTime = saved
     } else {
         let now = Date()
         startTime = now
-        UserDefaults.standard.set(now, forKey: AppDesign.AppKeys.UserDefaults.lastConnectedDate)
+        UserDefaults.standard.set(now, forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectedDate)
     }
 
     // Reset existing timer
@@ -154,7 +154,7 @@ extension ConnectionStatusView
         timer?.invalidate()
         timer = nil
         startTime = nil
-        UserDefaults.standard.removeObject(forKey: AppDesign.AppKeys.UserDefaults.lastConnectedDate)
+        UserDefaults.standard.removeObject(forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectedDate)
         timerLabel.text = "00:00:00"
     }
     

@@ -89,6 +89,7 @@ extension SubscriptionManager
 {
     func isEligibleForFreeTrial() async -> Bool
     {
+      
         do {
             let products = try await Product.products(for: productIDs)
             
@@ -130,6 +131,7 @@ extension SubscriptionManager
    //Checks Product (passed as a string) Eleigibity for a free trail. Returns true or false
     func checkProductElegibilityForTrail(productID: String) async -> Bool
     {
+  
         do {
             AppLoggerManager.shared.log("[SubscriptionManager]: " + "Checking product \(productID) eligibility for trial")
             let products = try await Product.products(for: [productID])
@@ -180,4 +182,14 @@ extension SubscriptionManager
 
         return NSDecimalNumber(decimal: product.price).doubleValue
     }
+}
+
+//MARK: - Restore Purchases
+extension SubscriptionManager
+{
+    func restorePurchases() async -> Bool
+        {
+            AppLoggerManager.shared.log("[SubscriptionManager]: restorePurchases called (stub)")
+            return false // TODO: implement StoreKit restore
+        }
 }

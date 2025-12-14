@@ -31,14 +31,14 @@ extension ConfigurationManager
         
         let (data, _) = try await URLSession.shared.data(from: url)
         AppLoggerManager.shared.log("Fetched raw JSON data")
-        UserDefaults.standard.set(data, forKey: AppDesign.AppKeys.UserDefaults.cachedServerJSON)
+        UserDefaults.standard.set(data, forKey: SkyLinkAssets.AppKeys.UserDefaults.cachedServerJSON)
     }
     
     func loadCachedServers() async throws
     {
         AppLoggerManager.shared.log("[ConfigManager] Retrieving cached server JSON")
 
-        guard let data = UserDefaults.standard.data(forKey: AppDesign.AppKeys.UserDefaults.cachedServerJSON) else
+        guard let data = UserDefaults.standard.data(forKey: SkyLinkAssets.AppKeys.UserDefaults.cachedServerJSON) else
         {
             AppLoggerManager.shared.log("[ConfigurationManager] No cached server JSON found")
             throw URLError(.fileDoesNotExist)
@@ -137,7 +137,7 @@ extension ConfigurationManager
     {
         if let data = try? JSONEncoder().encode(server)
         {
-            UserDefaults.standard.set(data, forKey: AppDesign.AppKeys.UserDefaults.currentServer)
+            UserDefaults.standard.set(data, forKey: SkyLinkAssets.AppKeys.UserDefaults.currentServer)
             AppLoggerManager.shared.log("Saved selected server: \(server.name)")
             NotificationCenter.default.post(name: .serverDidUpdate, object: server) //post notification for other classes to respond accordingly
             
