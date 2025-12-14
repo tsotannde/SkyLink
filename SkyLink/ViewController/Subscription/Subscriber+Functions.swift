@@ -152,7 +152,7 @@ extension SubscribeViewController
 //MARK: - Plan Selection
 extension SubscribeViewController
 {
-    @objc internal  func planTapped(_ gesture: UITapGestureRecognizer)
+    @objc internal func planTapped(_ gesture: UITapGestureRecognizer)
     {
         guard let tappedPlan = gesture.view as? SubscriptionPlan else { return }
 
@@ -162,8 +162,21 @@ extension SubscribeViewController
             plan.setSelected(plan === tappedPlan)
         }
 
-        Task
-        {
+        Task {
+            // Ask Apple if tier has a free trial
+            let hasFreeTrial = await SubscriptionManager.shared.checkProductElegibilityForTrail(productID: tappedPlan.tier.productID)
+
+            await MainActor.run
+            {
+                self.isElegibleForFreeTrial = hasFreeTrial
+
+                if hasFreeTrial {
+                    self.showFreeTrial()
+                } else {
+                    self.hideFreeTrial()
+                }
+            }
+
             await updateContinueButtonText()
         }
     }
