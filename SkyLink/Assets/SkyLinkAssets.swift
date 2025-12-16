@@ -34,6 +34,11 @@ struct SkyLinkAssets
         static let greyColor = UIColor(named: "greyColor")
         static let lightGreyColor = UIColor(named: "lightGreyColor")
         static let whiteColor = UIColor(named: "whiteColor")
+        static let purpleColor = UIColor(named: "purpleColor")
+        static let borderColor = UIColor(named: "borderColor")
+        static let greenColor = UIColor(named: "greenColor")
+       
+        
       
        
    
@@ -54,6 +59,9 @@ struct SkyLinkAssets
         static let crown: UIImage? = UIImage(named: "crown")
         static let grid: UIImage? = UIImage(systemName: "square.grid.2x2")
         static let checkMarkSeal = UIImage(systemName: "checkmark.seal.fill")
+        static let checkMark: UIImage? = UIImage(systemName: "checkmark")
+        static let downloadArrow: UIImage? = UIImage(systemName: "arrow.down")
+        static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
 
         
        
@@ -138,6 +146,7 @@ extension SkyLinkAssets
         static let speedUnit = String(localized: "speedUnitKey")
         static let disconnectedKey = String(localized: "disconnectedKey")
         static let subscribedKey = String(localized: "subscribedKey")
+        static let saveKey = String(localized: "saveKey")
         
         
         

@@ -51,7 +51,7 @@ extension SubscriptionPlan
 {
     private func stylePlanView()
     {
-        backgroundColor = UIColor(named: "whiteColor")
+        backgroundColor = SkyLinkAssets.Colors.whiteColor
         layer.cornerRadius = 20
         layer.masksToBounds = false // allows the save x% to flow outside the view
         
@@ -87,7 +87,7 @@ extension SubscriptionPlan
         discountBadge.text = discount
         discountBadge.font = SkyLinkAssets.Fonts.semiBold(ofSize: 12)
         discountBadge.textColor = .white
-        discountBadge.backgroundColor = UIColor(named: "purpleColor")
+        discountBadge.backgroundColor = SkyLinkAssets.Colors.purpleColor
         discountBadge.textAlignment = .center
         discountBadge.layer.cornerRadius = 10
         discountBadge.clipsToBounds = true
@@ -107,7 +107,7 @@ extension SubscriptionPlan
     {
         titleLabel.text = tier.title
         titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 18)
-        titleLabel.textColor = UIColor(named: "blackColor")
+        titleLabel.textColor = SkyLinkAssets.Colors.blackColor
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleLabel)
 
@@ -117,7 +117,7 @@ extension SubscriptionPlan
     
     private func addSeparatorLine() {
         let line = UIView()
-        line.backgroundColor = UIColor(named: "softWhite")
+        line.backgroundColor = SkyLinkAssets.Colors.softWhite
         line.translatesAutoresizingMaskIntoConstraints = false
         addSubview(line)
 
@@ -132,7 +132,7 @@ extension SubscriptionPlan
     private func addPriceText() {
         priceLabel.text = String(format: "$%.2f", price)
         priceLabel.font = SkyLinkAssets.Fonts.regular(ofSize: 16)
-        priceLabel.textColor = UIColor(named: "blackColor")
+        priceLabel.textColor = SkyLinkAssets.Colors.blackColor
         priceLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(priceLabel)
 
@@ -145,10 +145,10 @@ extension SubscriptionPlan
     private func createCheckMarkView()->UIImageView
     {
         let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
-        let image = AppDesign.Images.checkMark?.withConfiguration(config)
+        let image = SkyLinkAssets.Images.checkMark?.withConfiguration(config)
     
         let iv = UIImageView(image: image)
-        iv.tintColor = .white
+        iv.tintColor = SkyLinkAssets.Colors.whiteColor
         iv.alpha = 0
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -160,7 +160,7 @@ extension SubscriptionPlan
 
         selectionCircle.layer.cornerRadius = circleSize / 2
         selectionCircle.layer.borderWidth = 1
-        selectionCircle.layer.borderColor = UIColor(named: "blackColor")?.cgColor
+        selectionCircle.layer.borderColor = SkyLinkAssets.Colors.blackColor?.cgColor
         //UIColor(white: 0.85, alpha: 1).cgColor
         selectionCircle.backgroundColor = .clear
         selectionCircle.translatesAutoresizingMaskIntoConstraints = false
@@ -175,8 +175,8 @@ extension SubscriptionPlan
 
         //Configure checkmarkImageView (the SAME instance you toggle)
         let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold)
-        checkmarkImageView.image = UIImage(systemName: "checkmark", withConfiguration: config)
-        checkmarkImageView.tintColor = .white
+        checkmarkImageView.image = SkyLinkAssets.Images.checkMark
+        checkmarkImageView.tintColor = SkyLinkAssets.Colors.whiteColor
         checkmarkImageView.alpha = 0
         checkmarkImageView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
         checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -204,16 +204,19 @@ extension SubscriptionPlan
 {
     func calculatedDiscountText() -> String?
     {
-        switch tier {
+        switch tier
+        {
         case .monthly:
             let weeklyTotal = pricing.weekly * 4
             let savings = 1 - (pricing.monthly / weeklyTotal)
-            return "SAVE \(Int(savings * 100))%"
+            let saveText = SkyLinkAssets.Text.saveKey.uppercased()
+            return "\(saveText) \(Int(savings * 100))%"
             
         case .yearly:
             let monthlyTotal = pricing.monthly * 12
             let savings = 1 - (pricing.yearly / monthlyTotal)
-            return "SAVE \(Int(savings * 100))%"
+            let saveText = SkyLinkAssets.Text.saveKey.uppercased()
+            return "\(saveText) \(Int(savings * 100))%"
             
         default:
             return nil
@@ -226,7 +229,7 @@ extension SubscriptionPlan
         if selected {
             // Visual state
             layer.borderWidth = 3
-            layer.borderColor = UIColor(named: "purpleColor")?.cgColor
+            layer.borderColor = SkyLinkAssets.Colors.purpleColor?.cgColor
             selectionOverlay.alpha = 1
 
             selectionCircle.backgroundColor = .systemBlue
@@ -247,9 +250,10 @@ extension SubscriptionPlan
                 self.checkmarkImageView.transform = .identity
             }
 
-        } else {
+        } else
+        {
             layer.borderWidth = 1
-            layer.borderColor = UIColor(named: "borderColor")?.cgColor
+            layer.borderColor = SkyLinkAssets.Colors.borderColor?.cgColor
             selectionOverlay.alpha = 0
 
             selectionCircle.backgroundColor = .clear
@@ -263,49 +267,3 @@ extension SubscriptionPlan
     }
 }
 
-enum SubscriptionTier
-{
-    case weekly
-    case monthly
-    case yearly
-
-    var title: String {
-        switch self {
-        case .weekly: return "Weekly"
-        case .monthly: return "Monthly"
-        case .yearly: return "Yearly"
-        }
-    }
-
-    var productID: String
-    {
-        switch self
-        {
-        case .weekly: return "com.skylink.weekly"
-        case .monthly: return "com.skylink.monthly"
-        case .yearly: return "com.skylink.yearly"
-        }
-    }
-}
-
-
-
-struct SubscriptionPricing
-{
-    let weekly: Double
-    let monthly: Double
-    let yearly: Double
-}
-
-extension SubscriptionPricing {
-    func price(for tier: SubscriptionTier) -> Double {
-        switch tier {
-        case .weekly:
-            return weekly
-        case .monthly:
-            return monthly
-        case .yearly:
-            return yearly
-        }
-    }
-}

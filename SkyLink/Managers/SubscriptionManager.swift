@@ -202,3 +202,54 @@ extension SubscriptionManager
             return false // TODO: implement StoreKit restore
         }
 }
+
+
+
+enum SubscriptionTier
+{
+    case weekly
+    case monthly
+    case yearly
+
+    var title: String {
+        switch self {
+        case .weekly: return "Weekly"
+        case .monthly: return "Monthly"
+        case .yearly: return "Yearly"
+        }
+    }
+
+    var productID: String
+    {
+        switch self
+        {
+        case .weekly: return "com.skylink.weekly"
+        case .monthly: return "com.skylink.monthly"
+        case .yearly: return "com.skylink.yearly"
+        }
+    }
+}
+
+
+
+struct SubscriptionPricing
+{
+    let weekly: Double
+    let monthly: Double
+    let yearly: Double
+}
+
+extension SubscriptionPricing
+{
+    func price(for tier: SubscriptionTier) -> Double
+    {
+        switch tier {
+        case .weekly:
+            return weekly
+        case .monthly:
+            return monthly
+        case .yearly:
+            return yearly
+        }
+    }
+}

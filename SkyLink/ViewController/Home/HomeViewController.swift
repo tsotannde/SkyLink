@@ -33,6 +33,8 @@ class HomeViewController: UIViewController
         hideNavigationBar()
         setBackgroundColor()
         constructUserInterface()
+        
+        updatePremiumButon()
         startTimer()
         monitorNotifications() //Used to upadte the powerbutton state and other functions
     }

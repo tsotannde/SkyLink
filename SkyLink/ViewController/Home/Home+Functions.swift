@@ -162,7 +162,7 @@ extension HomeViewController
     
     @objc internal func subscriptionStatusUpdated ()
     {
-        
+        updatePremiumButon()
     }
 }
 
@@ -171,6 +171,14 @@ extension HomeViewController
 {
     internal  func updatePremiumButon()
     {
+        //Remove Exsiting targets to avoid stacking
+        notSubscribedButton.removeTarget(nil, action: nil, for: .touchUpInside)
+        subscribedButton.removeTarget(nil, action: nil, for: .touchUpInside)
+        
+        //add or re-add target
+        notSubscribedButton.addTarget(self,action: #selector(premiumButtonTapped),for: .touchUpInside)
+        subscribedButton.addTarget(self,action: #selector(premiumButtonTapped),for: .touchUpInside)
+        
         if SubscriptionManager.shared.isSubscribed()
         {
             notSubscribedButton.isHidden = true

@@ -69,15 +69,16 @@ extension HomeViewController
         
         // Rounded Rectanger
         button.translatesAutoresizingMaskIntoConstraints = false
+   
 
+        
         
         return button
     }
     
     static func createSubscribedButtons()-> UIButton
     {
-        
-        
+
             let button = UIButton(type: .system)
             
             // Text setup
@@ -100,12 +101,14 @@ extension HomeViewController
             button.layer.shadowOffset = CGSize(width: 0, height: 4)
             
             // Add image to left side of text
-            let icon = SkyLinkAssets.Images.checkMarkSeal?.withRenderingMode(.alwaysOriginal)
+            let icon = SkyLinkAssets.Images.checkMarkSeal?
+                .withRenderingMode(.alwaysTemplate)
             button.setImage(icon, for: .normal)
-            button.tintColor = SkyLinkAssets.Colors.Tint.darkGreyTint
+        button.tintColor = SkyLinkAssets.Colors.blackColor
             
             // Rounded Rectanger
             button.translatesAutoresizingMaskIntoConstraints = false
+          
 
             
             return button
@@ -153,6 +156,7 @@ extension HomeViewController
     
     private func addTopBar()
     {
+        
         view.addSubview(gridButton)
         view.addSubview(notSubscribedButton)
         view.addSubview(subscribedButton)
@@ -185,9 +189,9 @@ extension HomeViewController
             subscribedButton.widthAnchor.constraint(equalToConstant: 174),
         ])
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(premiumButtonTapped))
-        notSubscribedButton.addGestureRecognizer(tapGesture)
-        subscribedButton.addGestureRecognizer(tapGesture)
+        
+       
+      
     }
     
     private func addStatsSection()

@@ -31,6 +31,12 @@ struct StatCardData
     let connectionState: ConnectionState
 }
 
+enum StatType
+{
+    case download
+    case upload
+}
+
 //MARK: - StatCard
 class StatCard: UIView
 {
@@ -38,24 +44,25 @@ class StatCard: UIView
     private let valueLabel = UILabel()
     private let unitLabel = UILabel()
     private let icon = UIImageView()
-    
+
     private var refreshTimer: Timer?
+    private let statType: StatType
     
     init(title: String, unit: String)
     {
         super.init(frame: .zero)
         self.registerNotifications() //Register Notifications
         
-        backgroundColor = AppDesign.ColorScheme.Styling.Background.surface
+        backgroundColor = SkyLinkAssets.Colors.whiteColor
         layer.cornerRadius = 15
-        layer.shadowColor = AppDesign.ColorScheme.Styling.Shadow.standard.cgColor
+        layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor
         layer.shadowOpacity = 0.05
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 4
         
         // Create icon container
         let iconContainer = UIView()
-        iconContainer.backgroundColor = UIColor(named: "primaryTheme")
+        iconContainer.backgroundColor = SkyLinkAssets.Colors.Themes.primary
         iconContainer.layer.cornerRadius = 6
         iconContainer.clipsToBounds = true
         iconContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -66,21 +73,21 @@ class StatCard: UIView
         // Title label
         titleLabel.text = title
         titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 14)
-        titleLabel.textColor = UIColor(named: "greyColor")
+        titleLabel.textColor = SkyLinkAssets.Colors.blackColor
         
         // Configure icon
         icon.image = resolveImage()
-        icon.tintColor = UIColor(named: "whiteColor")
+        icon.tintColor = SkyLinkAssets.Colors.whiteColor
         
         // Value label
         valueLabel.text = "0.00"
         valueLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 24)
-        valueLabel.textColor = UIColor(named: "blackColor")
+        valueLabel.textColor = SkyLinkAssets.Colors.blackColor
         
         // Unit label
         unitLabel.text = unit
         unitLabel.font = SkyLinkAssets.Fonts.regular(ofSize: 12)
-        unitLabel.textColor = UIColor(named: "greyColor")
+        unitLabel.textColor = SkyLinkAssets.Colors.greyColor
         
         // Layout
         let valueStack = UIStackView(arrangedSubviews: [valueLabel, unitLabel])
@@ -205,9 +212,9 @@ extension StatCard
         switch titleLabel.text
         {
         case SkyLinkAssets.Text.downloadKey:
-            return AppDesign.Images.downloadArrow ?? UIImage(systemName: "arrow.down")!
+            return SkyLinkAssets.Images.downloadArrow ?? UIImage(systemName: "arrow.down")!
         case SkyLinkAssets.Text.uploadKey:
-            return AppDesign.Images.uploadArrow ?? UIImage(systemName: "arrow.up")!
+            return SkyLinkAssets.Images.uploadArrow ?? UIImage(systemName: "arrow.up")!
         default:
             return UIImage(systemName: "arrow.up")!
         }
@@ -220,7 +227,6 @@ extension StatCard
     func startAutoRefresh(for key: String)
     {
         refreshTimer?.invalidate()
-        print("[StatCard] Starting auto-refresh for key: \(key)")
 
         refreshTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             guard let self = self else { return }
@@ -254,9 +260,9 @@ extension StatCard
         switch state
         {
         case .inactive:
-            valueLabel.textColor = .gray
+            valueLabel.textColor = SkyLinkAssets.Colors.greyColor
         case .active:
-            valueLabel.textColor = .systemGreen
+            valueLabel.textColor = SkyLinkAssets.Colors.greenColor
         }
 
         // Format speed and unit

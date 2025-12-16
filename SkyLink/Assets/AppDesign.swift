@@ -20,11 +20,11 @@ struct AppDesign
     {
 //        static let grid: UIImage? = UIImage(systemName: "square.grid.2x2")
       
-        static let downloadArrow: UIImage? = UIImage(systemName: "arrow.down")
-        static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
+//        static let downloadArrow: UIImage? = UIImage(systemName: "arrow.down")
+//        static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
         static let chevronUp: UIImage? = UIImage(systemName: "chevron.up")
     
-        static let checkMark: UIImage? = UIImage(systemName: "checkmark")
+//        static let checkMark: UIImage? = UIImage(systemName: "checkmark")
 //        static let xMark: UIImage? = UIImage(systemName: "xmark")
         static let cellularbars = "cellularbars"
         static let chevronRight = "chevron.right"
