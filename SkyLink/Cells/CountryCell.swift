@@ -219,7 +219,7 @@ extension CountryCell
         
         signalImageView.image = UIImage(systemName: AppDesign.Images.cellularbars) // Initial Image
         chevronImageView.image = UIImage(systemName: AppDesign.Images.chevronRight) // placeholder
-        crownImageView.image = AppDesign.Images.crown //Placeholder
+        crownImageView.image = SkyLinkAssets.Images.crown //Placeholder
         
         rightStack.addArrangedSubview(signalImageView)
         rightStack.addArrangedSubview(spacerView)

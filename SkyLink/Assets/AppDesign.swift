@@ -18,12 +18,12 @@ struct AppDesign
 
     struct Images
     {
-        static let grid: UIImage? = UIImage(systemName: "square.grid.2x2")
-        static let crown: UIImage? = UIImage(named: "crown")
+//        static let grid: UIImage? = UIImage(systemName: "square.grid.2x2")
+      
         static let downloadArrow: UIImage? = UIImage(systemName: "arrow.down")
         static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
         static let chevronUp: UIImage? = UIImage(systemName: "chevron.up")
-       
+    
         static let checkMark: UIImage? = UIImage(systemName: "checkmark")
 //        static let xMark: UIImage? = UIImage(systemName: "xmark")
         static let cellularbars = "cellularbars"
@@ -78,34 +78,6 @@ struct AppDesign
         
     }
     
-    enum Text
-    {
-        struct HomeViewController
-        {
-            static let goPremium = String(localized:  "goPremiumKey")
-        }
-        
-        
-        static let downloadKey = String(localized:  "downloadKey")
-        static let uploadKey = String(localized:  "uploadKey")
-        static let speedUnit = String(localized: "speedUnitKey")
-        static let connectedKey = String(localized: "connectedKey")
-        static let disconnectedKey = String(localized: "disconnectedKey")
-        static let connectingKey = String(localized: "connectingKey")
-        static let disconnectingKey = String(localized: "disconnectingKey")
-        static let noInternetKey = String(localized: "noInternetKey")
-        static let noInternetMessageKey = String(localized: "noInternetMessageKey")
-        static let retryKey = String(localized: "retryKey")
-       
-        
-       
-       
-        static let restoreKey = String(localized: "restoreKey")
-        
-        
-    
-        
-    }
 }
 
 

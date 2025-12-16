@@ -14,7 +14,8 @@ class HomeViewController: UIViewController
 {
     // MARK: - UI Components
     internal let gridButton = createGridButton()
-    internal let premiumButton = createPremiumButton()
+    internal let notSubscribedButton = createNotSubscribedButton()
+    internal let  subscribedButton = createSubscribedButtons()
     internal let downloadCard = createDownloadCard()
     internal let uploadCard = createUploadCard()
     internal let connectionStatusView = ConnectionStatusView()
@@ -28,64 +29,67 @@ class HomeViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        
-        AppLoggerManager.shared.log("[Home] Initalizing the Home View Controller")
+
         hideNavigationBar()
         setBackgroundColor()
         constructUserInterface()
-        addTargets()
         startTimer()
-        monitorNotifications() //Used to upadte the powerbutton state
+        monitorNotifications() //Used to upadte the powerbutton state and other functions
+    }
+    
+    deinit
+    {
+        NotificationCenter.default.removeObserver(self)
+    }
         
-      
-       
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        restorePremiumButtonText()
-    }
-    
-    private func restorePremiumButtonText() {
-        premiumButton.setTitle("Go Premium", for: .normal)
-        premiumButton.titleLabel?.alpha = 1
-        premiumButton.layoutIfNeeded()
-    }
 }
 
-
-
-//MARK: - Timer and Notifications
+//MARK: - Timer
 extension HomeViewController
 {
     //MARK: - TIMER
     func startTimer()
     {
-        // Start the timer to check connection state every 1 second
+        guard connectionCheckTimer == nil else
+        {
+          
+            return
+        }
+
         connectionCheckTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true)
         { [weak self] _ in
-            
             self?.checkConnectionState()
         }
     }
     
-   
+    func stopTimer()
+    {
+        connectionCheckTimer?.invalidate()
+        connectionCheckTimer = nil
+    }
+    
     // Timer-based connection state check, replaces Darwin notification updates
     private func checkConnectionState()
     {
-        //print("[HomeViewController] Checking Connection State")
         Task
         { [weak self] in
             guard let self = self else { return }
-            let connectionStatus = await VPNManager.shared.isConnectedToVPN()
-           // print("[HomeViewController] Checked State: Current Connection State: \(connectionStatus)")
-            
-            DispatchQueue.main.async {
-                
-                // Only update if state changed
+            // Timer tick: we are about to query VPNManager for the current connection state.
+            // This runs periodically while the Home screen (and app) are active.
+
+            // Ask VPNManager for the *actual* current VPN connection state (true/false).
+            // This is the source of truth for whether the tunnel is connected.
+            let connectionStatus =  await VPNManager.shared.isConnectedToVPN()
+          
+            DispatchQueue.main.async
+            {
+                // Compare the last known state with the newly fetched state.
+                // - On first run, currentConnectionState is nil, so this will always pass.
+                // - On later runs, this only passes when the VPN state truly changes.
                 if self.currentConnectionState != connectionStatus
                 {
+                    // Persist the new state locally so future timer ticks can detect real changes
+                    // instead of re-triggering UI updates every second.
                     self.currentConnectionState = connectionStatus
                     UserDefaults.standard.set(connectionStatus, forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
                    
@@ -95,19 +99,23 @@ extension HomeViewController
                     {
                         self.powerButtonView.setState(.connected)
                         NotificationCenter.default.post(name: .vpnConnected, object: nil)
-                    } else {
-                        //print("[HomeViewController] State changed → DISCONNECTED")
+                    } else
+                    {
+                        //State changed → DISCONNECTED
                         self.powerButtonView.setState(.disconnected)
                         NotificationCenter.default.post(name: .vpnDisconnected, object: nil)
                     }
                 }
                 else
                 {
-                    // State hasn’t changed, do nothing (avoids re-running animation)
-                    //print("[HomeViewController] No state change, skipping animation.")
+                    // State has not changed since the last check.
+                    // Intentionally do nothing here to avoid re-running animations,
+                    // reposting notifications, or spamming the UI.
                 }
             }
         }
     }
     
 }
+
+   

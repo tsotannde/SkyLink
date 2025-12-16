@@ -17,11 +17,16 @@ class SplashViewController: UIViewController
     {
         super.viewDidLoad()
         //MARK: - User Interface
+        // Register for app lifecycle notifications early so splash animations
+        // can pause/resume correctly when the app backgrounds or foregrounds.
         addNotifcationObservers()
         setBackGroundColor()
+        // Start the splash animation immediately to give visual feedback
+        // while app initialization work is prepared.
         startAnimation()
         
-        //MARK: - APP Logic
+        // Delay the startup logic slightly so the splash screen is visible
+        // before heavy async initialization begins.
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8)
         {
             Task
@@ -48,28 +53,39 @@ extension SplashViewController
 {
     private func startAppFlow() async
     {
-        //Internt Reqired for First Launch
+        // Main startup coordinator for the app.
+        // Responsible for validating prerequisites, preparing configuration,
+        // and navigating to Home once the app is ready.
+        
+        // Internet connectivity is required on first launch.
+        // If unavailable, present an alert and retry when the user dismisses it.
         guard InternetManager.shared.checkConnectionAndAlertIfNeeded() else
         {
             showNoInternetAlert()
             return
         }
         
+        AppLoggerManager.shared.log("[Splash] Startup flow started")
+        
+        // Synchronize the initial VPN connection state so HomeViewController
+        // starts with the correct power button and status indicators.
         validateInitialVPNState()
         
-        AppLoggerManager.shared.log("[SplashScreen] Internet connection validated")
+        // Perform all required startup tasks sequentially.
+        // Any failure here is treated as a startup failure and handled uniformly.
         do
         {
             try await ConfigurationManager.shared.fetchServerFromFireBase() // Fetch Servers + Save to JSON
             _ = try await AccountManager.shared.ensureAccountExists() // Check or create anonymous account
             KeyManager.shared.generateKeysIfNeeded()  // Generate keys if none exist
             let server = await ConfigurationManager.shared.getExistingOrSelectServer() // Choose a random server
-            AppLoggerManager.shared.logServerDetails(server) //log server detail
+            AppLoggerManager.shared.log("[Splash] Startup completed successfully")
+            // All startup tasks completed successfully — transition to Home screen.
             NaviagateHome() // Navigate Home
         }
         catch
         {
-            AppLoggerManager.shared.log("[SplashScreen] Error during app flow: \(error.localizedDescription)")
+            AppLoggerManager.shared.log("[Splash] Startup failed: \(error.localizedDescription)")
             showNoInternetAlert() //Something Bad Happened
         }
     }
@@ -77,18 +93,18 @@ extension SplashViewController
 
     private func validateInitialVPNState()
     {
-        //used to set the inital state of the homeViewController button and connection state
-        AppLoggerManager.shared.log("[SplashScreen] Validating initial VPN state")
+        // Queries the system VPN state and syncs it into the app's configuration layer.
+        // This ensures the UI reflects the real tunnel state on first load.
         
+        // Run asynchronously so startup is not blocked by VPN state resolution.
         Task
         {
             let isActuallyConnected = await VPNManager.shared.isConnectedToVPN()
-            AppLoggerManager.shared.log("[SplashScreen] VPN State: \(isActuallyConnected)")
             
             DispatchQueue.main.async
             {
                 // Save corrected state and sync state tracker
-                AppLoggerManager.shared.log("[SplashScreen] Saving State\(isActuallyConnected) with Key: \(SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState.description)")
+                
                 ConfigurationManager.shared.syncInitialVPNState(isActuallyConnected)
                 
             }
@@ -97,15 +113,14 @@ extension SplashViewController
     
     private func showNoInternetAlert()
     {
-        AppLoggerManager.shared.log("[SplashScreen] No Internet Detected")
         
         let title = SkyLinkAssets.Text.noInternetKey
         let message = SkyLinkAssets.Text.noInternetMessageKey
       
+        // Present a blocking alert informing the user that connectivity is required.
+        // When dismissed, the startup flow is retried.
         SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
         {
-            AppLoggerManager.shared.log("[SplashScreen] User Tapped Retry. Rechecking Internet Connection")
-
             Task
             {
                 await self.startAppFlow()
@@ -116,7 +131,9 @@ extension SplashViewController
     
     private func NaviagateHome()
     {
-        AppLoggerManager.shared.log("[SplashScreen] Checks Complete Navigating Home")
+        AppLoggerManager.shared.log("[Splash] Navigating to Home")
+        // Replace the splash screen with Home as the root view controller.
+        // The navigation stack is cleared to prevent returning to splash.
         NavigationManager.shared.navigate(to: HomeViewController(),on: navigationController,clearStack: true,animation: .uncover(direction: .down))
         
     }
@@ -125,6 +142,8 @@ extension SplashViewController
 //MARK: - Notification Observer and Corresponding Functions
 extension SplashViewController
 {
+    // Observes app lifecycle events to pause and resume splash animations
+    // when the app moves between foreground and background.
     func addNotifcationObservers()
     {
         NotificationCenter.default.addObserver(self,selector: #selector(appDidBecomeActive),name: UIApplication.didBecomeActiveNotification,object: nil)
@@ -135,11 +154,14 @@ extension SplashViewController
             self,selector: #selector(appDidBecomeActive),name: UIScene.didActivateNotification,object: nil)
     }
     
+    // Resume splash animation when the app becomes active again.
     @objc private func appDidBecomeActive()
     {
         animateKey()  // Resume animation
     }
     
+    // Stop splash animation when the app enters the background
+    // to avoid unnecessary GPU/CPU work.
     @objc private func appDidEnterBackground()
     {
         key.layer.removeAllAnimations()  // Stop animation

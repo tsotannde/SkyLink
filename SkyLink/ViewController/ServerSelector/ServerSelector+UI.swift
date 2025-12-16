@@ -10,11 +10,16 @@ import UIKit
 // MARK: - UI
 extension ServerSelectionViewController
 {
+    // Sets the base background color for the Server Selection screen.
+    // This establishes the neutral backdrop behind the table view and search UI.
     internal func setBackgroundColor()
     {
         view.backgroundColor = SkyLinkAssets.Colors.lightGreyColor
     }
     
+    // Creates the large title label displayed at the top of the screen
+    // (e.g. "Choose Location"). Styling is centralized here to keep
+    // constructUI() focused on layout, not configuration.
     internal func createTitleLabel() -> UILabel
     {
         let label = UILabel()
@@ -25,6 +30,9 @@ extension ServerSelectionViewController
         return label
     }
     
+    // Builds the search container that wraps the text field and search icon.
+    // This view provides padding, rounded corners, and shadow so the search
+    // field appears as a single, elevated component.
     internal func createSearchContainerView() -> UIView
     {
         let container = UIView()
@@ -37,6 +45,8 @@ extension ServerSelectionViewController
         container.layer.shadowRadius = 8
         container.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
+        // Search text field used to filter servers by name/location.
+        // Actual filtering logic is handled in the view controller, not here.
         let searchTextField = UITextField()
         searchTextField.attributedPlaceholder = NSAttributedString(
             string: SkyLinkAssets.Text.searchLocationKey,
@@ -49,6 +59,8 @@ extension ServerSelectionViewController
         searchTextField.textColor = SkyLinkAssets.Colors.blackColor
         searchTextField.translatesAutoresizingMaskIntoConstraints = false
         
+        // Static search icon displayed on the trailing edge of the search field.
+        // This is decorative and does not handle user interaction.
         let searchIcon = UIImageView(image: SkyLinkAssets.Images.magnifyGlass)
         searchIcon.tintColor = SkyLinkAssets.Colors.greyColor
         searchIcon.translatesAutoresizingMaskIntoConstraints = false
@@ -70,6 +82,9 @@ extension ServerSelectionViewController
         return container
     }
     
+    // Constructs and lays out the static, top-level UI elements for this screen.
+    // This method is responsible only for view hierarchy and constraints.
+    // Dynamic behavior (table updates, search filtering, expansion) is handled elsewhere.
     internal func constructUI()
     {
         titleLabel = createTitleLabel()
@@ -88,6 +103,9 @@ extension ServerSelectionViewController
         ])
     }
     
+    // Configures and lays out the table view that displays countries and servers.
+    // The table view is inserted below the search container so it scrolls
+    // independently while the search UI remains fixed at the top.
     internal func setupTableView()
     {
         tableView = UITableView(frame: .zero, style: .plain)
@@ -108,6 +126,8 @@ extension ServerSelectionViewController
         ])
     }
     
+    // Wires up the search text field with delegate and editing callbacks.
+    // Text change events trigger filtering logic in the view controller.
     internal func setupSearchField()
     {
         if let searchField = searchContainerView.subviews.compactMap({ $0 as? UITextField }).first {
@@ -124,6 +144,8 @@ extension ServerSelectionViewController
 //MARK: - Keyboard and Related Functons
 extension ServerSelectionViewController
 {
+    // Adds a tap gesture recognizer to dismiss the keyboard when the user
+    // taps outside the search field.
     internal func setupTapToDismiss()
     {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
@@ -131,6 +153,7 @@ extension ServerSelectionViewController
         view.addGestureRecognizer(tapGesture)
     }
     
+    // Ends editing on the view hierarchy, dismissing the keyboard if visible.
     @objc internal func dismissKeyboard()
     {
         view.endEditing(true)

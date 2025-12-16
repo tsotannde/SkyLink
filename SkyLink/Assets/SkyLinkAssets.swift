@@ -23,6 +23,11 @@ struct SkyLinkAssets
             static let blackShadow = UIColor(named: "blackShadow")
         }
         
+        struct Tint
+        {
+            static let darkGreyTint = UIColor(named: "darkGreyTint")
+        }
+        
         static let softWhite = UIColor(named: "softWhite")
         static let redColor = UIColor(named: "redColor")
         static let blackColor = UIColor(named: "blackColor")
@@ -46,7 +51,11 @@ struct SkyLinkAssets
         static let keyIcon = UIImage(named: "keyIcon")
         static let magnifyGlass: UIImage? = UIImage(systemName: "magnifyingglass")
         static let globe: UIImage? =  UIImage(systemName: "globe")
+        static let crown: UIImage? = UIImage(named: "crown")
+        static let grid: UIImage? = UIImage(systemName: "square.grid.2x2")
+        static let checkMarkSeal = UIImage(systemName: "checkmark.seal.fill")
 
+        
        
       
     }
@@ -119,6 +128,25 @@ extension SkyLinkAssets
         static let searchLocationKey = String(localized: "searchLocationKey")
         static let freeLocationKey = String(localized: "freeLocationKey")
         static let premiumLocationKey = String(localized: "premiumLocationKey")
+        static let clearKey = String(localized: "clearKey")
+        static let copyKey = String(localized: "copyKey")
+        static let logKey = String(localized: "logKey")
+        static let goPremium = String(localized:  "goPremiumKey")
+        static let downloadKey = String(localized:  "downloadKey")
+        static let connectedKey = String(localized: "connectedKey")
+        static let uploadKey = String(localized:  "uploadKey")
+        static let speedUnit = String(localized: "speedUnitKey")
+        static let disconnectedKey = String(localized: "disconnectedKey")
+        static let subscribedKey = String(localized: "subscribedKey")
+        
+        
+        
+        
+        
+        static let connectingKey = String(localized: "connectingKey")
+        static let disconnectingKey = String(localized: "disconnectingKey")
+        static let retryKey = String(localized: "retryKey")
+        
             
        
     }

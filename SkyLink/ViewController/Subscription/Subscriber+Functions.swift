@@ -13,31 +13,34 @@ extension SubscribeViewController
 {
     internal func getPrices()
     {
+        // Fetch subscription pricing asynchronously from StoreKit via SubscriptionManager.
+        // This runs off the main thread and updates UI state only after all prices resolve.
         Task {
-            AppLoggerManager.shared.log("[SubscribeVC]: Fetching subscription prices")
             do {
+                // Request raw prices for each tier individually.
+                // These values come directly from the App Store and may include extra precision.
                 let weeklyRaw  = try await SubscriptionManager.shared.price(for: .weekly)
                 let monthlyRaw = try await SubscriptionManager.shared.price(for: .monthly)
                 let yearlyRaw  = try await SubscriptionManager.shared.price(for: .yearly)
 
-                // normalize to 2 decimal places
+                // Normalize prices to two decimal places for consistent UI presentation.
                 let pricing = SubscriptionPricing(
                     weekly: (weeklyRaw * 100).rounded() / 100,
                     monthly: (monthlyRaw * 100).rounded() / 100,
                     yearly: (yearlyRaw * 100).rounded() / 100
                 )
 
-                print("pricing: \(pricing)")
-
+                // Update pricing on the main thread so bound UI elements can react safely.
                 await MainActor.run
                 {
                     self.pricing = pricing
-                    AppLoggerManager.shared.log("[SubscribeVC]: Prices applied to UI")
                 }
 
-                AppLoggerManager.shared.log("[SubscribeVC]: Prices loaded successfully \(pricing)")
             } catch
             {
+                // Pricing fetch failed:
+                // Log the error for diagnostics, inform the user, and dismiss the subscription screen
+                // to avoid leaving the UI in a partially loaded state.
                 AppLoggerManager.shared.log("[SubscribeVC]: Failed to load prices — \(error)")
 
                 await MainActor.run
@@ -59,22 +62,23 @@ extension SubscribeViewController
     {
         guard let tappedPlan = gesture.view as? SubscriptionPlan else { return }
 
+        // Record the user's selected subscription tier.
+        // This drives pricing, free-trial checks, and purchase behavior.
         selectedTier = tappedPlan.tier
-        AppLoggerManager.shared.log("[SubscribeVC]: Plan selected — \(tappedPlan.tier)")
 
+        // Visually update all plan views so only the tapped plan appears selected.
         planViews.forEach
         { plan in
             plan.setSelected(plan === tappedPlan)
         }
 
+        // Ask StoreKit whether the selected tier is eligible for a free trial.
+        // Eligibility is evaluated dynamically per user and product.
         Task {
-            AppLoggerManager.shared.log("[SubscribeVC]: Checking free-trial eligibility for product \(tappedPlan.tier.productID)")
-            // Ask Apple if tier has a free trial
             let hasFreeTrial = await SubscriptionManager.shared.checkProductElegibilityForTrail(productID: tappedPlan.tier.productID)
 
             await MainActor.run
             {
-                AppLoggerManager.shared.log("[SubscribeVC]: Free-trial eligible for selected tier \(tappedPlan.tier): \(hasFreeTrial)")
                 self.isElegibleForFreeTrial = hasFreeTrial
 
                 if hasFreeTrial
@@ -86,21 +90,21 @@ extension SubscribeViewController
                 }
             }
 
+            // Update the continue button after eligibility is resolved
+            // so title and subtitle reflect the correct purchase flow.
             await updateContinueButtonText()
         }
     }
     
     internal func checkFreeTrialEligibility()
     {
+        // Query global free-trial eligibility for the current user.
+        // This is used when the screen loads without a specific tier selected.
         Task {
-            AppLoggerManager.shared.log("[SubscribeVC]: Checking global free-trial eligibility")
-
             let eligible = await SubscriptionManager.shared.isEligibleForFreeTrial()
 
             await MainActor.run {
                 self.isElegibleForFreeTrial = eligible
-
-                AppLoggerManager.shared.log("[SubscribeVC]: Global free-trial eligibility result: \(eligible)")
 
                 if eligible {
                     self.showFreeTrial()
@@ -108,7 +112,7 @@ extension SubscribeViewController
                     self.hideFreeTrial()
                 }
 
-                // IMPORTANT: update button AFTER eligibility is known
+                // Ensure the continue button text is refreshed AFTER eligibility is known.
                 Task { await self.updateContinueButtonText() }
             }
         }
@@ -147,9 +151,10 @@ extension SubscribeViewController
     
     @objc private func restoreButtonTapped()
     {
-        AppLoggerManager.shared.log("[SubscribeVC]: Restore tapped")
+        // Disable the restore button to prevent duplicate restore requests.
         restoreButton.isEnabled = false
 
+        // Ask StoreKit to restore any previously purchased subscriptions for this account.
         Task {
             let restored = await SubscriptionManager.shared.restorePurchases()
 
@@ -199,6 +204,7 @@ extension SubscribeViewController
     
     @objc private func continueTapped()
     {
+        // Ensure the user has selected a subscription tier before attempting purchase.
         guard let tier = selectedTier else
         {
             let title = SkyLinkAssets.Text.noPlanSelectedKey
@@ -206,9 +212,11 @@ extension SubscribeViewController
             SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
             return
         }
-        AppLoggerManager.shared.log("[SubscribeVC]: Continue tapped for tier \(tier)")
+        // Disable the continue button during the purchase flow to prevent double taps.
         continueButton.isEnabled = false //disable the button
 
+        // Initiate the purchase flow for the selected tier.
+        // The result reflects the final StoreKit transaction state.
         Task {
             let result = await SubscriptionManager.shared.purchase(tier: tier)
 
@@ -219,7 +227,6 @@ extension SubscribeViewController
                 switch result
                 {
                 case .success:
-                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase success for tier \(tier)")
                     let title = SkyLinkAssets.Text.subscriptionActiveKey
                     let message =  SkyLinkAssets.Text.fullAccessKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
@@ -227,17 +234,14 @@ extension SubscribeViewController
                         NavigationManager.shared.dismiss(on: self.navigationController,animation: .push(direction: .right),animated: true)
                     }
                 case .cancelled:
-                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase cancelled by user for tier \(tier)")
                     let title = SkyLinkAssets.Text.purchaseCancelledKey
                     let message = SkyLinkAssets.Text.userCanceledMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                 case .pending:
-                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase pending for tier \(tier)")
                     let title = SkyLinkAssets.Text.purchasePendingKey
                     let message = SkyLinkAssets.Text.purchasePendingMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
                 case .failed:
-                    AppLoggerManager.shared.log("[SubscribeVC]: Purchase failed for tier \(tier)")
                     let title = SkyLinkAssets.Text.purchaseFailedKey
                     let message = SkyLinkAssets.Text.purchaseFailedMessageKey
                     SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
@@ -262,10 +266,12 @@ extension SubscribeViewController
     internal func updateContinueButtonText() async
     {
         guard let tier = selectedTier else { return }
-        AppLoggerManager.shared.log("[SubscribeVC]: Updating Continue button for tier \(tier), freeTrialEligible=\(isElegibleForFreeTrial ?? false)")
      
+        // Treat nil eligibility as false to ensure predictable button text.
         let elegibility = isElegibleForFreeTrial ?? false
         
+        // Compute the correct button title and subtitle based on tier,
+        // pricing, and free-trial eligibility.
         let text = continueButtonText(tier: tier, pricing: pricing,isEligibleForFreeTrial: elegibility)
 
         var config = continueButton.configuration

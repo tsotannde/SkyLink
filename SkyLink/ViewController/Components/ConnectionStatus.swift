@@ -41,7 +41,7 @@ extension ConnectionStatusView
         //Get the last connection State ie true / false
         let isConnected = UserDefaults.standard.bool(forKey: SkyLinkAssets.AppKeys.UserDefaults.lastConnectionState)
         //sets the connection state Text based on the key returned
-        statusLabel.text = isConnected ? AppDesign.Text.connectedKey : AppDesign.Text.disconnectedKey
+        statusLabel.text = isConnected ? SkyLinkAssets.Text.connectedKey : SkyLinkAssets.Text.disconnectedKey
 
         //Set the Status Label properties
         statusLabel.textColor = UIColor(named: "softWhite") //Primary color
@@ -173,24 +173,24 @@ extension ConnectionStatusView
     
     @objc private func vpnConnected()
     {
-        statusLabel.text = AppDesign.Text.connectedKey
+        statusLabel.text = SkyLinkAssets.Text.connectedKey
         startTimer()
     }
     
     @objc private func vpnDisconnected()
     {
-        statusLabel.text = AppDesign.Text.disconnectedKey
+        statusLabel.text = SkyLinkAssets.Text.disconnectedKey
         stopTimer()
     }
     
     @objc private func vpnConnecting()
     {
-        statusLabel.text = AppDesign.Text.connectingKey
+        statusLabel.text = SkyLinkAssets.Text.connectingKey
     }
     
     @objc private func vpnIsDisconnecting()
     {
-        statusLabel.text = AppDesign.Text.disconnectingKey
+        statusLabel.text = SkyLinkAssets.Text.disconnectingKey
     }
     
 }

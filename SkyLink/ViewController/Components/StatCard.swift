@@ -191,9 +191,9 @@ extension StatCard
     {
         switch titleLabel.text
         {
-        case AppDesign.Text.downloadKey:
+        case SkyLinkAssets.Text.downloadKey:
             return "downloadSpeed"
-        case AppDesign.Text.uploadKey:
+        case SkyLinkAssets.Text.uploadKey:
             return "uploadSpeed"
         default:
             return ""
@@ -204,9 +204,9 @@ extension StatCard
     {
         switch titleLabel.text
         {
-        case AppDesign.Text.downloadKey:
+        case SkyLinkAssets.Text.downloadKey:
             return AppDesign.Images.downloadArrow ?? UIImage(systemName: "arrow.down")!
-        case AppDesign.Text.uploadKey:
+        case SkyLinkAssets.Text.uploadKey:
             return AppDesign.Images.uploadArrow ?? UIImage(systemName: "arrow.up")!
         default:
             return UIImage(systemName: "arrow.up")!

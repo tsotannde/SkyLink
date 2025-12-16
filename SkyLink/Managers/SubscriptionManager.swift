@@ -166,8 +166,9 @@ extension SubscriptionManager
 {
     /// Temporary v1 stub – always returns true
     /// Used to unblock premium-gated flows before receipt validation is implemented
-    func isSubscribed() -> Bool {
-        return false
+    func isSubscribed() -> Bool
+    {
+        return true
     }
 }
 //MARK: - Pricing

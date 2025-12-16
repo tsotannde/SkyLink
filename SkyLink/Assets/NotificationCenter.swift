@@ -31,4 +31,7 @@ extension Notification.Name
     
     //ServerView
     static let serverDidUpdate = Notification.Name("serverDidUpdate")
+    
+    //Subscription 
+    static let subscriptionStatusChanged = Notification.Name("subscriptionStatusChanged")
 }

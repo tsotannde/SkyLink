@@ -7,29 +7,107 @@
 
 import UIKit
 
-//MARK: - Direct User Interaction Functons
+//MARK: - Notifications
 extension HomeViewController
 {
-    //Notifincations for updating the HomeViewController
     internal func monitorNotifications()
     {
-        // --- Power Button State Notifications ---
+        //  VPN State Function
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNIsConnecting), name: .vpnConnecting, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNDidConnect), name: .vpnConnected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNIsDisconnecting), name: .vpnDisconnecting, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleVPNDidDisconnect), name: .vpnDisconnected, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(showSubscriptionPage), name: .showSubscriptionPage, object: nil)
+        
+        //LifeCycle
+        NotificationCenter.default.addObserver(self,selector: #selector(appDidEnterBackground),name: UIApplication.didEnterBackgroundNotification,object: nil)
+        NotificationCenter.default.addObserver(self,selector: #selector(appWillEnterForeground),name: UIApplication.willEnterForegroundNotification,object: nil)
+        
+        //Subscription Status
+        NotificationCenter.default.addObserver(self,selector: #selector(subscriptionStatusUpdated),name: .subscriptionStatusChanged,object: nil)
     }
-    
-    internal func addTargets()
+}
+
+//MARK: - Notifincation - VPN State Function
+extension HomeViewController
+{
+    @objc internal func showSubscriptionPage()
     {
-        premiumButton.addTarget(self, action: #selector(premiumButtonTapped), for: .touchUpInside)
+        NavigationManager.shared.navigate(to: subscribeVC,on: navigationController,clearStack: false, animation: .push(direction: .left))
+    }
+    @objc internal func handleVPNDidConnect()
+    {
+        AppLoggerManager.shared.log("[Home] VPN Connected")
+        DispatchQueue.main.async
+        {
+            self.powerButtonView.setState(.connected)
+        }
     }
     
+    @objc internal func handleVPNDidDisconnect()
+    {
+        print("Recived a disconnect notifivation from the VPN Manager")
+        AppLoggerManager.shared.log("[Home] VPN Disconnected")
+        DispatchQueue.main.async
+        {
+            self.powerButtonView.setState(.disconnected)
+        }
+    }
+    
+    @objc internal func handleVPNIsConnecting()
+    {
+        AppLoggerManager.shared.log("[Home] VPN Connecting")
+        DispatchQueue.main.async
+        {
+            self.powerButtonView.setState(.connecting)
+        }
+    }
+    
+    @objc internal func handleVPNIsDisconnecting()
+    {
+        AppLoggerManager.shared.log("[Home] VPN Disconnecting")
+        DispatchQueue.main.async {
+            self.powerButtonView.setState(.disconnecting)
+        }
+    }
+    
+
+}
+
+//MARK: - Notifincation - LifeCycle
+extension HomeViewController
+{
+@objc private func appDidEnterBackground()
+{
+    stopTimer()
+}
+
+@objc private func appWillEnterForeground()
+{
+    startTimer()
+}
+}
+
+//MARK: - Direct User Interaction Functons
+extension HomeViewController
+{
     @objc internal func premiumButtonTapped()
     {
+       
+        if SubscriptionManager.shared.isSubscribed()
+        {
+            let title = "Already Subscribed"
+            let message = "You are already subscribed"
+            SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
+        }
+        else
+        {
+            NavigationManager.shared.navigate(to: subscribeVC, on: self.navigationController, clearStack: false,animation: .push(direction: .left))
+        }
         
-        NavigationManager.shared.navigate(to: subscribeVC, on: self.navigationController, clearStack: false,animation: .push(direction: .left))
+        
+        
+       
         
     }
     
@@ -53,10 +131,7 @@ extension HomeViewController
         present(viewController, animated: true, completion: nil)
     }
     
-  
-    
-  
-    
+
     @objc internal func powerButtonTapped()
     {
         AppLoggerManager.shared.log("[Home] Power Button Tapped")
@@ -84,51 +159,30 @@ extension HomeViewController
             }
         }
     }
+    
+    @objc internal func subscriptionStatusUpdated ()
+    {
+        
+    }
 }
 
-//MARK: - VPN State Function
+//MARK: -
 extension HomeViewController
 {
-    @objc internal func showSubscriptionPage()
+    internal  func updatePremiumButon()
     {
-        NavigationManager.shared.navigate(to: subscribeVC,on: navigationController,clearStack: false, animation: .push(direction: .left))
-    }
-    @objc internal func handleVPNDidConnect()
-    {
-        AppLoggerManager.shared.log("[Home] VPN Connected")
-        DispatchQueue.main.async
+        if SubscriptionManager.shared.isSubscribed()
         {
-            self.powerButtonView.setState(.connected)
+            notSubscribedButton.isHidden = true
+            subscribedButton.isHidden = false
+               
         }
-    }
-    
-    @objc internal func handleVPNDidDisconnect()
-    {
-        print("Recived a disconnect notifivation from the VPN Manager")
-        AppLoggerManager.shared.log("[Home] VPN Disconnected")
-        DispatchQueue.main.async
+        else
         {
-            print("I am in the que lets see if i push this update ")
-            self.powerButtonView.setState(.disconnected)
+            notSubscribedButton.isHidden = false
+            subscribedButton.isHidden = true
         }
     }
-    
-    @objc internal func handleVPNIsConnecting()
-    {
-        AppLoggerManager.shared.log("[Home] VPN Connecting")
-        DispatchQueue.main.async
-        {
-            self.powerButtonView.setState(.connecting)
-        }
-    }
-    
-    @objc internal func handleVPNIsDisconnecting()
-    {
-        AppLoggerManager.shared.log("[Home] VPN Disconnecting")
-        DispatchQueue.main.async {
-            self.powerButtonView.setState(.disconnecting)
-        }
-    }
-    
-
 }
+
+

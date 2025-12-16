@@ -168,7 +168,7 @@ extension ServerCell
     private static func makeCownImageView() -> UIImageView
     {
         let imageView = UIImageView()
-        imageView.image = AppDesign.Images.crown
+        imageView.image = SkyLinkAssets.Images.crown
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -178,7 +178,7 @@ extension ServerCell
     {
         let lbl = UILabel()
         lbl.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
-        lbl.textColor = UIColor(named: "whiteColor")
+        lbl.textColor = SkyLinkAssets.Colors.whiteColor
         lbl.translatesAutoresizingMaskIntoConstraints = false
         return lbl
     }

@@ -8,14 +8,21 @@
 import UIKit
 import Lottie
 
+// UI-only extensions for SubscribeViewController.
+// This file is responsible strictly for view construction, layout,
+// and visual styling. No business logic or StoreKit behavior lives here.
+
 //MARK: - Background Color and Nav Bar
 extension SubscribeViewController
 {
+    // Applies the primary theme background used across the subscription screen.
     internal func setBackgroundColor()
     {
            view.backgroundColor = SkyLinkAssets.Colors.Themes.primary
     }
     
+    // Hides the navigation bar to present the subscription flow
+    // as a full-screen, modal-style experience.
     func hideNaviagationBar()
     {
         NavigationManager.shared.toggleNavigationBar(on: self.navigationController,shouldShow: false)
@@ -25,11 +32,14 @@ extension SubscribeViewController
 //MARK: - X Button
 extension SubscribeViewController
 {
+    // Creates the circular close (X) button used to dismiss the subscription screen.
+    // The button is styled independently so it can be reused or repositioned easily.
     static func createCloseButton() -> UIButton
     {
         let button = UIButton(type: .system)
 
-        // SF Symbol X icon
+        // Configure the X icon using an SF Symbol with a bold weight
+        // to ensure visibility against the colored background.
         let config = UIImage.SymbolConfiguration(pointSize: 14, weight: .bold)
         let image = SkyLinkAssets.Images.xMark?.withConfiguration(config)
         button.setImage(image, for: .normal)
@@ -48,6 +58,8 @@ extension SubscribeViewController
         return button
     }
     
+    // Adds the close button to the top-left corner of the screen
+    // and anchors it to the safe area.
     func addXButton()
     {
         view.addSubview(closeButton)
@@ -62,6 +74,8 @@ extension SubscribeViewController
 //MARK: - Restore Button
 extension SubscribeViewController
 {
+    // Creates the restore purchases button.
+    // Tapping this triggers a StoreKit restore flow handled elsewhere.
     static func createRestoreButton() -> UIButton
     {
         let button = UIButton(type: .system)
@@ -73,6 +87,7 @@ extension SubscribeViewController
         return button
     }
     
+    // Positions the restore button in the top-right corner of the screen.
     func addRestoreButton()
     {
         view.addSubview(restoreButton)
@@ -87,6 +102,9 @@ extension SubscribeViewController
 //MARK: - Top Card
 extension SubscribeViewController
 {
+    // Builds the top feature card shown on the subscription screen.
+    // The outer container provides shadow, while the inner content view
+    // provides rounded corners and clipping for animations.
     static func createTopCardView() -> UIView
     {
         // Outer container provides the shadow
@@ -117,7 +135,8 @@ extension SubscribeViewController
             contentView.trailingAnchor.constraint(equalTo: container.trailingAnchor)
         ])
 
-        // Add lottie animation stars background inside the inner content view
+        // Decorative Lottie animation used as a subtle background accent
+        // inside the top card. This animation is purely visual.
         let animationView = SkyLinkAssets.LottieAnimation.star
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.loopMode = .autoReverse
@@ -141,6 +160,8 @@ extension SubscribeViewController
         return container
     }
     
+    // Creates a single feature row consisting of an icon and descriptive text.
+    // Used to list the benefits of subscribing.
     internal  func createFeatureRow(icon: UIImage?,text: String) -> UIStackView
     {
 
@@ -165,6 +186,8 @@ extension SubscribeViewController
         return row
     }
     
+    // Populates the top card with title, subtitle, and feature rows.
+    // This method assumes the top card view has already been created.
     func addContentToTopView() {
 
         // MARK: - Title
@@ -226,6 +249,8 @@ extension SubscribeViewController
         ])
     }
     
+    // Adds the fully constructed top card to the view hierarchy
+    // and positions it between the header buttons and the free trial view.
     func addTopCard()
     {
         view.addSubview(topCardView)
@@ -246,6 +271,8 @@ extension SubscribeViewController
 //MARK: - Free Trail View
 extension SubscribeViewController
 {
+    // Adds the free trial informational view above the subscription plans.
+    // Visibility and content are managed by the main view controller.
     private func addFreeTrialView()
     {
         freeTrialView.translatesAutoresizingMaskIntoConstraints = false
@@ -262,6 +289,8 @@ extension SubscribeViewController
 //MARK: - Subscription Plans
 extension SubscribeViewController
 {
+    // Creates and lays out the selectable subscription plan views
+    // (weekly, monthly, yearly) and wires up tap gestures for selection.
     internal func setupSubscriptionPlans()
     {
         let weeklyPlan = SubscriptionPlan(tier: .weekly, pricing: pricing)
@@ -292,7 +321,8 @@ extension SubscribeViewController
             self.plansStack.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -20)
         ])
 
-        // Default selection: Yearly
+        // Default selection: yearly plan.
+        // This is visually highlighted when the screen first loads.
         selectedTier = .yearly
         yearlyPlan.setSelected(true)
         weeklyPlan.setSelected(false)
@@ -303,6 +333,8 @@ extension SubscribeViewController
 //MARK: - Continue Button
 extension SubscribeViewController
 {
+    // Creates the primary call-to-action button used to continue
+    // with the selected subscription plan.
     static func createContinueButton() -> UIButton
     {
         var config = UIButton.Configuration.filled()
@@ -326,6 +358,7 @@ extension SubscribeViewController
         return button
     }
     
+    // Positions the continue button above the legal links at the bottom of the screen.
     func addContinueButton()
     {
         view.addSubview(continueButton)
@@ -342,6 +375,7 @@ extension SubscribeViewController
 //MARK: - Privacy and Terms of Use Button
 extension SubscribeViewController
 {
+    // Creates the Terms of Use button displayed at the bottom of the screen.
     static func createTermsButton() -> UIButton
     {
         let button = UIButton(type: .system)
@@ -353,6 +387,7 @@ extension SubscribeViewController
         return button
     }
 
+    // Creates the Privacy Policy button displayed at the bottom of the screen.
     static func createPrivacyButton() -> UIButton
     {
         let button = UIButton(type: .system)
@@ -364,6 +399,8 @@ extension SubscribeViewController
         return button
     }
     
+    // Adds and lays out the legal buttons (Terms and Privacy)
+    // in a horizontal stack at the bottom of the screen.
     private func addTermsAndPrivacyButtons()
     {
           legalStack.axis = .horizontal
@@ -387,8 +424,13 @@ extension SubscribeViewController
 //MARK: - CREATE the USER Interface
 extension SubscribeViewController
 {
+    // Centralized UI construction entry point for the subscription screen.
+    // This method assembles all static UI components in the correct order.
     func createUsrInterface()
     {
+        // Order matters here: header controls, legal buttons, primary actions,
+        // plans, free trial info, and finally the top feature card.
+        //ie each view is constrinaed against each other.
         hideNaviagationBar()
         setBackgroundColor()
         addXButton()

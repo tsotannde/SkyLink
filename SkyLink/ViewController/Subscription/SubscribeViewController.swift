@@ -34,17 +34,32 @@ class SubscribeViewController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
+        // Construct and lay out the static subscription UI (cards, plans, buttons).
+        // This sets up the view hierarchy only; dynamic data (pricing, eligibility)
+        // is populated asynchronously after the UI is in place.
         createUsrInterface()
+
+        // Wire up user interaction handlers (button taps, plan selection).
         addTargets()
         
+        // Kick off asynchronous setup work after the UI is built:
+        // - Fetch live pricing from StoreKit
+        // - Check free-trial eligibility for the current user
+        // - Update the continue button once required data is available
         Task
         {
+            // Replace default placeholder pricing with live App Store prices.
             getPrices() //Update hardcoded Prices
+            // Determine whether the current user is eligible for a free trial.
+            // This may vary per account and product.
             checkFreeTrialEligibility()
+            // Refresh the continue button title/subtitle once pricing and eligibility
+            // information has been resolved.
             await updateContinueButtonText()
         }
 
     }
+    
     override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)

@@ -7,33 +7,39 @@
 
 import UIKit
 
+enum PremiumButtonState
+{
+    case goPremium
+    case subscribed
+}
+
+
 //MARK: - User Interface Components
 extension HomeViewController
 {
     static func createGridButton() -> UIButton
     {
         let button = UIButton(type: .system)
-        button.setImage(AppDesign.Images.grid, for: .normal)
-        button.tintColor = UIColor(named: "darkGreyTint")
+        button.setImage(SkyLinkAssets.Images.grid, for: .normal)
+        button.tintColor = SkyLinkAssets.Colors.Tint.darkGreyTint
         
         // Background Color and Border Color
-        button.backgroundColor = UIColor(named: "whiteColor")
+        button.backgroundColor = SkyLinkAssets.Colors.whiteColor
+        
         button.layer.cornerRadius = 16
-        button.layer.borderColor = UIColor(named: "borderColor")?.cgColor
+        button.layer.borderColor =  SkyLinkAssets.Colors.greyColor?.cgColor
         button.layer.borderWidth = 1
         
         // Depth Drop Shadow for Depth
-        button.layer.shadowColor = UIColor(named: "blackColor")?.cgColor
+        button.layer.shadowColor =  SkyLinkAssets.Colors.blackColor?.cgColor
         button.layer.shadowOpacity = 0.15
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         button.layer.shadowRadius = 8
-        
-        button.isHidden = true
-        button.isUserInteractionEnabled = false
+
         return button
     }
     
-    static internal func createPremiumButton() -> UIButton
+    static internal func createNotSubscribedButton() -> UIButton
     {
         let button = UIButton(type: .system)
         
@@ -41,45 +47,83 @@ extension HomeViewController
         var configuration = UIButton.Configuration.plain()
         var container = AttributeContainer()
         container.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
-        configuration.attributedTitle = AttributedString(AppDesign.Text.HomeViewController.goPremium, attributes: container)
+        configuration.attributedTitle = AttributedString(SkyLinkAssets.Text.goPremium, attributes: container)
         configuration.imagePadding = 8
         configuration.imagePlacement = .leading
         configuration.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
         button.configuration = configuration
-    
-        button.backgroundColor = UIColor(named: "whiteColor")
+        button.backgroundColor =  SkyLinkAssets.Colors.whiteColor
         
         
         // Corner radius & shadow
         button.layer.cornerRadius = 16
-        button.layer.shadowColor = UIColor(named: "blackColor")?.cgColor
+        button.layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor
         button.layer.shadowOpacity = 0.4
         button.layer.shadowRadius = 8
         button.layer.shadowOffset = CGSize(width: 0, height: 4)
         
         // Add image to left side of text
-        let icon = AppDesign.Images.crown?.withRenderingMode(.alwaysOriginal)
+        let icon = SkyLinkAssets.Images.crown?.withRenderingMode(.alwaysOriginal)
         button.setImage(icon, for: .normal)
-        button.tintColor = UIColor(named: "darkGreyTint")
+        button.tintColor = SkyLinkAssets.Colors.Tint.darkGreyTint
         
         // Rounded Rectanger
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.widthAnchor.constraint(equalToConstant: 174).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 48).isActive = true
-        
 
+        
         return button
+    }
+    
+    static func createSubscribedButtons()-> UIButton
+    {
+        
+        
+            let button = UIButton(type: .system)
+            
+            // Text setup
+            var configuration = UIButton.Configuration.plain()
+            var container = AttributeContainer()
+            container.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
+            configuration.attributedTitle = AttributedString(   SkyLinkAssets.Text.subscribedKey, attributes: container)
+            configuration.imagePadding = 8
+            configuration.imagePlacement = .leading
+            configuration.contentInsets = NSDirectionalEdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16)
+            button.configuration = configuration
+            button.backgroundColor =  SkyLinkAssets.Colors.whiteColor
+            
+            
+            // Corner radius & shadow
+            button.layer.cornerRadius = 16
+            button.layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor
+            button.layer.shadowOpacity = 0.4
+            button.layer.shadowRadius = 8
+            button.layer.shadowOffset = CGSize(width: 0, height: 4)
+            
+            // Add image to left side of text
+            let icon = SkyLinkAssets.Images.checkMarkSeal?.withRenderingMode(.alwaysOriginal)
+            button.setImage(icon, for: .normal)
+            button.tintColor = SkyLinkAssets.Colors.Tint.darkGreyTint
+            
+            // Rounded Rectanger
+            button.translatesAutoresizingMaskIntoConstraints = false
+
+            
+            return button
+        
+        
+        
+       
     }
     
     static func createDownloadCard()->StatCard
     {
-        let card = StatCard(title: AppDesign.Text.downloadKey, unit: AppDesign.Text.speedUnit)
+        let card = StatCard(title: SkyLinkAssets.Text.downloadKey, unit: SkyLinkAssets.Text.speedUnit)
         return card
     }
     
     static func createUploadCard()->StatCard
     {
-        let card = StatCard(title: AppDesign.Text.uploadKey, unit: AppDesign.Text.speedUnit)
+        let card = StatCard(title: SkyLinkAssets.Text.uploadKey, unit: SkyLinkAssets.Text.speedUnit)
        
         return card
     }
@@ -95,7 +139,7 @@ extension HomeViewController
     
     func setBackgroundColor()
     {
-        view.backgroundColor = UIColor(named: "primaryTheme")
+        view.backgroundColor = SkyLinkAssets.Colors.Themes.primary
     }
     
     func constructUserInterface()
@@ -110,22 +154,40 @@ extension HomeViewController
     private func addTopBar()
     {
         view.addSubview(gridButton)
-        view.addSubview(premiumButton)
+        view.addSubview(notSubscribedButton)
+        view.addSubview(subscribedButton)
+
+        subscribedButton.isHidden = true // default hidden
 
         gridButton.translatesAutoresizingMaskIntoConstraints = false
-        premiumButton.translatesAutoresizingMaskIntoConstraints = false
+        notSubscribedButton.translatesAutoresizingMaskIntoConstraints = false
 
+        //Grid constrain
         NSLayoutConstraint.activate([
             gridButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             gridButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             gridButton.heightAnchor.constraint(equalToConstant: 48),
             gridButton.widthAnchor.constraint(equalToConstant: 48),
 
-            premiumButton.centerYAnchor.constraint(equalTo: gridButton.centerYAnchor),
-            premiumButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            premiumButton.heightAnchor.constraint(equalToConstant: 48),
-            premiumButton.widthAnchor.constraint(equalToConstant: 174)
+
         ])
+        
+        //button contrained. Same constrein one always hiddeen the other always shown
+        NSLayoutConstraint.activate([
+            notSubscribedButton.centerYAnchor.constraint(equalTo: gridButton.centerYAnchor),
+            notSubscribedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            notSubscribedButton.heightAnchor.constraint(equalToConstant: 48),
+            notSubscribedButton.widthAnchor.constraint(equalToConstant: 174),
+
+            subscribedButton.centerYAnchor.constraint(equalTo: gridButton.centerYAnchor),
+            subscribedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            subscribedButton.heightAnchor.constraint(equalToConstant: 48),
+            subscribedButton.widthAnchor.constraint(equalToConstant: 174),
+        ])
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(premiumButtonTapped))
+        notSubscribedButton.addGestureRecognizer(tapGesture)
+        subscribedButton.addGestureRecognizer(tapGesture)
     }
     
     private func addStatsSection()
@@ -141,7 +203,7 @@ extension HomeViewController
         
         
         //Shadow Color and Related Properties set here
-        statsStack.layer.shadowColor = UIColor(named: "blackColor")?.cgColor // Set the shadow color
+        statsStack.layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor // Set the shadow color
         statsStack.layer.shadowOpacity = 0.6
         statsStack.layer.shadowOffset = CGSize(width: 0, height: 4)
         statsStack.layer.shadowRadius = 10
@@ -165,7 +227,7 @@ extension HomeViewController
         divider.translatesAutoresizingMaskIntoConstraints = false
         statsStack.addSubview(divider)
 
-        let dividerThickness = 6 / UIScreen.main.scale
+        let dividerThickness = 8 / UIScreen.main.scale
         NSLayoutConstraint.activate([
             divider.centerXAnchor.constraint(equalTo: statsStack.centerXAnchor),
             divider.topAnchor.constraint(equalTo: statsStack.topAnchor),

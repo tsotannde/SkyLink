@@ -42,7 +42,7 @@ final class AppLoggerManager
         formatter.amSymbol = "AM"
         formatter.pmSymbol = "PM"
         let timestamp = formatter.string(from: Date())
-        let fullMessage = "[\(timestamp)] \(message)\n"
+        let fullMessage = "[\(timestamp)] \(message)\n\n"
 
         if let handle = try? FileHandle(forWritingTo: logFileURL) {
             handle.seekToEndOfFile()
@@ -56,7 +56,7 @@ final class AppLoggerManager
 
         #if DEBUG
         #warning("Remove")
-        //print("LOG:", fullMessage)
+        print("LOG:", fullMessage)
         #endif
     }
 
