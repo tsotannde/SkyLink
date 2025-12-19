@@ -57,7 +57,8 @@ extension SubscriptionPlan
         
         // Border for structure (light grey, like mockups)
         layer.borderWidth = 1
-        layer.borderColor = UIColor(named: "borderColor")?.cgColor
+        layer.borderColor = SkyLinkAssets.Colors.borderColor?.cgColor
+     
         
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: 160).isActive = true //Height
@@ -86,7 +87,7 @@ extension SubscriptionPlan
 
         discountBadge.text = discount
         discountBadge.font = SkyLinkAssets.Fonts.semiBold(ofSize: 12)
-        discountBadge.textColor = .white
+        discountBadge.textColor = SkyLinkAssets.Colors.whiteColor
         discountBadge.backgroundColor = SkyLinkAssets.Colors.purpleColor
         discountBadge.textAlignment = .center
         discountBadge.layer.cornerRadius = 10
@@ -115,7 +116,8 @@ extension SubscriptionPlan
         titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
     
-    private func addSeparatorLine() {
+    private func addSeparatorLine()
+    {
         let line = UIView()
         line.backgroundColor = SkyLinkAssets.Colors.softWhite
         line.translatesAutoresizingMaskIntoConstraints = false
@@ -141,18 +143,6 @@ extension SubscriptionPlan
             priceLabel.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
-    
-    private func createCheckMarkView()->UIImageView
-    {
-        let config = UIImage.SymbolConfiguration(pointSize: 12, weight: .bold)
-        let image = SkyLinkAssets.Images.checkMark?.withConfiguration(config)
-    
-        let iv = UIImageView(image: image)
-        iv.tintColor = SkyLinkAssets.Colors.whiteColor
-        iv.alpha = 0
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
-    }
   
     private func addSelectionCircle() {
 
@@ -174,8 +164,8 @@ extension SubscriptionPlan
         ])
 
         //Configure checkmarkImageView (the SAME instance you toggle)
-        let config = UIImage.SymbolConfiguration(pointSize: 10, weight: .bold)
-        checkmarkImageView.image = SkyLinkAssets.Images.checkMark
+        let config = UIImage.SymbolConfiguration(pointSize: 8, weight: .bold)
+        checkmarkImageView.image = SkyLinkAssets.Images.checkMark?.withConfiguration(config)
         checkmarkImageView.tintColor = SkyLinkAssets.Colors.whiteColor
         checkmarkImageView.alpha = 0
         checkmarkImageView.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)

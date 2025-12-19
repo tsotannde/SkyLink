@@ -168,7 +168,7 @@ extension SubscriptionManager
     /// Used to unblock premium-gated flows before receipt validation is implemented
     func isSubscribed() -> Bool
     {
-        return true
+        return false
     }
 }
 //MARK: - Pricing

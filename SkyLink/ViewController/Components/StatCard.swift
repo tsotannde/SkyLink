@@ -17,10 +17,10 @@ enum ConnectionState
 //MARK: - DataUnit
 enum DataUnit: String
 {
-    case kb = "KB/s"
-    case mb = "MB/s"
-    case gb = "GB/s"
-    case tb = "TB/s"
+    case kb = "KB"
+    case mb = "MB"
+    case gb = "GB"
+    case tb = "TB"
 }
 
 //MARK: - StatCardData
@@ -46,10 +46,11 @@ class StatCard: UIView
     private let icon = UIImageView()
 
     private var refreshTimer: Timer?
-    private let statType: StatType
+    private var statType: StatType
     
-    init(title: String, unit: String)
+    init(statType: StatType)
     {
+        self.statType = statType
         super.init(frame: .zero)
         self.registerNotifications() //Register Notifications
         
@@ -71,7 +72,7 @@ class StatCard: UIView
         iconContainer.addSubview(icon)
         
         // Title label
-        titleLabel.text = title
+        titleLabel.text = resolveTitle()
         titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 14)
         titleLabel.textColor = SkyLinkAssets.Colors.blackColor
         
@@ -85,7 +86,7 @@ class StatCard: UIView
         valueLabel.textColor = SkyLinkAssets.Colors.blackColor
         
         // Unit label
-        unitLabel.text = unit
+        unitLabel.text = SkyLinkAssets.Text.speedUnit //Defualt Unit MB/s
         unitLabel.font = SkyLinkAssets.Fonts.regular(ofSize: 12)
         unitLabel.textColor = SkyLinkAssets.Colors.greyColor
         
@@ -134,6 +135,30 @@ class StatCard: UIView
     
 }
 
+extension StatCard
+{
+    private func resolveTitle()->String
+    {
+        switch self.statType
+        {
+        case .download:
+            return SkyLinkAssets.Text.downloadKey
+        case .upload:
+            return SkyLinkAssets.Text.uploadKey
+        }
+    }
+    
+    private func resolveImage() -> UIImage
+    {
+        switch self.statType
+        {
+        case .download:
+            return SkyLinkAssets.Images.downloadArrow ?? UIImage(systemName: "arrow.down")!
+        case .upload:
+            return SkyLinkAssets.Images.uploadArrow ?? UIImage(systemName: "arrow.up")!
+        }
+    }
+}
 //MARK: - Notifications
 extension StatCard
 {
@@ -159,17 +184,17 @@ extension StatCard
         DispatchQueue.main.async
         {
                 self.update(speed: 0.0, state: .inactive)
-            }
+        }
     }
     
     @objc private func vpnConnecting()
     {
-        valueLabel.textColor = .systemBlue
+        valueLabel.textColor = SkyLinkAssets.Colors.Themes.primary
     }
     
     @objc private func vpnIsDisconnecting()
     {
-        valueLabel.textColor = .red
+        valueLabel.textColor = SkyLinkAssets.Colors.redColor
     }
     
 }
@@ -179,9 +204,9 @@ extension StatCard
 {
     private static func formatSpeed(_ bytesPerSecond: Double) -> (String, String)
     {
-        guard bytesPerSecond > 0 else { return ("0.00", "B/s") }
+        guard bytesPerSecond > 0 else { return ("0.00", "B") }
 
-        let units = ["B/s", "KB/s", "MB/s", "GB/s", "TB/s"]
+        let units = ["B", "KB", "MB", "GB", "TB"]
         var value = bytesPerSecond
         var index = 0
 
@@ -196,27 +221,13 @@ extension StatCard
     
     private func resolveSpeedKey() -> String
     {
-        switch titleLabel.text
+        
+        switch self.statType
         {
-        case SkyLinkAssets.Text.downloadKey:
+        case .download:
             return "downloadSpeed"
-        case SkyLinkAssets.Text.uploadKey:
+        case .upload:
             return "uploadSpeed"
-        default:
-            return ""
-        }
-    }
-    
-    private func resolveImage() -> UIImage
-    {
-        switch titleLabel.text
-        {
-        case SkyLinkAssets.Text.downloadKey:
-            return SkyLinkAssets.Images.downloadArrow ?? UIImage(systemName: "arrow.down")!
-        case SkyLinkAssets.Text.uploadKey:
-            return SkyLinkAssets.Images.uploadArrow ?? UIImage(systemName: "arrow.up")!
-        default:
-            return UIImage(systemName: "arrow.up")!
         }
     }
 }
@@ -238,9 +249,10 @@ extension StatCard
                 let defaults = UserDefaults(suiteName: SkyLinkAssets.AppKeys.UserDefaults.suiteName)
                 let speedValue = defaults?.double(forKey: key) ?? 0.0
 
-                //print("[StatCard] Timer fired → connected: \(isConnected), key: \(key), value: \(speedValue)")
+              
 
-                DispatchQueue.main.async {
+                DispatchQueue.main.async
+                {
                     if isConnected
                     {
                         self.update(speed: speedValue, state: .active)

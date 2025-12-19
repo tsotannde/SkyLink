@@ -38,10 +38,11 @@ extension SelectedServer
 {
     private func setupUI()
     {
-        backgroundColor = UIColor(named: "softWhite") //View Background Color
+        backgroundColor = SkyLinkAssets.Colors.softWhite
+      
     
         layer.cornerRadius = 20 //Cornor Radius of the vie
-        layer.shadowColor = UIColor(named: "blackColor")?.cgColor // Set the shadow color
+        layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor
         layer.shadowOpacity = 0.6
         layer.shadowOffset = CGSize(width: 0, height: 4)
         layer.shadowRadius = 10
@@ -52,10 +53,10 @@ extension SelectedServer
         addSubview(crownImageView)
         addSubview(chevronImageView)
         
-        cityStateLabel.textColor = UIColor(named: "blackColor")
+        cityStateLabel.textColor =  SkyLinkAssets.Colors.blackColor
         
-        chevronImageView.image = AppDesign.Images.chevronUp
-        chevronImageView.tintColor = AppDesign.ColorScheme.Themes.primary
+        chevronImageView.image = SkyLinkAssets.Images.chevronUp
+        chevronImageView.tintColor = SkyLinkAssets.Colors.Themes.primary
         chevronImageView.contentMode = .scaleAspectFit
         chevronImageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -131,7 +132,6 @@ extension SelectedServer
 
         // Display city/state text
         cityStateLabel.text = "\(city), \(state)"
-
     }
 }
 
@@ -153,8 +153,8 @@ extension SelectedServer
             let currentConfiguration = await ConfigurationManager.shared.getExistingOrSelectServer()
             
             let country = currentConfiguration?.country ?? "United States"
-            let city = currentConfiguration?.city ?? "Invalid Configuration"
-            let state = currentConfiguration?.state ?? "Contact Support"
+            let city = currentConfiguration?.city ?? SkyLinkAssets.Text.errorTitleKey
+            let state = currentConfiguration?.state ?? SkyLinkAssets.Text.errorTitleKey
             
             self?.configure(countryName: country, city: city, state: state)
         }

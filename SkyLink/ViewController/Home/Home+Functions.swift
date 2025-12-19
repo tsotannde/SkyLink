@@ -35,6 +35,7 @@ extension HomeViewController
     {
         NavigationManager.shared.navigate(to: subscribeVC,on: navigationController,clearStack: false, animation: .push(direction: .left))
     }
+   
     @objc internal func handleVPNDidConnect()
     {
         AppLoggerManager.shared.log("[Home] VPN Connected")
@@ -96,8 +97,8 @@ extension HomeViewController
        
         if SubscriptionManager.shared.isSubscribed()
         {
-            let title = "Already Subscribed"
-            let message = "You are already subscribed"
+            let title = SkyLinkAssets.Text.alreadySubscribedKey
+            let message = SkyLinkAssets.Text.youAreAlreadySubscribedKey
             SkyLinkAssets.Alerts.showAlert(from: self, title: title, message: message)
         }
         else

@@ -120,14 +120,15 @@ extension HomeViewController
     
     static func createDownloadCard()->StatCard
     {
-        let card = StatCard(title: SkyLinkAssets.Text.downloadKey, unit: SkyLinkAssets.Text.speedUnit)
+        let card = StatCard(statType: .download)
+        //StatCard(title: SkyLinkAssets.Text.downloadKey, unit: SkyLinkAssets.Text.speedUnit)
         return card
     }
     
     static func createUploadCard()->StatCard
     {
-        let card = StatCard(title: SkyLinkAssets.Text.uploadKey, unit: SkyLinkAssets.Text.speedUnit)
-       
+        let card =  StatCard(statType: .upload)
+        //StatCard(title: SkyLinkAssets.Text.uploadKey, unit: SkyLinkAssets.Text.speedUnit)
         return card
     }
 }

@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "alreadySubscribedKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Already Subscribed"
+          }
+        }
+      }
+    },
     "chooseLocationKey" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -391,7 +402,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "MB/s"
+            "value" : "MB"
           }
         }
       }
@@ -532,6 +543,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "year"
+          }
+        }
+      }
+    },
+    "youAreAlreadySubscribedKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are already subscribed"
           }
         }
       }

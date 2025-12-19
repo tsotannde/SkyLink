@@ -62,6 +62,7 @@ struct SkyLinkAssets
         static let checkMark: UIImage? = UIImage(systemName: "checkmark")
         static let downloadArrow: UIImage? = UIImage(systemName: "arrow.down")
         static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
+        static let chevronUp: UIImage? = UIImage(systemName: "chevron.up")
 
         
        
@@ -147,6 +148,8 @@ extension SkyLinkAssets
         static let disconnectedKey = String(localized: "disconnectedKey")
         static let subscribedKey = String(localized: "subscribedKey")
         static let saveKey = String(localized: "saveKey")
+        static let alreadySubscribedKey = String(localized: "alreadySubscribedKey")
+        static let youAreAlreadySubscribedKey = String(localized: "youAreAlreadySubscribedKey")
         
         
         
