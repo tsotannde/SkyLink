@@ -63,6 +63,11 @@ struct SkyLinkAssets
         static let downloadArrow: UIImage? = UIImage(systemName: "arrow.down")
         static let uploadArrow: UIImage? = UIImage(systemName: "arrow.up")
         static let chevronUp: UIImage? = UIImage(systemName: "chevron.up")
+        static let power = UIImage(systemName: "power")
+        static let securityIcon = UIImage(named: "securityIcon")
+        static let hiddenIcon = UIImage(systemName: "hiddenIcon")
+        static let speedIcon = UIImage(systemName: "speedIcon")
+        static let acessIcon = UIImage(systemName: "acessIcon")
 
         
        
@@ -93,11 +98,21 @@ extension SkyLinkAssets
             static let vpnState = "vpnState"
             static let currentServer = "currentServer"
             static let cachedServerJSON = "cachedServerJSON"
+            static let disconnected = "disconnected"
+    
             
             
         }
     }
 }
+extension SkyLinkAssets
+{
+    enum Extensions
+    {
+        static let shared = "com.adebayosotannde.SkyLink.network-extension"
+    }
+}
+
 //MARK: - Text
 extension SkyLinkAssets
 {
@@ -150,6 +165,12 @@ extension SkyLinkAssets
         static let saveKey = String(localized: "saveKey")
         static let alreadySubscribedKey = String(localized: "alreadySubscribedKey")
         static let youAreAlreadySubscribedKey = String(localized: "youAreAlreadySubscribedKey")
+        static let unknownKey = String(localized: "unknownKey")
+        static let youWontBeChargedTodayKey = String(localized: "youWontBeChargedTodayKey")
+        static let secureYourConnectionKey = String(localized: "secureYourConnectionKey")
+        static let hideYourIPKey = String(localized: "hideYourIPKey")
+        static let fastLowKey = String(localized: "fastLowKey")
+        static let accessContentKey = String(localized: "accessContentKey")
         
         
         

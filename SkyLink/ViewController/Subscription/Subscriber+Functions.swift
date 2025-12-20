@@ -41,7 +41,6 @@ extension SubscribeViewController
                 // Pricing fetch failed:
                 // Log the error for diagnostics, inform the user, and dismiss the subscription screen
                 // to avoid leaving the UI in a partially loaded state.
-                AppLoggerManager.shared.log("[SubscribeVC]: Failed to load prices — \(error)")
 
                 await MainActor.run
                 {

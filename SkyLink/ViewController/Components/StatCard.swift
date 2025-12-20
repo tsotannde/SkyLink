@@ -14,20 +14,11 @@ enum ConnectionState
     case active        // value > 0 → green
 }
 
-//MARK: - DataUnit
-enum DataUnit: String
-{
-    case kb = "KB"
-    case mb = "MB"
-    case gb = "GB"
-    case tb = "TB"
-}
-
 //MARK: - StatCardData
 struct StatCardData
 {
     let value: Double          // e.g. 512.3
-    let unit: DataUnit         // enum below
+    let unit: String?         // enum below
     let connectionState: ConnectionState
 }
 
@@ -172,7 +163,18 @@ extension StatCard
     
     @objc private func vpnConnected()
     {
-        let key = resolveSpeedKey()
+        //Resolve Keu
+        var key = "Random Text"
+        
+        switch self.statType
+        {
+        case .download:
+            key = SkyLinkAssets.AppKeys.UserDefaults.downloadSpeed
+        case .upload:
+            key = SkyLinkAssets.AppKeys.UserDefaults.uploadSpeed
+        }
+        
+       
         guard !key.isEmpty else { return }
 
         startAutoRefresh(for: key)
@@ -219,17 +221,6 @@ extension StatCard
         return (formatted, units[index])
     }
     
-    private func resolveSpeedKey() -> String
-    {
-        
-        switch self.statType
-        {
-        case .download:
-            return "downloadSpeed"
-        case .upload:
-            return "uploadSpeed"
-        }
-    }
 }
 
 //MARK: - Update Functon and Timer

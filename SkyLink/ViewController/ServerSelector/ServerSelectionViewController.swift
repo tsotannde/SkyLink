@@ -119,11 +119,11 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
         case .country(let country):
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SkyLinkAssets.Cell.serverViewCellIdentifier, for: indexPath) as! CountryCell
-            let flag = FlagManager.shared.getCountryFlagImage(country.name ?? "") ?? SkyLinkAssets.Images.globe
+            let flag = FlagManager.shared.getCountryFlagImage(country.name ?? SkyLinkAssets.Text.unknownKey) ?? SkyLinkAssets.Images.globe
             
             let model = CountryCellViewModel(
                 flagImage: flag,
-                name: country.name ?? "Unknown",
+                name: country.name ?? SkyLinkAssets.Text.unknownKey,
                 totalCapacity: 700,
                 currentPeers: 50,
                 showChevron: true,
@@ -136,7 +136,7 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
         case .server(let server):
             
             let cell = tableView.dequeueReusableCell(withIdentifier: SkyLinkAssets.Cell.individualServerViewCellIdentifier, for: indexPath) as! ServerCell
-            let flag = FlagManager.shared.getCountryFlagImage(server.country ?? "") ?? SkyLinkAssets.Images.globe
+            let flag = FlagManager.shared.getCountryFlagImage(server.country ?? SkyLinkAssets.Text.unknownKey) ?? SkyLinkAssets.Images.globe
             
             let model = ServerViewModel(
                 flagImage: flag,
@@ -212,10 +212,6 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
         case .server(let server):
             // User selected an individual server row.
             // This is the single decision point where a server switch can occur.
-            AppLoggerManager.shared.log(
-                "[ServerSelection] Server selected: \(server.name) | country=\(server.country ?? "Unknown") | requiresSub=\(server.requiresSubscription)"
-            )
-
             let isSubscribed = SubscriptionManager.shared.isSubscribed()
     
             // Premium gating:
@@ -230,7 +226,7 @@ extension ServerSelectionViewController: UITableViewDelegate, UITableViewDataSou
             // Persist the selected server locally so it can be restored on app relaunch.
             if let data = try? JSONEncoder().encode(server)
             {
-                UserDefaults.standard.set(data, forKey: "currentServer")
+                UserDefaults.standard.set(data, forKey: SkyLinkAssets.AppKeys.UserDefaults.currentServer)
             }
             
             // Save the selected server to the app configuration layer.
@@ -277,7 +273,6 @@ extension ServerSelectionViewController
         // This prevents the UI from entering an inconsistent state.
         catch
         {
-            AppLoggerManager.shared.log("[ServerSelection] Failed to load cached servers: \(error.localizedDescription)")
             try? await ConfigurationManager.shared.fetchServerFromFireBase() //STEP 1: Fetch Live Server List from Firebase
             self.dismiss(animated: true) //STEP 2: Dismiss the View (Temporary Fix)
             //STEP 3: TODO: Implement Spinner icon while fetching and using the data in the UI
@@ -288,7 +283,7 @@ extension ServerSelectionViewController
     {
         var grouped: [String: [Server]] = [:]
         for server in servers {
-            let countryName = server.country ?? "Unknown"
+            let countryName = server.country ?? SkyLinkAssets.Text.unknownKey
             grouped[countryName, default: []].append(server)
         }
 
@@ -337,7 +332,7 @@ extension ServerSelectionViewController
 {
     @objc internal func searchTextChanged(_ textField: UITextField)
     {
-        let query = textField.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+        let query = textField.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? SkyLinkAssets.Text.unknownKey
         guard !query.isEmpty else
         {
             isSearching = false
@@ -366,10 +361,10 @@ extension ServerSelectionViewController
                 || (server.state?.lowercased().contains(query) ?? false)
             {
 
-                if !seenCountries.contains(server.country ?? "Unknown")
+                if !seenCountries.contains(server.country ?? SkyLinkAssets.Text.unknownKey)
                 {
-                    seenCountries.insert(server.country ?? "Unknown")
-                    filteredVisibleRows.append(.init(type: .country(Country(name: server.country ?? "Unknown",
+                    seenCountries.insert(server.country ?? SkyLinkAssets.Text.unknownKey)
+                    filteredVisibleRows.append(.init(type: .country(Country(name: server.country ?? SkyLinkAssets.Text.unknownKey,
                                                                            requiresSubscription: server.requiresSubscription,
                                                                            servers: [:])),
                                                      section: server.requiresSubscription ? 1 : 0))

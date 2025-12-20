@@ -44,10 +44,12 @@ final class PowerButtonView: UIView
         setupView()
     }
     
-    @objc private func appDidBecomeActive() {
+    @objc private func appDidBecomeActive()
+    {
         // Re-run the current animation when the app becomes active again
         setState(currentState)
     }
+    
     private func setupView()
     {
         translatesAutoresizingMaskIntoConstraints = false
@@ -58,31 +60,31 @@ final class PowerButtonView: UIView
         let innerCircleSize: CGFloat = 105
         
         // Outer circle
-        outerCircle.backgroundColor = AppDesign.ColorScheme.Themes.primary
+        outerCircle.backgroundColor = SkyLinkAssets.Colors.Themes.primary
         outerCircle.layer.cornerRadius = outerCircleSize / 2
         outerCircle.translatesAutoresizingMaskIntoConstraints = false
 
         // Shadow for depth
-        outerCircle.layer.shadowColor = AppDesign.ColorScheme.Styling.Shadow.standard.cgColor
+        outerCircle.layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor
         outerCircle.layer.shadowOpacity = 0.25
         outerCircle.layer.shadowOffset = CGSize(width: 0, height: 6)
         outerCircle.layer.shadowRadius = 10
         outerCircle.layer.masksToBounds = false
         
         // Middle circle
-        middleCircle.backgroundColor = AppDesign.ColorScheme.Styling.Background.surface
+        middleCircle.backgroundColor = SkyLinkAssets.Colors.whiteColor
         middleCircle.layer.cornerRadius = middleCircleSize / 2
         middleCircle.translatesAutoresizingMaskIntoConstraints = false
         
         // Inner circle
-        innerCircle.backgroundColor = AppDesign.ColorScheme.Themes.primary
+        innerCircle.backgroundColor = SkyLinkAssets.Colors.Themes.primary
         innerCircle.layer.cornerRadius = innerCircleSize / 2
         innerCircle.clipsToBounds = true
         innerCircle.translatesAutoresizingMaskIntoConstraints = false
         
         // Power icon
-        powerIcon.image = UIImage(systemName: "power")
-        powerIcon.tintColor = .white
+        powerIcon.image = SkyLinkAssets.Images.power
+        powerIcon.tintColor = SkyLinkAssets.Colors.whiteColor
         powerIcon.contentMode = .scaleAspectFit
         powerIcon.translatesAutoresizingMaskIntoConstraints = false
         
@@ -136,32 +138,6 @@ extension PowerButtonView
 
 extension PowerButtonView
 {
-    
-    private func connectedAnimation2() {
-        // First, remove the spinner layer if it exists
-        middleCircle.layer.sublayers?.removeAll(where: { $0.name == "spinnerLayer" })
-        
-        // Reset the middle circle’s background to solid (if you want to make it clean)
-        middleCircle.backgroundColor = AppDesign.ColorScheme.Styling.Background.surface
-        
-        // Base colors for both circles
-        outerCircle.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.9)
-        innerCircle.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.9)
-        
-        // Create a shared color pulse animation
-        let colorPulse = CABasicAnimation(keyPath: "backgroundColor")
-        colorPulse.fromValue = UIColor.systemGreen.withAlphaComponent(0.9).cgColor
-        colorPulse.toValue = UIColor.systemGreen.withAlphaComponent(0.4).cgColor
-        colorPulse.duration = 1.2
-        colorPulse.autoreverses = true
-        colorPulse.repeatCount = .infinity
-        colorPulse.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-        
-        // Add the animation to both layers
-        outerCircle.layer.add(colorPulse, forKey: "connectedPulseOuter")
-        innerCircle.layer.add(colorPulse, forKey: "connectedPulseInner")
-    }
-    
     private func connectedAnimation() {
       
 

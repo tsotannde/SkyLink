@@ -213,7 +213,8 @@ extension SubscriptionPlan
         }
     }
 
-    func setSelected(_ selected: Bool) {
+    func setSelected(_ selected: Bool)
+    {
         isSelectedPlan = selected
 
         if selected {
@@ -222,8 +223,8 @@ extension SubscriptionPlan
             layer.borderColor = SkyLinkAssets.Colors.purpleColor?.cgColor
             selectionOverlay.alpha = 1
 
-            selectionCircle.backgroundColor = .systemBlue
-            selectionCircle.layer.borderColor = UIColor.systemBlue.cgColor
+            selectionCircle.backgroundColor =  SkyLinkAssets.Colors.Themes.primary
+            selectionCircle.layer.borderColor =  SkyLinkAssets.Colors.Themes.primary?.cgColor
 
             // Prepare checkmark for animation
             checkmarkImageView.alpha = 0

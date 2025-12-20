@@ -213,13 +213,13 @@ extension SubscribeViewController
         featuresStack.spacing = 22
 
         
-        featuresStack.addArrangedSubview(createFeatureRow(icon: UIImage(named: "securityIcon"),text: "Secure your connection on public Wi-Fi"))
+        featuresStack.addArrangedSubview(createFeatureRow(icon: SkyLinkAssets.Images.securityIcon,text: SkyLinkAssets.Text.secureYourConnectionKey))
 
-        featuresStack.addArrangedSubview(createFeatureRow(icon: UIImage(named: "hiddenIcon"),text: "Hide your IP and browsing activity"))
+        featuresStack.addArrangedSubview(createFeatureRow(icon: SkyLinkAssets.Images.hiddenIcon,text:  SkyLinkAssets.Text.hideYourIPKey))
 
-        featuresStack.addArrangedSubview(createFeatureRow(icon: UIImage(named: "speedIcon"),text: "Fast, low-latency global servers"))
+        featuresStack.addArrangedSubview(createFeatureRow(icon: SkyLinkAssets.Images.speedIcon,text:  SkyLinkAssets.Text.fastLowKey))
 
-        featuresStack.addArrangedSubview(createFeatureRow(icon: UIImage(named: "acessIcon"),text: "Access content from anywhere"))
+        featuresStack.addArrangedSubview(createFeatureRow(icon: SkyLinkAssets.Images.acessIcon,text: SkyLinkAssets.Text.accessContentKey))
         
         let spacer = UIView()
         spacer.heightAnchor.constraint(equalToConstant: 0).isActive = true

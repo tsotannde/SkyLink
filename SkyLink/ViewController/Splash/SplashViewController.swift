@@ -65,7 +65,6 @@ extension SplashViewController
             return
         }
         
-        AppLoggerManager.shared.log("[Splash] Startup flow started")
         
         // Synchronize the initial VPN connection state so HomeViewController
         // starts with the correct power button and status indicators.
@@ -79,13 +78,11 @@ extension SplashViewController
             _ = try await AccountManager.shared.ensureAccountExists() // Check or create anonymous account
             KeyManager.shared.generateKeysIfNeeded()  // Generate keys if none exist
             let server = await ConfigurationManager.shared.getExistingOrSelectServer() // Choose a random server
-            AppLoggerManager.shared.log("[Splash] Startup completed successfully")
             // All startup tasks completed successfully — transition to Home screen.
             NaviagateHome() // Navigate Home
         }
         catch
         {
-            AppLoggerManager.shared.log("[Splash] Startup failed: \(error.localizedDescription)")
             showNoInternetAlert() //Something Bad Happened
         }
     }
@@ -131,7 +128,6 @@ extension SplashViewController
     
     private func NaviagateHome()
     {
-        AppLoggerManager.shared.log("[Splash] Navigating to Home")
         // Replace the splash screen with Home as the root view controller.
         // The navigation stack is cleared to prevent returning to splash.
         NavigationManager.shared.navigate(to: HomeViewController(),on: navigationController,clearStack: true,animation: .uncover(direction: .down))

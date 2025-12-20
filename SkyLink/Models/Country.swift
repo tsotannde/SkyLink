@@ -7,7 +7,10 @@
 
 struct Country: Codable, Identifiable
 {
-    var id: String { name ?? "Unknown" }
+    var id: String
+    { 
+        name ?? SkyLinkAssets.Text.unknownKey
+    }
     let name: String?
     let requiresSubscription: Bool
     let servers: [String: Server]

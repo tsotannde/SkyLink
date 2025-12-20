@@ -38,7 +38,6 @@ extension HomeViewController
    
     @objc internal func handleVPNDidConnect()
     {
-        AppLoggerManager.shared.log("[Home] VPN Connected")
         DispatchQueue.main.async
         {
             self.powerButtonView.setState(.connected)
@@ -47,8 +46,6 @@ extension HomeViewController
     
     @objc internal func handleVPNDidDisconnect()
     {
-        print("Recived a disconnect notifivation from the VPN Manager")
-        AppLoggerManager.shared.log("[Home] VPN Disconnected")
         DispatchQueue.main.async
         {
             self.powerButtonView.setState(.disconnected)
@@ -57,7 +54,6 @@ extension HomeViewController
     
     @objc internal func handleVPNIsConnecting()
     {
-        AppLoggerManager.shared.log("[Home] VPN Connecting")
         DispatchQueue.main.async
         {
             self.powerButtonView.setState(.connecting)
@@ -66,7 +62,6 @@ extension HomeViewController
     
     @objc internal func handleVPNIsDisconnecting()
     {
-        AppLoggerManager.shared.log("[Home] VPN Disconnecting")
         DispatchQueue.main.async {
             self.powerButtonView.setState(.disconnecting)
         }
@@ -114,7 +109,6 @@ extension HomeViewController
     
     @objc internal func selectedServerTapped()
     {
-        AppLoggerManager.shared.log("[Home] User Clicked the ServerSelector View")
         let viewController = ServerSelectionViewController()
         
         if let sheet = viewController.sheetPresentationController
@@ -135,25 +129,21 @@ extension HomeViewController
 
     @objc internal func powerButtonTapped()
     {
-        AppLoggerManager.shared.log("[Home] Power Button Tapped")
         
         Task
         {
             let connected = await VPNManager.shared.isConnectedToVPN()
-            AppLoggerManager.shared.log("[Home] VPN Status is \(connected)")
             
             self.powerButtonView.isUserInteractionEnabled = false //Disables user from tapping button again
             defer { self.powerButtonView.isUserInteractionEnabled = true }
             
             if connected
             {
-                AppLoggerManager.shared.log("[Home] Disconnecting VPN and Stopping Tunnel")
                 self.powerButtonView.setState(.disconnecting)
                 NotificationCenter.default.post(name: .vpnDisconnecting, object: nil)
                 VPNManager.shared.stopTunnel()
             } else
             {
-                AppLoggerManager.shared.log("[Home] Connecting VPN and Starting Tunnel")
                 self.powerButtonView.setState(.connecting)
                 NotificationCenter.default.post(name: .vpnConnecting, object: nil)
                 VPNManager.shared.startTunnel()

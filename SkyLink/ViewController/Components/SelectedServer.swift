@@ -109,9 +109,9 @@ extension SelectedServer
         {
             if let server = await ConfigurationManager.shared.getExistingOrSelectServer()
             {
-                let countryName = server.country ?? "Unknown"
-                let city = server.city ?? "Unknown"
-                let state = server.state ?? "Unknown"
+                let countryName = server.country ?? SkyLinkAssets.Text.unknownKey
+                let city = server.city ?? SkyLinkAssets.Text.unknownKey
+                let state = server.state ?? SkyLinkAssets.Text.unknownKey
 
                 self.configure(countryName: countryName, city: city, state: state)
             }
@@ -138,7 +138,6 @@ extension SelectedServer
 //MARK: - Notifications
 extension SelectedServer
 {
-   
     private func monitorNotifications()
     {
         NotificationCenter.default.addObserver(self, selector: #selector(handleServerDidUpdate), name: .serverDidUpdate, object: nil)
@@ -152,7 +151,7 @@ extension SelectedServer
             //Current VPN Selected
             let currentConfiguration = await ConfigurationManager.shared.getExistingOrSelectServer()
             
-            let country = currentConfiguration?.country ?? "United States"
+            let country = currentConfiguration?.country ?? SkyLinkAssets.Text.unknownKey
             let city = currentConfiguration?.city ?? SkyLinkAssets.Text.errorTitleKey
             let state = currentConfiguration?.state ?? SkyLinkAssets.Text.errorTitleKey
             

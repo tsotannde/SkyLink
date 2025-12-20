@@ -28,24 +28,19 @@ final class FreeTrail: UIView
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-   
-
-    
-
    
 }
 // MARK: - Setup
 extension FreeTrail
 {
     private func setupContainer() {
-        containerView.backgroundColor = UIColor.white.withAlphaComponent(0.18)
+        containerView.backgroundColor = SkyLinkAssets.Colors.whiteColor?.withAlphaComponent(0.18)
     
         containerView.layer.cornerRadius = 16
         containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = UIColor.white.withAlphaComponent(0.25).cgColor
+        containerView.layer.borderColor =  SkyLinkAssets.Colors.whiteColor?.withAlphaComponent(0.25).cgColor
 
-        containerView.layer.shadowColor = UIColor.black.cgColor
+        containerView.layer.shadowColor = SkyLinkAssets.Colors.blackColor?.cgColor
         containerView.layer.shadowOpacity = 0.08
         containerView.layer.shadowRadius = 12
         containerView.layer.shadowOffset = CGSize(width: 0, height: 6)
@@ -57,7 +52,7 @@ extension FreeTrail
 
     private func setupLabel()
     {
-        titleLabel.text = "You won’t be charged today"
+        titleLabel.text = SkyLinkAssets.Text.youWontBeChargedTodayKey
       
         titleLabel.font = SkyLinkAssets.Fonts.semiBold(ofSize: 16)
         titleLabel.textColor = UIColor.white.withAlphaComponent(0.9)
@@ -66,7 +61,8 @@ extension FreeTrail
         containerView.addSubview(titleLabel)
     }
 
-    private func setupToggle() {
+    private func setupToggle()
+    {
         toggleSwitch.isOn = true
         toggleSwitch.isOn = true
         toggleSwitch.isEnabled = false
@@ -107,7 +103,8 @@ extension FreeTrail
 extension FreeTrail
 {
     // MARK: - Action
-    @objc private func toggleChanged() {
+    @objc private func toggleChanged()
+    {
         onToggleChanged?(toggleSwitch.isOn)
     }
 
@@ -117,17 +114,22 @@ extension FreeTrail
         toggleSwitch.setOn(enabled, animated: true)
     }
 
-    func setVisible(_ visible: Bool, animated: Bool = true) {
-        let changes = {
+    func setVisible(_ visible: Bool, animated: Bool = true)
+    {
+        let changes =
+        {
             self.alpha = visible ? 1 : 0
             self.transform = visible
                 ? .identity
                 : CGAffineTransform(translationX: 0, y: -8)
         }
 
-        if animated {
+        if animated
+        {
             UIView.animate(withDuration: 0.25, delay: 0, options: [.curveEaseOut], animations: changes)
-        } else {
+        }
+        else
+        {
             changes()
         }
     }

@@ -44,8 +44,8 @@ extension ConnectionStatusView
         statusLabel.text = isConnected ? SkyLinkAssets.Text.connectedKey : SkyLinkAssets.Text.disconnectedKey
 
         //Set the Status Label properties
-        statusLabel.textColor = UIColor(named: "softWhite") //Primary color
-        statusLabel.layer.shadowColor = UIColor(named: "greyColor")?.cgColor //Shadow
+        statusLabel.textColor = SkyLinkAssets.Colors.softWhite //Primary color
+        statusLabel.layer.shadowColor = SkyLinkAssets.Colors.greyColor?.cgColor //Shadow
         statusLabel.layer.shadowOpacity = 0.8
         statusLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
         statusLabel.layer.shadowRadius = 3
@@ -55,8 +55,8 @@ extension ConnectionStatusView
        
         //Set Timer
         timerLabel.text = getCurrentTimerTextSync()
-        timerLabel.textColor = UIColor(named: "softWhite")
-        timerLabel.layer.shadowColor = UIColor(named: "greyColor")?.cgColor
+        timerLabel.textColor = SkyLinkAssets.Colors.softWhite
+        timerLabel.layer.shadowColor = SkyLinkAssets.Colors.greyColor?.cgColor
         timerLabel.layer.shadowOpacity = 0.8
         timerLabel.layer.shadowOffset = CGSize(width: 0, height: 1)
         timerLabel.layer.shadowRadius = 3
